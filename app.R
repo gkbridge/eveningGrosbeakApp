@@ -12,14 +12,14 @@ library(shinythemes)
 library(DT)
 library(htmlwidgets)
 
-# TOY DATA SET
-toys <- data.frame(
-  name = c("First", "Second", "Third"),
-  latitude = c(42.36, 41.89, 42.11),
-  longitude = c(-71.06, -71.41, -72.68)
-)
-# Add state abbreviations for the northeast US locations
-toys$state <- c("MA", "RI", "CT")
+# # TOY DATA SET
+# toys <- data.frame(
+#   name = c("First", "Second", "Third"),
+#   latitude = c(42.36, 41.89, 42.11),
+#   longitude = c(-71.06, -71.41, -72.68)
+# )
+# # Add state abbreviations for the northeast US locations
+# toys$state <- c("MA", "RI", "CT")
 
 eg_df <- readRDS("df_eg.RDS")
 ## Fix data to be able to get unique birds
@@ -65,9 +65,9 @@ ui <- fluidPage(
                  sidebarPanel(textInput('uniqueID', label = h5("Enter unique bird ID"), value = "73291.44424")),
                  sidebarPanel(dateInput('startDate', label = h5("Choose a start date"))),
                  sidebarPanel(dateInput('endDate', label = h5("Choose an end date"))),
-                 leafletOutput('onebird')),
-        tabPanel("Toy dataset",
-                 leafletOutput('toy'))
+                 leafletOutput('onebird')) #,
+        # tabPanel("Toy dataset",
+        #          leafletOutput('toy'))
       )
     )
 
@@ -157,34 +157,34 @@ server <- function(input, output) {
                      weight = 1)
     })
     
-    output$toy <- renderLeaflet({
-      leaflet() %>% 
-        addProviderTiles(providers$CartoDB.PositronNoLabels) %>% 
-        setView(lat = 15, lng = 0, zoom = 1.5) %>% 
-        addCircleMarkers(data = toys,
-                         lng = ~longitude,
-                         lat = ~latitude,
-                         color = "red",
-                         clusterOptions = markerClusterOptions()) %>%
-        # Add click event handler
-        on('click', function(e) {
-          # Get information from clicked marker
-          clicked_data <- toys[toys$latitude == e$latlng$lat & toys$longitude == e$latlng$lng,]
-          
-          # Check if a marker was clicked
-          if (nrow(clicked_data) > 0) {
-            # Create popup content
-            popup_content <- paste("<b>", clicked_data$name, "</b><br>",
-                                   "Latitude:", round(clicked_data$latitude, 4), "<br>",
-                                   "Longitude:", round(clicked_data$longitude, 4))
-            
-            # Open popup at clicked location
-            L.popup(popup_content)
-            .setLatLng(e$latlng)
-            .openOn(this)
-          }
-        })
-    })
+    # output$toy <- renderLeaflet({
+    #   leaflet() %>% 
+    #     addProviderTiles(providers$CartoDB.PositronNoLabels) %>% 
+    #     setView(lat = 15, lng = 0, zoom = 1.5) %>% 
+    #     addCircleMarkers(data = toys,
+    #                      lng = ~longitude,
+    #                      lat = ~latitude,
+    #                      color = "red",
+    #                      clusterOptions = markerClusterOptions()) %>%
+    #     # Add click event handler
+    #     on('click', function(e) {
+    #       # Get information from clicked marker
+    #       clicked_data <- toys[toys$latitude == e$latlng$lat & toys$longitude == e$latlng$lng,]
+    #       
+    #       # Check if a marker was clicked
+    #       if (nrow(clicked_data) > 0) {
+    #         # Create popup content
+    #         popup_content <- paste("<b>", clicked_data$name, "</b><br>",
+    #                                "Latitude:", round(clicked_data$latitude, 4), "<br>",
+    #                                "Longitude:", round(clicked_data$longitude, 4))
+    #         
+    #         # Open popup at clicked location
+    #         L.popup(popup_content)
+    #         .setLatLng(e$latlng)
+    #         .openOn(this)
+    #       }
+    #     })
+    # })
     
 }
 
