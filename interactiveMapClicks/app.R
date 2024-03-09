@@ -30,20 +30,24 @@ shinyApp(
     
     theme = shinytheme("cosmo"),
     
-    tabsetPanel(
-      tabPanel("Motus",
-               fluidRow(
-                 tags$h5(HTML("This is an interactive shiny app to portray motus data for evening grosbeaks."))
-               )),
-      tabPanel("Deployments",
-               fluidRow(
-                 leafletOutput("map", "100%", 400))),
-      tabPanel("table",
-               fluidRow(
-                 verbatimTextOutput("Click_text"),
-                 tabPanel("table", tableOutput("Click_table")),
-                 plotOutput("Click_plot")))
+    mainPanel(
+      tabsetPanel(
+        tabPanel("Deployments",
+                 fluidRow(
+                   leafletOutput("map", "100%", 400))),
+        tabPanel("Table",
+                 fluidRow(
+                   verbatimTextOutput("Click_text"),
+                   tabPanel("table", tableOutput("Click_table")),
+                   plotOutput("Click_plot"))),
+        tabPanel("Motus",
+                 fluidRow(
+                   tags$h5(HTML("This is an interactive shiny app to portray motus data for evening grosbeaks."))
+                 )),
+        tabPanel("All Evening Grosbeak Data",
+                 dataTableOutput('data'))
       )
+    )
   ),
   
   
@@ -107,4 +111,11 @@ shinyApp(
       map %>% clearPopups() %>%
         addPopups(click$lng, click$lat, text)
     })
+    ## END INTERACTIVE MAP OUTPUT
+    
+    # Data tab - EG data table
+    output$data <- DT::renderDataTable({
+      eg_df
+    })
+    
   })
