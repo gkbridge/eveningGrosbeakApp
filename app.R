@@ -5,21 +5,14 @@ library(ggplot2)
 library(dplyr)
 library(tibble)
 library(tibbletime)
-library(motus)
 library(lubridate)
-library(RSQLite)
 library(shinythemes)
 library(DT)
 library(htmlwidgets)
 
-# # TOY DATA SET
-# toys <- data.frame(
-#   name = c("First", "Second", "Third"),
-#   latitude = c(42.36, 41.89, 42.11),
-#   longitude = c(-71.06, -71.41, -72.68)
-# )
-# # Add state abbreviations for the northeast US locations
-# toys$state <- c("MA", "RI", "CT")
+# Winter roosting, birds that are found together in summer, do they stay together in the winter
+# Allow for more than one bird tracking (groups), pick one bird and see which ones are connected to it
+# Network analysis for connections between birds (connection if they are in same site at same time)
 
 eg_df <- readRDS("df_eg.RDS")
 ## Fix data to be able to get unique birds
@@ -39,6 +32,8 @@ first_deployment_df <- first_deployment_df %>%
   group_by(motusTagDepID) %>%
   slice(1)
 
+DATA <- first_deployment_df
+
 # Define UI
 ui <- fluidPage(
     
@@ -52,22 +47,29 @@ ui <- fluidPage(
         tabPanel("Motus",
                  tags$h5(HTML("This is an interactive shiny app to portray motus data for evening grosbeaks."))),
         tabPanel("Data",
-                 downloadButton('downloadAll',"Download the data"),
+                 # downloadButton('downloadAll',"Download the data"),
                  dataTableOutput('data')),
         tabPanel("Adirondack Deployments",
                  dataTableOutput('adkData')),
         tabPanel("Deployment Sites",
                  tags$h5(HTML("Below is an interactive map that shows where all evening grosbeak motus-tracked birds were deployed.")),
-                 leafletOutput('deployments') #, sidebarPanel to select time frame and then filter the data down below
+                 leafletOutput('map'), #, sidebarPanel to select time frame and then filter the data down below
+                 verbatimTextOutput("Click_text"),
+                 tableOutput("Click_table"),
+                 plotOutput("Click_plot")
         ),
         tabPanel("Track one bird",
                  tags$h5(HTML("Choose one bird, using the motusTagDepID from the data table and track its whereabouts.")),
                  sidebarPanel(textInput('uniqueID', label = h5("Enter unique bird ID"), value = "73291.44424")),
                  sidebarPanel(dateInput('startDate', label = h5("Choose a start date"))),
                  sidebarPanel(dateInput('endDate', label = h5("Choose an end date"))),
-                 leafletOutput('onebird')) #,
-        # tabPanel("Toy dataset",
-        #          leafletOutput('toy'))
+                 leafletOutput('onebird'),
+                 dataTableOutput('oneBirdTable')) #,
+      #   tabPanel("Toy dataset",
+      #            leafletOutput('toy')),
+      #             verbatimTextOutput("Click_text"),
+      #             tableOutput("Click_table"),
+      #             plotOutput("Click_plot")
       )
     )
 
@@ -75,7 +77,8 @@ ui <- fluidPage(
 )
 
 # Define server logic required to draw a histogram
-server <- function(input, output) {
+server = function(input, output, session) {
+    # added session to function parameters to make reactive
   
     # Data manipulation
     selectedData <- reactive({
@@ -106,38 +109,75 @@ server <- function(input, output) {
       eg_adks
     })
     
-    ## eventReactive ? - possibly for clicks/kind of like reactive wrapper
-    ## try around with toy sample, to see if you can get redirecting/event handling to work
-    
     # Deployment site map (leaflet)
-    output$deployments <- renderLeaflet({
-      popupInfo = paste("Unique ID = ", first_deployment_df$motusTagDepID,
-                        "Deployment site = ", first_deployment_df$recvDeployName)
-      
-      leaflet() %>% 
-        addProviderTiles(providers$CartoDB.PositronNoLabels) %>% 
-        setView(lat = 15, lng = 0, zoom = 1.5) %>% 
-        addCircleMarkers(data = first_deployment_df,
-                         lng = ~tagDepLon,
-                         lat = ~tagDepLat,
-                         color = "red",
-                         clusterOptions = markerClusterOptions(),
-                         popup = popupInfo)
-      # observe({
-      #   click<-input$map_marker_click
-      #   if(is.null(click))
-      #     return()
-      #   text<-paste("Lattitude ", click$lat, "Longtitude ", click$lng)
-      #   text2<-paste("You've selected point ", click$id)
-      #   map$clearPopups()
-      #   map$showPopup( click$lat, click$lng, text)
-      #   output$Click_text<-renderText({
-      #     text2
-      #   })
-      #   
-      # })
-      #
+    # output$deployments <- renderLeaflet({
+    #   popupInfo = paste("Unique ID = ", first_deployment_df$motusTagDepID,
+    #                     "Deployment site = ", first_deployment_df$recvDeployName)
+    #   
+    #   leaflet() %>% 
+    #     addProviderTiles(providers$CartoDB.PositronNoLabels) %>% 
+    #     setView(lat = 15, lng = 0, zoom = 1.5) %>% 
+    #     addCircleMarkers(data = first_deployment_df,
+    #                      lng = ~tagDepLon,
+    #                      lat = ~tagDepLat,
+    #                      color = "red",
+    #                      clusterOptions = markerClusterOptions(),
+    #                      popup = popupInfo)
+    # 
+    # })
+    
+    ## INTERACTIVE DEPLOYMENT MAP ##
+    # reactive data
+    mapDATA<-reactive({
+      DATA
     })
+    
+    output$map <- renderLeaflet({
+      leaflet() %>%
+        addProviderTiles(providers$CartoDB.PositronNoLabels) %>% 
+        setView(lat = 15, lng = 0, zoom = 1.5)
+    })
+    
+    # Render circle markers
+    observe({ 
+      map <- leafletProxy("map", data = mapDATA())
+      map %>% clearMarkers()
+      if (!is.null(mapDATA())) {
+        map %>% 
+          addCircleMarkers(lat = ~tagDepLat, 
+                           lng = ~tagDepLon, 
+                           layerId = ~motusTagDepID, 
+                           clusterOptions =  markerClusterOptions()
+          )
+      }
+    })
+    
+    output$Click_text<-renderText({
+      click <- input$map_marker_click
+      if (!is.null(click))
+        paste0("Would you like to summarize station ", click$id, " ?")
+    })
+    
+    
+    output$Click_table<-renderTable({
+      click <- input$map_marker_click
+      if (!is.null(click)){
+        bird <- DATA[which(DATA$motusTagDepID == click$id), ]
+        bird
+      }
+    })
+    
+    # Show popup on click
+    observeEvent(input$map_marker_click, {
+      click <- input$map_marker_click
+      text<-paste("Latitude ", click$lat, "Longtitude ", click$lng)
+      
+      map <- leafletProxy("map")
+      map %>% clearPopups() %>%
+        addPopups(click$lng, click$lat, text)
+    })
+    
+    ## END INTERACTIVE DEPLOYMENT CODE ##
     
     # Track one bird
     output$onebird <- renderLeaflet({
@@ -156,6 +196,13 @@ server <- function(input, output) {
                      color ="blue",
                      weight = 1)
     })
+    
+    # Fluid Pages
+    # output$onebird <- DT::renderDataTable({
+    #   one = selectedData()
+    #   one
+    # })
+    
     
     # output$toy <- renderLeaflet({
     #   leaflet() %>% 
