@@ -2,6 +2,7 @@ library(shiny)
 library(leaflet)
 library(dplyr)
 library(shinythemes)
+library(DT)
 
 ## DATA PREP
 eg_df <- readRDS("df_eg.RDS")
@@ -45,7 +46,7 @@ shinyApp(
                    tags$h5(HTML("This is an interactive shiny app to portray motus data for evening grosbeaks."))
                  )),
         tabPanel("All Evening Grosbeak Data",
-                 dataTableOutput('data'))
+                 dataTableOutput('data')),
       )
     )
   ),
@@ -117,5 +118,6 @@ shinyApp(
     output$data <- DT::renderDataTable({
       eg_df
     })
+    
     
   })
