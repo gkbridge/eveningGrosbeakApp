@@ -49,8 +49,6 @@ ui <- fluidPage(
         tabPanel("Data",
                  # downloadButton('downloadAll',"Download the data"),
                  dataTableOutput('data')),
-        tabPanel("Adirondack Deployments",
-                 dataTableOutput('adkData')),
         tabPanel("Deployment Sites",
                  tags$h5(HTML("Below is an interactive map that shows where all evening grosbeak motus-tracked birds were deployed.")),
                  leafletOutput('map'), #, sidebarPanel to select time frame and then filter the data down below

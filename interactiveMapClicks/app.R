@@ -3,6 +3,8 @@ library(leaflet)
 library(dplyr)
 library(shinythemes)
 library(DT)
+library(rsconnect)
+# rsconnect::deployApp('path/to/your/app')
 
 ## DATA PREP
 eg_df <- readRDS("df_eg.RDS")
@@ -47,6 +49,8 @@ shinyApp(
                  )),
         tabPanel("All Evening Grosbeak Data",
                  dataTableOutput('data')),
+        tabPanel("Adirondack Deployments",
+                 dataTableOutput('adkData')),
       )
     )
   ),
@@ -117,6 +121,11 @@ shinyApp(
     # Data tab - EG data table
     output$data <- DT::renderDataTable({
       eg_df
+    })
+    
+    # ADK data
+    output$adkData <- DT::renderDataTable({
+      eg_adks
     })
     
     
