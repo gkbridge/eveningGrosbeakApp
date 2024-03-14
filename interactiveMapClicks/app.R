@@ -42,7 +42,14 @@ shinyApp(
                  fluidRow(
                    verbatimTextOutput("Click_text"),
                    tabPanel("table", tableOutput("Click_table")),
-                   plotOutput("Click_plot"))),
+                   leafletOutput("Click_plot"))),
+        # tabPanel("Track one bird",
+        #          tags$h5(HTML("Choose one bird, using the motusTagDepID from the data table and track its whereabouts.")),
+        #          sidebarPanel(textInput('uniqueID', label = h5("Enter unique bird ID"), value = "73291.44424")),
+        #          sidebarPanel(dateInput('startDate', label = h5("Choose a start date"))),
+        #          sidebarPanel(dateInput('endDate', label = h5("Choose an end date"))),
+        #          leafletOutput('onebird'),
+        #          dataTableOutput('oneBirdTable')),
         tabPanel("Motus",
                  fluidRow(
                    tags$h5(HTML("This is an interactive shiny app to portray motus data for evening grosbeaks."))
@@ -85,7 +92,7 @@ shinyApp(
     output$Click_text<-renderText({
       click <- input$map_marker_click
       if (!is.null(click))
-        paste0("Would you like to summarize station ", click$id, " ?")
+        paste0("Would you like to summarize bird ", click$id, " ?")
     })
     
     
@@ -97,14 +104,33 @@ shinyApp(
       }
     })
     
-    # output$Click_plot <- renderPlot({
-    #   click <- input$map_marker_click
-    #   if (!is.null(click)){
-    #     bird <- DATA[which(DATA$ids == click$id), ]
-    #     
-    #     plot(bird[1:2])
-    #   }
-    # })
+    output$Click_plot <- renderLeaflet({
+      # add pop ups for this table as well, work as well with being able to use reactive data here as well to limit time frame
+      
+      click <- input$map_marker_click
+      if (!is.null(click)){
+        bird <- DATA[which(DATA$motusTagDepID == click$id), ]
+
+        # Go through full data set now to check for this bird with matching id
+        one_bird <- eg_df %>%
+          filter(eg_df$motusTagDepID == bird$motusTagDepID)
+
+        leaflet() %>%
+          addProviderTiles(providers$CartoDB.PositronNoLabels) %>%
+          setView(lat = 15, lng = 0, zoom = 1.5) %>%
+          addCircleMarkers(data = one_bird,
+                           lng = ~recvDeployLon,
+                           lat = ~recvDeployLat,
+                           color = "red",
+                           clusterOptions = markerClusterOptions()) %>%
+          addPolylines(data = one_bird,
+                       lng = ~recvDeployLon,
+                       lat = ~recvDeployLat,
+                       color ="blue",
+                       weight = 1)
+
+      }
+    })
     
     
     # Show popup on click
@@ -117,6 +143,7 @@ shinyApp(
         addPopups(click$lng, click$lat, text)
     })
     ## END INTERACTIVE MAP OUTPUT
+    
     
     # Data tab - EG data table
     output$data <- DT::renderDataTable({
