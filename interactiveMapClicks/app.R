@@ -4,7 +4,6 @@ library(dplyr)
 library(shinythemes)
 library(DT)
 library(rsconnect)
-# rsconnect::deployApp('path/to/your/app')
 
 ## DATA PREP
 eg_df <- readRDS("df_eg.RDS")
