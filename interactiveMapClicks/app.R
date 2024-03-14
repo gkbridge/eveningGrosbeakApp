@@ -114,10 +114,26 @@ shinyApp(
         # Go through full data set now to check for this bird with matching id
         one_bird <- eg_df %>%
           filter(eg_df$motusTagDepID == bird$motusTagDepID)
+        # browser()
+        
+        firstDep <- one_bird %>%
+          slice(1)
+        
+        # trim these two datasets together to connect, rename lat and lon so they have the same variable name
+        # group_by at location so bird only shows up once at each place (group by lat, lon)
+        # mutate, so that arrival date and end date at each location are consistent (look like summarize statements, but use mutate instead so that it is always the same value)
+        # slice 1
+        # Put the date in the pop-up
+        # Select any other variables needed to put in pop-up
+        # image in pop-up of evening grosbeak ? custom markers 
 
         leaflet() %>%
           addProviderTiles(providers$CartoDB.PositronNoLabels) %>%
           setView(lat = 15, lng = 0, zoom = 1.5) %>%
+          addCircleMarkers(data = firstDep,
+                           lng = ~tagDepLon,
+                           lat = ~tagDepLat,
+                           color = "green") %>%
           addCircleMarkers(data = one_bird,
                            lng = ~recvDeployLon,
                            lat = ~recvDeployLat,
@@ -136,7 +152,7 @@ shinyApp(
     # Show popup on click
     observeEvent(input$map_marker_click, {
       click <- input$map_marker_click
-      text<-paste("Lattitude ", click$lat, "<br>Longtitude ", click$lng)
+      text<-paste("ID", click$id, "<br>Lattitude ", round(click$lat, 2), "<br>Longtitude ", round(click$lng,2))
       
       map <- leafletProxy("map")
       map %>% clearPopups() %>%
