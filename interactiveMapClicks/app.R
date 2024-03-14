@@ -3,7 +3,6 @@ library(leaflet)
 library(dplyr)
 library(shinythemes)
 library(DT)
-library(rsconnect)
 
 ## DATA PREP
 eg_df <- readRDS("df_eg.RDS")

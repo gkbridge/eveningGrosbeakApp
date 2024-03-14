@@ -1,0 +1,12 @@
+name: eveningGrosbeaks
+title: eveningGrosbeaks
+username: gracebridge
+account: gracebridge
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 11490489
+bundleId: 8372126
+url: https://gracebridge.shinyapps.io/eveningGrosbeaks/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
