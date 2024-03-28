@@ -139,11 +139,11 @@ shinyApp(
             lat = tagDepLat,
             lon = tagDepLon,
           )
-        # one_bird <- one_bird %>%
-        #   rename(
-        #     lat = recvDeployLat,
-        #     lon = recvDeployLon
-        #   )
+        one_bird <- one_bird %>%
+          rename(
+            lat = recvDeployLat,
+            lon = recvDeployLon
+          )
         # # join the data sets (vertically) (first row should be deploymnent site)
         # full_bird <- rbind(firstDep, one_bird)
         # # select only relevant columns
@@ -160,13 +160,13 @@ shinyApp(
                            lat = ~lat,
                            color = "green") %>%
           addCircleMarkers(data = one_bird,
-                           lng = ~recvDeployLon,
-                           lat = ~recvDeployLat,
+                           lng = ~lon,
+                           lat = ~lat,
                            color = "red",
                            clusterOptions = markerClusterOptions()) %>%
           addPolylines(data = one_bird,
-                       lng = ~recvDeployLon,
-                       lat = ~recvDeployLat,
+                       lng = ~lon,
+                       lat = ~lat,
                        color ="blue",
                        weight = 1)
 
