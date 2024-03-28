@@ -145,7 +145,7 @@ shinyApp(
             lon = recvDeployLon
           )
         # join the data sets (vertically) (first row should be deploymnent site)
-        # make copies of dataset with desired data
+        # make copies of datasets with desired data
         firstDepCopy <- firstDep %>%
           select(motusTagDepID, lat, lon, tsCorrected, ts)
         one_birdCopy <- one_bird %>%
@@ -164,12 +164,12 @@ shinyApp(
                            lng = ~lon,
                            lat = ~lat,
                            color = "green") %>%
-          addCircleMarkers(data = one_bird,
+          addCircleMarkers(data = full_bird,
                            lng = ~lon,
                            lat = ~lat,
                            color = "red",
                            clusterOptions = markerClusterOptions()) %>%
-          addPolylines(data = one_bird,
+          addPolylines(data = full_bird,
                        lng = ~lon,
                        lat = ~lat,
                        color ="blue",
