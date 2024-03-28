@@ -132,13 +132,13 @@ shinyApp(
         
         # firstDep uses deployment coordinates to mark
         # one_bird uses receiver coordinates to mark
-        # one_bird <- one_bird[-1, ] # take out deployment site (initial point and point of firstDep)
+        one_bird <- one_bird[-1, ] # take out deployment site (initial point and point of firstDep)
         # # rename lat and long for each data set
-        # # firstDep <- firstDep %>%
-        # #   rename(
-        # #     lat = tagDepLat,
-        # #     lon = tagDepLon,
-        # #   )
+        firstDep <- firstDep %>%
+          rename(
+            lat = tagDepLat,
+            lon = tagDepLon,
+          )
         # one_bird <- one_bird %>%
         #   rename(
         #     lat = recvDeployLat,
@@ -156,8 +156,8 @@ shinyApp(
           addProviderTiles(providers$CartoDB.PositronNoLabels) %>%
           setView(lat = 15, lng = 0, zoom = 1.5) %>%
           addCircleMarkers(data = firstDep,
-                           lng = ~tagDepLon,
-                           lat = ~tagDepLat,
+                           lng = ~lon,
+                           lat = ~lat,
                            color = "green") %>%
           addCircleMarkers(data = one_bird,
                            lng = ~recvDeployLon,
