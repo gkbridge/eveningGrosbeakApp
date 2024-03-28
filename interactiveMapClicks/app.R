@@ -124,7 +124,7 @@ shinyApp(
         # Select any other variables needed to put in pop-up
         # image in pop-up of evening grosbeak ? custom markers
         
-        # sort one_bird by timestamp to ensure you are gettign very first pinpoint
+        # sort one_bird by timestamp to ensure you are getting very first pinpoint
         one_bird <- one_bird %>%
           arrange(tsCorrected)
         firstDep <- one_bird %>%
@@ -151,10 +151,8 @@ shinyApp(
         one_birdCopy <- one_bird %>%
           select(motusTagDepID, lat, lon, tsCorrected, ts)
         full_bird <- bind_rows(firstDepCopy, one_birdCopy)
-        # # select only relevant columns
-        # full_bird <- full_bird %>%
-        #   select(motusTagDepID, lat, lon, ts, tsCorrected)
-        # 
+        
+
         # # browser()
         
         leaflet() %>%

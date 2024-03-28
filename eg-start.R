@@ -9,7 +9,7 @@ library(lubridate)
 library(RSQLite)
 library(htmltools)
 
-setwd("/Users/gracebridge/repos/evening_grosbeak")
+# setwd("/Users/gracebridge/repos/evening_grosbeak")
 
 # GB start with EG data
 # Ran 1 - R code package installs but do not run again, do not want to update R or any packages that would mess with code
@@ -205,18 +205,75 @@ firstDep <- one_bird %>%
 one_bird <- one_bird[-1, ]
 
 # rename lat and long for each data set
-one_bird <- one_bird %>%
-  rename(
-    lat = recvDeployLat,
-    lon = recvDeployLon
-  )
 firstDep <- firstDep %>%
   rename(
     lat = tagDepLat,
     lon = tagDepLon,
   )
-# join the data sets (vertically) (first row should be deploymnent site)
-full_bird <- rbind(firstDep, one_bird)
-# select only relevant columns
-full_bird <- full_bird %>%
-  select(motusTagDepID, lat, lon, ts, tsCorrected)
+one_bird <- one_bird %>%
+  rename(
+    lat = recvDeployLat,
+    lon = recvDeployLon
+  )
+firstDepCopy <- firstDep %>%
+  select(motusTagDepID, lat, lon, tsCorrected, ts)
+one_birdCopy <- one_bird %>%
+  select(motusTagDepID, lat, lon, tsCorrected, ts)
+full_bird <- bind_rows(firstDepCopy, one_birdCopy)
+
+
+# Clean up - make sure we don't have multiple points for the bird just sitting in one location
+prev_lat <- NULL
+prev_lon <- NULL
+
+# Loop through each row starting from the second row (index 2)
+for (i in 2:nrow(full_bird)) {
+  current_lat <- full_bird$lat[i]
+  current_lon <- full_bird$lon[i]
+  
+  # Check if current lat/lon matches previous
+  if (current_lat == prev_lat & current_lon == prev_lon) {
+    # If matches, delete the current row
+    full_bird <- full_bird[-i, ]
+  } else {
+    # Update previous values for next iteration
+    prev_lat <- current_lat
+    prev_lon <- current_lon
+  }
+  i = i+1
+}
+
+prev_lat <- full_bird$lat[1] # first previous value is first observation
+prev_lon <- full_bird$lon[1]
+
+for (i in 2:nrow(full_bird)) {
+  current_lat <- full_bird$lat[i]
+  current_lon <- full_bird$lon[i]
+  
+  # Check if current lat/lon matches previous (handle first row)
+  # need to check if NA, or else error in if statement
+  if (i == 2) {
+    # Only on the second row, compare with the first row's values
+    if (!is.na(prev_lat) & !is.na(prev_lon)) {  # Check for missing values before comparison
+      if (current_lat == prev_lat && current_lon == prev_lon) {
+        # If matches, delete the current row
+        full_bird <- full_bird[-i, ]
+      }
+    }
+  } else {
+    # For subsequent rows, use the previous values
+    if (!is.na(current_lat) & !is.na(current_lon) & !is.na(prev_lat) & !is.na(prev_lon)) {
+      # Check for missing values before comparison
+      if (current_lat == prev_lat && current_lon == prev_lon) {
+        # If matches, delete the current row
+        full_bird <- full_bird[-i, ]
+      }
+    }
+  }
+  # Update previous values for next iteration (only if current values are valid)
+  if (!is.na(current_lat) & !is.na(current_lon)) {
+    prev_lat <- current_lat
+    prev_lon <- current_lon
+  }
+}
+
