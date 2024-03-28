@@ -223,57 +223,20 @@ full_bird <- bind_rows(firstDepCopy, one_birdCopy)
 
 
 # Clean up - make sure we don't have multiple points for the bird just sitting in one location
-prev_lat <- NULL
-prev_lon <- NULL
-
-# Loop through each row starting from the second row (index 2)
-for (i in 2:nrow(full_bird)) {
-  current_lat <- full_bird$lat[i]
-  current_lon <- full_bird$lon[i]
-  
-  # Check if current lat/lon matches previous
-  if (current_lat == prev_lat & current_lon == prev_lon) {
-    # If matches, delete the current row
-    full_bird <- full_bird[-i, ]
-  } else {
-    # Update previous values for next iteration
-    prev_lat <- current_lat
-    prev_lon <- current_lon
-  }
-  i = i+1
-}
-
-prev_lat <- full_bird$lat[1] # first previous value is first observation
+prev_lat <- full_bird$lat[1]
 prev_lon <- full_bird$lon[1]
 
 for (i in 2:nrow(full_bird)) {
   current_lat <- full_bird$lat[i]
   current_lon <- full_bird$lon[i]
   
-  # Check if current lat/lon matches previous (handle first row)
-  # need to check if NA, or else error in if statement
-  if (i == 2) {
-    # Only on the second row, compare with the first row's values
-    if (!is.na(prev_lat) & !is.na(prev_lon)) {  # Check for missing values before comparison
-      if (current_lat == prev_lat && current_lon == prev_lon) {
-        # If matches, delete the current row
-        full_bird <- full_bird[-i, ]
-      }
-    }
-  } else {
-    # For subsequent rows, use the previous values
-    if (!is.na(current_lat) & !is.na(current_lon) & !is.na(prev_lat) & !is.na(prev_lon)) {
-      # Check for missing values before comparison
-      if (current_lat == prev_lat && current_lon == prev_lon) {
-        # If matches, delete the current row
-        full_bird <- full_bird[-i, ]
-      }
+  if (!is.na(current_lat) && !is.na(current_lon) && !is.na(prev_lat) && !is.na(prev_lon)) {
+    if (current_lat == prev_lat && current_lon == prev_lon) {
+      # if it matches the previous coordinates, delete it
+      full_bird <- full_bird[-i, ]
     }
   }
-  # Update previous values for next iteration (only if current values are valid)
-  if (!is.na(current_lat) & !is.na(current_lon)) {
-    prev_lat <- current_lat
-    prev_lon <- current_lon
-  }
+  prev_lat <- current_lat
+  prev_lon <- current_lon
+  
 }
-
