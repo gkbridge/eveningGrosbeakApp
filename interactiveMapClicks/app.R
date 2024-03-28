@@ -90,7 +90,7 @@ shinyApp(
     output$Click_text<-renderText({
       click <- input$map_marker_click
       if (!is.null(click))
-        paste0("Would you like to summarize bird ", click$id, " ?")
+        paste0("Summary of bird ", click$id)
     })
     
     
@@ -114,8 +114,7 @@ shinyApp(
           filter(eg_df$motusTagDepID == bird$motusTagDepID)
         # browser()
         
-        firstDep <- one_bird %>%
-          slice(1)
+        # browser()
         
         # trim these two datasets together to connect, rename lat and lon so they have the same variable name
         # group_by at location so bird only shows up once at each place (group by lat, lon)
@@ -123,8 +122,36 @@ shinyApp(
         # slice 1
         # Put the date in the pop-up
         # Select any other variables needed to put in pop-up
-        # image in pop-up of evening grosbeak ? custom markers 
-
+        # image in pop-up of evening grosbeak ? custom markers
+        
+        # sort one_bird by timestamp to ensure you are gettign very first pinpoint
+        one_bird <- one_bird %>%
+          arrange(tsCorrected)
+        firstDep <- one_bird %>%
+          slice(1)
+        
+        # firstDep uses deployment coordinates to mark
+        # one_bird uses receiver coordinates to mark
+        # one_bird <- one_bird[-1, ] # take out deployment site (initial point and point of firstDep)
+        # # rename lat and long for each data set
+        # # firstDep <- firstDep %>%
+        # #   rename(
+        # #     lat = tagDepLat,
+        # #     lon = tagDepLon,
+        # #   )
+        # one_bird <- one_bird %>%
+        #   rename(
+        #     lat = recvDeployLat,
+        #     lon = recvDeployLon
+        #   )
+        # # join the data sets (vertically) (first row should be deploymnent site)
+        # full_bird <- rbind(firstDep, one_bird)
+        # # select only relevant columns
+        # full_bird <- full_bird %>%
+        #   select(motusTagDepID, lat, lon, ts, tsCorrected)
+        # 
+        # # browser()
+        
         leaflet() %>%
           addProviderTiles(providers$CartoDB.PositronNoLabels) %>%
           setView(lat = 15, lng = 0, zoom = 1.5) %>%
