@@ -145,7 +145,12 @@ shinyApp(
             lon = recvDeployLon
           )
         # join the data sets (vertically) (first row should be deploymnent site)
-        full_bird <- rbind(firstDep, one_bird)
+        # make copies of dataset with desired data
+        firstDepCopy <- firstDep %>%
+          select(motusTagDepID, lat, lon, tsCorrected, ts)
+        one_birdCopy <- one_bird %>%
+          select(motusTagDepID, lat, lon, tsCorrected, ts)
+        full_bird <- bind_rows(firstDepCopy, one_birdCopy)
         # # select only relevant columns
         # full_bird <- full_bird %>%
         #   select(motusTagDepID, lat, lon, ts, tsCorrected)
