@@ -154,6 +154,8 @@ shinyApp(
           group_by(lat, lon) %>%
           slice(1)
         
+        popupInfo = paste("Lat = ", new_full_bird$lat, ", Lon = ", new_full_bird$lon)
+        
         
         leaflet() %>%
           addProviderTiles(providers$CartoDB.PositronNoLabels) %>%
@@ -165,6 +167,7 @@ shinyApp(
                            lng = ~lon,
                            lat = ~lat,
                            color = "red",
+                           popup = popupInfo,
                            clusterOptions = markerClusterOptions()) %>%
           addPolylines(data = new_full_bird,
                        lng = ~lon,
