@@ -220,23 +220,51 @@ firstDepCopy <- firstDep %>%
 one_birdCopy <- one_bird %>%
   select(motusTagDepID, lat, lon, tsCorrected, ts)
 full_bird <- bind_rows(firstDepCopy, one_birdCopy)
+full_bird
+
+# # Clean up - make sure we don't have multiple points for the bird just sitting in one location
+# prev_lat <- full_bird$lat[1]
+# prev_lon <- full_bird$lon[1]
+# 
+# for (i in 2:nrow(full_bird)) {
+#   current_lat <- full_bird$lat[i]
+#   current_lon <- full_bird$lon[i]
+#   
+#   if (!is.na(current_lat) && !is.na(current_lon) && !is.na(prev_lat) && !is.na(prev_lon)) {
+#     if (current_lat == prev_lat && current_lon == prev_lon) {
+#       # if it matches the previous coordinates, delete it
+#       full_bird <- full_bird[-i, ]
+#     } else {
+#       prev_lat <- current_lat
+#       prev_lon <- current_lon
+#     }
+#   }
+#   
+# }
+
+# filter by lat, lon and get all the birds on the click (all the birds that were deployed from the same spot) (subset winter roost group dataset)
+# with that pack of bird ids, plot where they went after winter (color coded by bird)
+# choose a year, find where the birds are together in the winter (google when winter starts for them)
+# nested tabs
+
+# full_bird is data of the bird (deployment and receivements)
+
+# 1. Clean up one bird map
+# make new data set that only includes select data from one bird from full_bird with unique timing spots
+new_full_bird <- full_bird %>%
+  group_by(lat, lon) %>%
+  slice(1)
 
 
-# Clean up - make sure we don't have multiple points for the bird just sitting in one location
-prev_lat <- full_bird$lat[1]
-prev_lon <- full_bird$lon[1]
+# 2. Group by winter roosters
+# start with whole data set, and filter down to the winter months to see where they are staying
+winter <- eg_df %>%
+  filter(month(ts) %in% c(1, 2, 12)) %>% # dec, jan, feb
+  group_by(motusTagDepID, lat, lon) %>% # just one winter spot for each bird
+  slice(1)
 
-for (i in 2:nrow(full_bird)) {
-  current_lat <- full_bird$lat[i]
-  current_lon <- full_bird$lon[i]
-  
-  if (!is.na(current_lat) && !is.na(current_lon) && !is.na(prev_lat) && !is.na(prev_lon)) {
-    if (current_lat == prev_lat && current_lon == prev_lon) {
-      # if it matches the previous coordinates, delete it
-      full_bird <- full_bird[-i, ]
-    }
-  }
-  prev_lat <- current_lat
-  prev_lon <- current_lon
-  
-}
+winterLocations <- winter %>%
+  group_by(recvDeployName) %>%
+  slice(1)
+
+# 3. Work on nested tabs

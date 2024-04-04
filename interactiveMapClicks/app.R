@@ -41,6 +41,11 @@ shinyApp(
                    verbatimTextOutput("Click_text"),
                    tabPanel("table", tableOutput("Click_table")),
                    leafletOutput("Click_plot"))),
+        tabPanel("Group",
+                 fluidRow(
+                   leafletOutput("Click_group")
+                 )),
+        
         # tabPanel("Track one bird",
         #          tags$h5(HTML("Choose one bird, using the motusTagDepID from the data table and track its whereabouts.")),
         #          sidebarPanel(textInput('uniqueID', label = h5("Enter unique bird ID"), value = "73291.44424")),
@@ -48,6 +53,10 @@ shinyApp(
         #          sidebarPanel(dateInput('endDate', label = h5("Choose an end date"))),
         #          leafletOutput('onebird'),
         #          dataTableOutput('oneBirdTable')),
+        tabPanel("Winter",
+                 fluidRow(
+                   leafletOutput("winter")
+                 )),
         tabPanel("Motus",
                  fluidRow(
                    tags$h5(HTML("This is an interactive shiny app to portray motus data for evening grosbeaks."))
@@ -112,17 +121,6 @@ shinyApp(
         # Go through full data set now to check for this bird with matching id
         one_bird <- eg_df %>%
           filter(eg_df$motusTagDepID == bird$motusTagDepID)
-        # browser()
-        
-        # browser()
-        
-        # trim these two datasets together to connect, rename lat and lon so they have the same variable name
-        # group_by at location so bird only shows up once at each place (group by lat, lon)
-        # mutate, so that arrival date and end date at each location are consistent (look like summarize statements, but use mutate instead so that it is always the same value)
-        # slice 1
-        # Put the date in the pop-up
-        # Select any other variables needed to put in pop-up
-        # image in pop-up of evening grosbeak ? custom markers
         
         # sort one_bird by timestamp to ensure you are getting very first pinpoint
         one_bird <- one_bird %>%
@@ -152,22 +150,23 @@ shinyApp(
           select(motusTagDepID, lat, lon, tsCorrected, ts)
         full_bird <- bind_rows(firstDepCopy, one_birdCopy)
         
-
-        # # browser()
+        new_full_bird <- full_bird %>%
+          group_by(lat, lon) %>%
+          slice(1)
+        
         
         leaflet() %>%
           addProviderTiles(providers$CartoDB.PositronNoLabels) %>%
           setView(lat = 15, lng = 0, zoom = 1.5) %>%
-          addCircleMarkers(data = firstDep,
+          addAwesomeMarkers(data = firstDep,
                            lng = ~lon,
-                           lat = ~lat,
-                           color = "green") %>%
-          addCircleMarkers(data = full_bird,
+                           lat = ~lat) %>%
+          addCircleMarkers(data = new_full_bird,
                            lng = ~lon,
                            lat = ~lat,
                            color = "red",
                            clusterOptions = markerClusterOptions()) %>%
-          addPolylines(data = full_bird,
+          addPolylines(data = new_full_bird,
                        lng = ~lon,
                        lat = ~lat,
                        color ="blue",
@@ -176,6 +175,36 @@ shinyApp(
       }
     })
     
+    # Grab the bird and the birds around it to see if they take the same route
+    output$Click_group <- renderLeaflet({
+      click <- input$map_marker_click
+      if (!is.null(click)){
+        bird <- DATA[which(DATA$motusTagDepID == click$id), ]
+        
+        # filter through deployment sites map to get the group of birds that would have been around it
+        group_on_dep <- first_deployment_df %>%
+          filter(tagDepLat == bird$tagDepLat && tagDepLon == bird$tagDepLon)
+        # browser()
+        
+        group_birds <- eg_df %>%
+          filter(motusTagDepID %in% group_on_dep$motusTagDepID) # need to filter per bird, one hit per location
+        
+        leaflet() %>%
+          addProviderTiles(providers$CartoDB.PositronNoLabels) %>%
+          setView(lat = 15, lng = 0, zoom = 1.5) %>%
+          addCircleMarkers(data = group_birds,
+                           lng = ~recvDeployLon,
+                           lat = ~recvDeployLat,
+                           color = "red",
+                           clusterOptions = markerClusterOptions()) %>%
+          addPolylines(data = group_birds,
+                       lng = ~recvDeployLon,
+                       lat = ~recvDeployLat,
+                       color = "blue", # want to color by bird
+                       weight = 1)
+        
+      }
+    })
     
     # Show popup on click
     observeEvent(input$map_marker_click, {
@@ -187,6 +216,37 @@ shinyApp(
         addPopups(click$lng, click$lat, text)
     })
     ## END INTERACTIVE MAP OUTPUT
+    
+    output$winter <- renderLeaflet({
+      winter <- eg_df %>%
+        filter(month(ts) %in% c(1, 2, 12)) %>%
+        group_by(motusTagDepID) %>% # don't need the same bird popping up over and over
+        slice(1)
+      
+      winterLocations <- winter %>%
+        group_by(recvDeployName) %>%
+        slice(1)
+      
+      popupInfo1 = paste("Unique ID = ", winter$motusTagDepID,
+                        "Time = ", winter$ts)
+      popupInfo2 = paste("Location = ", winterLocations$recvDeployName)
+      
+      winterSpots <- leaflet() %>% 
+        addProviderTiles(providers$CartoDB.PositronNoLabels) %>% 
+        setView(lat = 15, lng = 0, zoom = 1.5) %>% 
+        addCircleMarkers(data = winter,
+                         lng = ~recvDeployLon,
+                         lat = ~recvDeployLat,
+                         color = "red",
+                         clusterOptions = markerClusterOptions(),
+                         popup = popupInfo1) %>%
+        addAwesomeMarkers(data = winterLocations,
+                          lng = ~recvDeployLon,
+                          lat = ~recvDeployLat,
+                          popup = popupInfo2)
+      winterSpots
+      
+    })
     
     
     # Data tab - EG data table
