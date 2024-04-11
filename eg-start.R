@@ -260,7 +260,7 @@ new_full_bird <- full_bird %>%
 # start with whole data set, and filter down to the winter months to see where they are staying
 winter <- eg_df %>%
   filter(month(ts) %in% c(1, 2, 12)) %>% # dec, jan, feb
-  group_by(motusTagDepID, lat, lon) %>% # just one winter spot for each bird
+  group_by(motusTagDepID, recvDeployLat, recvDeployLon) %>% # just one winter spot for each bird
   slice(1)
 
 winterLocations <- winter %>%
@@ -268,3 +268,4 @@ winterLocations <- winter %>%
   slice(1)
 
 # 3. Work on nested tabs
+

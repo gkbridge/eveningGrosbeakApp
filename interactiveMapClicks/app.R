@@ -3,6 +3,11 @@ library(leaflet)
 library(dplyr)
 library(shinythemes)
 library(DT)
+library(bslib)
+
+# try to restructure with new app (banner panel, check out different application layouts)
+# look into a multipage app
+# Google shiny layouts/templates
 
 ## DATA PREP
 eg_df <- readRDS("df_eg.RDS")
@@ -29,23 +34,44 @@ DATA <- first_deployment_df
 shinyApp(
   ui = fluidPage(
     
-    theme = shinytheme("cosmo"),
+    theme = shinytheme("simplex"),
     
+    titlePanel("Evening Grosbeak Interactive Platform"),
+    
+    sidebarPanel(
+      tags$body(HTML("<b>Interact with Evening Grosbeak data!</b><hr>
+                  <br><b>Deployments:</b> Look at a map of deployment sites. Click to see which birds are deployed from each.<hr>
+                     <br><b>Winter:</b> Look at a map of winter roosting sites. Click to see the routes of birds who roosted together.<hr>
+                     <br><b>All Evening Grosbeak Data:</b> Look through evening grosbeak data.<hr>
+                     <br><b>Adirondack Deployments:</b> Look through data for birds deployed from the Adirondack region.<hr>
+                     <br><b>About:</b> Introduction to project and network/data source.<hr>")),
+      width = 3
+    ),
+  
     mainPanel(
       tabsetPanel(
         tabPanel("Deployments",
-                 fluidRow(
-                   leafletOutput("map", "100%", 400))),
-        tabPanel("Table",
-                 fluidRow(
-                   verbatimTextOutput("Click_text"),
-                   tabPanel("table", tableOutput("Click_table")),
-                   leafletOutput("Click_plot"))),
-        tabPanel("Group",
-                 fluidRow(
-                   leafletOutput("Click_group")
-                 )),
-        
+                 tabsetPanel(
+                   tabPanel("Map", 
+                            tags$h3(HTML("Map of each bird's first deployment")),
+                            tags$body(HTML("Click on a cluster and marker to get more information on the <em>Chosen bird</em> tab.<hr>")),
+                            leafletOutput("map", "100%", 400)),
+                   tabPanel("Chosen bird",
+                            tabsetPanel(
+                              tabPanel("Table",
+                                       fluidRow(
+                                         verbatimTextOutput("Click_text"),
+                                         tabPanel("table", tableOutput("Click_table")),
+                                         leafletOutput("Click_plot"))),
+                              tabPanel("Group",
+                                       tags$body(HTML("These birds deployed from the same location as your chosen bird.<hr>")),
+                                       fluidRow(
+                                         leafletOutput("Click_group")
+                                       ))
+                            )
+                   )
+                 )
+        ),
         # tabPanel("Track one bird",
         #          tags$h5(HTML("Choose one bird, using the motusTagDepID from the data table and track its whereabouts.")),
         #          sidebarPanel(textInput('uniqueID', label = h5("Enter unique bird ID"), value = "73291.44424")),
@@ -54,18 +80,28 @@ shinyApp(
         #          leafletOutput('onebird'),
         #          dataTableOutput('oneBirdTable')),
         tabPanel("Winter",
-                 fluidRow(
-                   leafletOutput("winter")
-                 )),
-        tabPanel("Motus",
-                 fluidRow(
-                   tags$h5(HTML("This is an interactive shiny app to portray motus data for evening grosbeaks."))
-                 )),
+                 tabsetPanel(
+                   sidebarPanel(
+                     numericInput("year", label = h6("Choose year"),
+                                  value = NULL, min = 2018, max = 2025)
+                   ),
+                   tabPanel("Map",
+                            fluidRow(
+                              leafletOutput("winter")
+                            )),
+                   tabPanel("Roosting Group")
+                   ),
+                 ),
         tabPanel("All Evening Grosbeak Data",
                  dataTableOutput('data')),
         tabPanel("Adirondack Deployments",
                  dataTableOutput('adkData')),
-      )
+        tabPanel("About",
+                 fluidRow(
+                   tags$h5(HTML("This is an interactive shiny app to portray motus data for evening grosbeaks."))
+                 )),
+      ),
+      width = 9
     )
   ),
   
@@ -192,6 +228,20 @@ shinyApp(
         group_birds <- eg_df %>%
           filter(motusTagDepID %in% group_on_dep$motusTagDepID) # need to filter per bird, one hit per location
         
+        bird_destination_freq <- group_birds %>%
+          group_by(motusTagDepID, recvDeployLat, recvDeployLon) %>%
+          summarise(freq = round(sqrt(n())))
+        
+        # 4/4
+        # quick translate it and submit it in english
+        # flush out the app (headers, nice-looking, nested tabs, background themes, introduction to motus/birds)
+        # weight the lines
+        # for loop with the thickness/weight of the line
+        # based on frequency, grouped by destination
+        # subet for the different results in the destinations
+        # figure out how big the subset
+        # that feeds into the weight as you add the polylines for those birds that are going to that desination
+        
         leaflet() %>%
           addProviderTiles(providers$CartoDB.PositronNoLabels) %>%
           setView(lat = 15, lng = 0, zoom = 1.5) %>%
@@ -200,11 +250,11 @@ shinyApp(
                            lat = ~recvDeployLat,
                            color = "red",
                            clusterOptions = markerClusterOptions()) %>%
-          addPolylines(data = group_birds,
+          addPolylines(data = bird_destination_freq,
                        lng = ~recvDeployLon,
                        lat = ~recvDeployLat,
                        color = "blue", # want to color by bird
-                       weight = 1)
+                       weight = ~freq)
         
       }
     })
@@ -221,6 +271,7 @@ shinyApp(
     ## END INTERACTIVE MAP OUTPUT
     
     output$winter <- renderLeaflet({
+      # browser()
       winter <- eg_df %>%
         filter(month(ts) %in% c(1, 2, 12)) %>%
         group_by(motusTagDepID) %>% # don't need the same bird popping up over and over
