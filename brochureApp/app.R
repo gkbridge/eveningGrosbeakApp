@@ -27,60 +27,83 @@ first_deployment_df <- first_deployment_df %>%
 
 DATA <- first_deployment_df
 
-### Create UI and server functions for each page
-# UI for Page 1
-# Home
-ui_page1 <- function() {
-  # UI logic for Page 1
-  fluidPage(
-    mainPanel(
-      tabsetPanel(
-        tabPanel("All Evening Grosbeak Data",
-                 dataTableOutput('data')),
-        tabPanel("Adirondack Data")
-      )
-    )
-  )
-}
-
-# Server logic for Page 1
-server_page1 <- function(input, output, session) {
-  # Simple test data frame
-  test_df <- data.frame(col1 = rnorm(10), col2 = rbinom(10, 1, 0.5))
-
-  # Data tab - EG data table
-  output$data <- DT::renderDataTable({
-    test_df
-  })
-}
-
-# # UI for Page 2
-# ui_page2 <- function() {
-#   # UI logic for Page 2
-# }
-# 
-# # Server logic for Page 2
-# server_page2 <- function(input, output, session) {
-#   # Server logic for Page 2
-# }
-# 
-### Overall app structure
-ui <- shinyUI(
-  fluidPage(
+shinyApp(
+  ui = fluidPage(
+    theme = shinytheme("simplex"),
+    
     navbarPage(
       "Evening Grosbeak Interactive Platform",
-      tabPanel("Home", ui_page1())#,
-      #tabPanel("Page 2", ui_page2())
+      sidebarPanel(
+        tags$body(HTML("<b>Interact with Evening Grosbeak data!</b><hr>
+                  <br><b>Deployments:</b> Look at a map of deployment sites. Click to see which birds are deployed from each.<hr>
+                     <br><b>Winter:</b> Look at a map of winter roosting sites. Click to see the routes of birds who roosted together.<hr>
+                     <br><b>All Evening Grosbeak Data:</b> Look through evening grosbeak data.<hr>
+                     <br><b>Adirondack Deployments:</b> Look through data for birds deployed from the Adirondack region.<hr>
+                     <br><b>About:</b> Introduction to project and network/data source.<hr>")),
+        width = 3
+      ),
+      tabPanel("Deployments and Tracking",
+               tabsetPanel(
+                 tabPanel("Map", 
+                          tags$h3(HTML("Map of each bird's first deployment")),
+                          tags$body(HTML("Click on a cluster and marker to get more information on the <em>Chosen bird</em> tab.<hr>")),
+                          leafletOutput("map", "100%", 400))
+                 # tabPanel("Chosen bird",
+                 #          tabsetPanel(
+                 #            tabPanel("Table",
+                 #                     fluidRow(
+                 #                       verbatimTextOutput("Click_text"),
+                 #                       tabPanel("table", tableOutput("Click_table")),
+                 #                       leafletOutput("Click_plot"))),
+                 #            tabPanel("Group",
+                 #                     tags$body(HTML("These birds deployed from the same location as your chosen bird.<hr>")),
+                 #                     fluidRow(
+                 #                       leafletOutput("Click_group")
+                 #                     ))
+                 #          )
+                 # )
+               )),
+      tabPanel("About",
+               tabsetPanel(
+                 tabPanel("Background"),
+                 tabPanel("All Data",
+                          dataTableOutput('data'))
+               )),
     )
-  )
+    
+  ),
+  
+  server = function(input, output, session) {
+    
+    mapDATA<-reactive({
+      DATA
+    })
+    
+    output$map <- renderLeaflet({
+      leaflet() %>%
+        addProviderTiles(providers$CartoDB.PositronNoLabels) %>% 
+        setView(lat = 15, lng = 0, zoom = 1.5)
+    })
+    
+    # Render circle markers
+    observe({ 
+      map <- leafletProxy("map", data = mapDATA())
+      map %>% clearMarkers()
+      if (!is.null(mapDATA())) {
+        map %>% 
+          addCircleMarkers(lat = ~tagDepLat, 
+                           lng = ~tagDepLon, 
+                           layerId = ~motusTagDepID, 
+                           clusterOptions =  markerClusterOptions()
+          )
+      }
+    })
+    
+    # Data tab - EG data table
+    output$data <- DT::renderDataTable({
+      eg_df
+    })
+    
+    
+  }
 )
-# 
-server <- function(input, output, session) {
-  # Server logic for the overall app
-  # You can add common server logic here if needed
-  callModule(server_page1, "page1")
-  #callModule(server_page2, "page2")
-}
-
-### Run the app
-shinyApp(ui = ui, server = server)
