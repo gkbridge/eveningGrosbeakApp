@@ -33,12 +33,10 @@ shinyApp(
     theme = shinytheme("simplex"),
     title = "Interactive Evening Grosbeak Platform",
     sidebar = sidebar(
-      tags$body(HTML("<b>Interact with Evening Grosbeak data!</b><hr>
-                  <br><b>Deployments:</b> Look at a map of deployment sites. Click to see which birds are deployed from each.<hr>
-                     <br><b>Winter:</b> Look at a map of winter roosting sites. Click to see the routes of birds who roosted together.<hr>
-                     <br><b>All Evening Grosbeak Data:</b> Look through evening grosbeak data.<hr>
-                     <br><b>Adirondack Deployments:</b> Look through data for birds deployed from the Adirondack region.<hr>
-                     <br><b>About:</b> Introduction to project and network/data source.<hr>")),
+      tags$body(HTML("<b>Interact with Evening Grosbeak data!</b>
+                  <br><b>Deployments and Tracking:</b> Interact with a map that shows where each bird was deployed. Look into individual and group bird patterns.
+                     <br><b>Winter Roosting:</b> Interact with a map that shows winter roosting locations for each bird. Follow the group patterns based on where they roost.
+                     <br><b>About:</b> Abstract, all evening grosbeak data, and adirondack data.")),
       padding = 5
     ),
     nav_panel(title = "Deployments and Tracking",
