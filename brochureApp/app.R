@@ -51,7 +51,7 @@ shinyApp(
                                     leafletOutput("map", "100%", 400)),
                            tabPanel("Chosen bird", class = "p-x-2 p-y-2",
                                     tabsetPanel(
-                                      tabPanel("Table",
+                                      tabPanel("Table", # class = "p-x-10", # does not work with padding
                                                fluidRow(
                                                  verbatimTextOutput("Click_text"),
                                                  tabPanel("table", tableOutput("Click_table")),
@@ -87,7 +87,8 @@ shinyApp(
     nav_panel(title = "About",
               tabsetPanel(
                 tabPanel("Abstract", textOutput('about')),
-                tabPanel("Data", dataTableOutput('data'))
+                tabPanel("Data", dataTableOutput('data')),
+                tabPanel("Adirondack Deployments", dataTableOutput('adkData'))
               ))
     
   ),
@@ -286,6 +287,11 @@ shinyApp(
                           popup = popupInfo2)
       winterSpots
       
+    })
+    
+    # ADK data
+    output$adkData <- DT::renderDataTable({
+      eg_adks
     })
     
   }
