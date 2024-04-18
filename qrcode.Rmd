@@ -1,0 +1,10 @@
+library(qrcode)
+
+
+
+qr <- qr_code("https://stlawu.shinyapps.io/evening_grosbeak_tracker/")
+
+pdf("qr_code.pdf")
+plot(qr)
+dev.off()
+

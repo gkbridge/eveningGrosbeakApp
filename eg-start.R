@@ -23,6 +23,11 @@ eg_df <- eg_df %>%
 eg_df <- eg_df %>%
   relocate(motusTagDepID, .after = motusTagID)
 
+selection <- eg_df %>%
+  select(motusTagDepID, recvDeployLat, recvDeployLon, ts, tsCorrected, recvDeployName) %>%
+  group_by(recvDeployName) %>%
+  slice(1)
+
 # eg_df <- eg_df %>%
 #   collect()%>%
 #   as.data.frame()%>%
