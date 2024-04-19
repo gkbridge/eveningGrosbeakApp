@@ -70,8 +70,8 @@ shinyApp(
                   card(card_header(HTML("<b>Winter Roosting Locations</b><hr>")), tags$body(HTML("Blue markers are winter roosting locations. <br>Circle/cluster markers are individual roosting birds.
                                                                                                  <br><em>Choose a year to pick one season of roosting. Default is all years.</em>"))),
                   sidebarPanel(
-                    numericInput("year", label = h6("Choose year"),
-                                 value = NULL, min = 2018, max = 2025),
+                    selectInput("year", label = h6("Choose year"),
+                                multiple = TRUE, choices = c(2018, 2019, 2020, 2021, 2022, 2023, 2024)),
                     width = 5
                   )
                   # col_widths = c(20, 10)
