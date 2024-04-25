@@ -5,6 +5,8 @@ library(shinythemes)
 library(DT)
 library(bslib)
 library(lubridate)
+library(jpeg)
+
 
 ## DATA PREP
 eg_df <- readRDS("df_eg.RDS")
@@ -26,6 +28,16 @@ first_deployment_df <- first_deployment_df %>%
   slice(1)
 
 DATA <- first_deployment_df
+
+winter_base <- eg_df %>%
+  filter(month(ts) %in% c(1, 2, 12)) %>%
+  group_by(motusTagDepID, recvDeployName) %>% # don't need the same bird popping up over and over, but need each of their locations
+  slice(1)
+
+winterLocs_base <- winter_base %>%
+  group_by(recvDeployName) %>%
+  slice(1) %>%
+  select(recvDeployName)
 
 shinyApp(
   ui <- page_navbar(
@@ -81,6 +93,11 @@ shinyApp(
                            leafletOutput("winter")
                          )),
                 tabPanel("Roosting Group",
+                         sidebarPanel(
+                           selectInput("location", label = h6("Choose location"),
+                                       multiple = FALSE, choices = winterLocs_base),
+                           width = 5
+                        ),
                          fluidRow(
                            leafletOutput("winterGroup")
                          ))
@@ -260,104 +277,141 @@ shinyApp(
     
 
     
-    # output$winter <- renderLeaflet({
-    #   
-    #   
-    #   
-    #   # Selecting year input - default is all years to see all of the possible locations (but may not be exhaustive because of the way we slice)
-    #   selectedYear <- input$year
-    #   
-    #   # Check if selectedYear is not null
-    #   if (!is.null(selectedYear)) {
-    #     # Create a POSIXlt object for the selected year
-    #     selected_year_posix <- as.POSIXlt(paste0(selectedYear, "-01-01"))
-    #     # browser()
-    #   }
-    #   
-    #   # # Filter based on the selected year
-    #   # yearFilter <- if (!is.null(selectedYear)) {
-    #   #   year(eg_df$ts) == year(selected_year_posix)
-    #   # } else {
-    #   #   TRUE
-    #   # }
-    #   # 
-    #   
-    #   if (!is.null(selectedYear)) {
-    #     winter <- winterDATA %>%
-    #       filter(month(ts) %in% c(1, 2, 12)) %>%
-    #       filter(year(ts) %in% year(selected_year_posix)) %>%
-    #       group_by(motusTagDepID) %>% # don't need the same bird popping up over and over
-    #       slice(1)
-    #   } else {
-    #     winter <- eg_df %>%
-    #       filter(month(ts) %in% c(1, 2, 12)) %>%
-    #       group_by(motusTagDepID) %>% # don't need the same bird popping up over and over
-    #       slice(1)
-    #   }
-    # 
-    #   
-    #   winterLocations <- winter %>%
-    #     group_by(recvDeployName) %>%
-    #     slice(1)
-    #   
-    #   
-    #   popupInfo1 = paste("Unique ID = ", winter$motusTagDepID,
-    #                      "Time = ", winter$ts)
-    #   popupInfo2 = paste("Location = ", winterLocations$recvDeployName)
-    #   
-    #   winterSpots <- leaflet() %>% 
-    #     addProviderTiles(providers$CartoDB.PositronNoLabels) %>% 
-    #     setView(lat = 15, lng = 0, zoom = 1.5) %>% 
-    #     addCircleMarkers(data = winter,
-    #                      lng = ~recvDeployLon,
-    #                      lat = ~recvDeployLat,
-    #                      color = "red",
-    #                      clusterOptions = markerClusterOptions(),
-    #                      popup = popupInfo1) %>%
-    #     addAwesomeMarkers(data = winterLocations,
-    #                       lng = ~recvDeployLon,
-    #                       lat = ~recvDeployLat,
-    #                       popup = popupInfo2)
-    #   winterSpots
-    #   
-    # })
-    # 
-    # output$Click_group <- renderLeaflet({
-    #   click <- input$map_marker_click
-    #   if (!is.null(click)){
-    #     bird <- winterDATA[which(winterDATA$motusTagDepID == click$id), ]
-    #     
-    #     # filter through winter sites map to get the group of birds that would have been around it
-    #     group_on_loc <- winterDATA %>%
-    #       filter(tagDepLat == bird$tagDepLat && tagDepLon == bird$tagDepLon) %>%
-    #     # browser()
-    #     
-    #     group_birds <- eg_df %>%
-    #       filter(motusTagDepID %in% group_on_loc$motusTagDepID) %>%# need to filter per bird, one hit per location
-    #       filter(month(ts) %in% c(1, 2, 12)) %>%
-    #       group_by(motusTagDepID) %>% # don't need the same bird popping up over and over
-    #       slice(1)
-    #       
-    #     bird_destination_freq <- group_birds %>%
-    #       group_by(motusTagDepID, recvDeployLat, recvDeployLon) %>%
-    #       summarise(freq = round(sqrt(n())))
-    #     
-    #     leaflet() %>%
-    #       addProviderTiles(providers$CartoDB.PositronNoLabels) %>%
-    #       setView(lat = 15, lng = 0, zoom = 1.5) %>%
-    #       addCircleMarkers(data = group_birds,
-    #                        lng = ~recvDeployLon,
-    #                        lat = ~recvDeployLat,
-    #                        color = "red",
-    #                        clusterOptions = markerClusterOptions()) %>%
-    #       addPolylines(data = bird_destination_freq,
-    #                    lng = ~recvDeployLon,
-    #                    lat = ~recvDeployLat,
-    #                    color = "blue", # want to color by bird
-    #                    weight = ~freq)
-    #     
-    #   }
-    # })
+    output$winter <- renderLeaflet({
+
+
+
+      # Selecting year input - default is all years to see all of the possible locations (but may not be exhaustive because of the way we slice)
+      selectedYear <- input$year
+
+      # Check if selectedYear is not null
+      if (!is.null(selectedYear)) {
+        # Create a POSIXlt object for the selected year
+        selected_year_posix <- as.POSIXlt(paste0(selectedYear, "-01-01"))
+        # browser()
+      }
+
+      # # Filter based on the selected year
+      # yearFilter <- if (!is.null(selectedYear)) {
+      #   year(eg_df$ts) == year(selected_year_posix)
+      # } else {
+      #   TRUE
+      # }
+      #
+
+      if (!is.null(selectedYear)) {
+        winter <- eg_df %>%
+          filter(year(ts) %in% year(selected_year_posix)) %>%
+          filter(month(ts) %in% c(1, 2, 12)) %>%
+          group_by(motusTagDepID) %>% # don't need the same bird popping up over and over
+          slice(1)
+      } else {
+        winter <- eg_df %>%
+          filter(month(ts) %in% c(1, 2, 12)) %>%
+          group_by(motusTagDepID, recvDeployName) %>% # don't need the same bird popping up over and over
+          slice(1)
+      }
+
+
+      winterLocations <- winter %>%
+        group_by(recvDeployName) %>%
+        slice(1)
+
+
+      popupInfo1 = paste("Unique ID = ", winter$motusTagDepID,
+                         "Time = ", winter$ts)
+      popupInfo2 = paste("Location = ", winterLocations$recvDeployName)
+
+      winterSpots <- leaflet() %>%
+        addProviderTiles(providers$CartoDB.PositronNoLabels) %>%
+        setView(lat = 15, lng = 0, zoom = 1.5) %>%
+        addCircleMarkers(data = winter,
+                         lng = ~recvDeployLon,
+                         lat = ~recvDeployLat,
+                         color = "red",
+                         clusterOptions = markerClusterOptions(),
+                         popup = popupInfo1) %>%
+        addAwesomeMarkers(data = winterLocations,
+                          lng = ~recvDeployLon,
+                          lat = ~recvDeployLat,
+                          popup = popupInfo2)
+      winterSpots
+
+    })
+
+    output$winterGroup <- renderLeaflet({
+      
+      ## DATA CLEANING FROM BEFORE
+      # Selecting year input - default is all years to see all of the possible locations (but may not be exhaustive because of the way we slice)
+      selectedYear <- input$year
+      
+      # Check if selectedYear is not null
+      if (!is.null(selectedYear)) {
+        # Create a POSIXlt object for the selected year
+        selected_year_posix <- as.POSIXlt(paste0(selectedYear, "-01-01"))
+      }
+      
+      if (!is.null(selectedYear)) {
+        winter <- eg_df %>%
+          filter(year(ts) %in% year(selected_year_posix)) %>%
+          filter(month(ts) %in% c(1, 2, 12)) %>%
+          group_by(motusTagDepID, recvDeployName) %>% # don't need the same bird popping up over and over
+          slice(1)
+        
+        group_birds <- eg_df %>%
+          filter(year(ts) %in% year(selected_year_posix)) %>%
+          filter(month(ts) %in% c(1, 2, 12)) %>%
+          group_by(recvDeployLat, recvDeployLon) %>%
+          slice(1)
+          
+      } else {
+        winter <- eg_df %>%
+          filter(month(ts) %in% c(1, 2, 12)) %>%
+          group_by(motusTagDepID, recvDeployName) %>% # don't need the same bird popping up over and over
+          slice(1)
+        
+        group_birds <- eg_df %>%
+          filter(month(ts) %in% c(1, 2, 12)) %>%
+          group_by(recvDeployLat, recvDeployLon) %>%
+          slice(1)
+      }
+      
+      ## END
+      
+      # browser()
+      
+      selectedLocation <- input$location
+      
+      
+      # go through winter dataset and find the birds there
+      thisLocation <- winter %>%
+        filter(recvDeployName == selectedLocation)
+      
+      # then go through all birds, find these birds, and track them
+      group_birds <- group_birds %>%
+        filter(motusTagDepID %in% thisLocation$motusTagDepID) # need to filter per bird, one hit per location
+      
+      bird_destination_freq <- group_birds %>%
+        group_by(motusTagDepID, recvDeployLat, recvDeployLon) %>%
+        summarise(freq = round(sqrt(n())))
+      
+      leaflet() %>%
+        addProviderTiles(providers$CartoDB.PositronNoLabels) %>%
+        setView(lat = 15, lng = 0, zoom = 1.5) %>%
+        addCircleMarkers(data = group_birds,
+                         lng = ~recvDeployLon,
+                         lat = ~recvDeployLat,
+                         color = "red",
+                         clusterOptions = markerClusterOptions()) %>%
+        addPolylines(data = bird_destination_freq,
+                     lng = ~recvDeployLon,
+                     lat = ~recvDeployLat,
+                     color = "blue", # want to color by bird
+                     weight = ~freq)
+      
+      
+      
+    })
     
     
     
