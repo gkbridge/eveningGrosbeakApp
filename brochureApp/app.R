@@ -256,15 +256,45 @@ shinyApp(
     ## END INTERACTIVE MAP OUTPUT
     
     output$winter <- renderLeaflet({
-      # browser()
-      winter <- eg_df %>%
-        filter(month(ts) %in% c(1, 2, 12)) %>%
-        group_by(motusTagDepID) %>% # don't need the same bird popping up over and over
-        slice(1)
+      
+      
+      
+      # Selecting year input - default is all years to see all of the possible locations (but may not be exhaustive because of the way we slice)
+      selectedYear <- input$year
+      
+      # Check if selectedYear is not null
+      if (!is.null(selectedYear)) {
+        # Create a POSIXlt object for the selected year
+        selected_year_posix <- as.POSIXlt(paste0(selectedYear, "-01-01"))
+        # browser()
+      }
+      
+      # # Filter based on the selected year
+      # yearFilter <- if (!is.null(selectedYear)) {
+      #   year(eg_df$ts) == year(selected_year_posix)
+      # } else {
+      #   TRUE
+      # }
+      # 
+      
+      if (!is.null(selectedYear)) {
+        winter <- eg_df %>%
+          filter(month(ts) %in% c(1, 2, 12)) %>%
+          filter(year(ts) %in% year(selected_year_posix)) %>%
+          group_by(motusTagDepID) %>% # don't need the same bird popping up over and over
+          slice(1)
+      } else {
+        winter <- eg_df %>%
+          filter(month(ts) %in% c(1, 2, 12)) %>%
+          group_by(motusTagDepID) %>% # don't need the same bird popping up over and over
+          slice(1)
+      }
+
       
       winterLocations <- winter %>%
         group_by(recvDeployName) %>%
         slice(1)
+      
       
       popupInfo1 = paste("Unique ID = ", winter$motusTagDepID,
                          "Time = ", winter$ts)
