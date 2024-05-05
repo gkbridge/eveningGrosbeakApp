@@ -18,9 +18,9 @@ This project aims to analyze a large dataset on Evening Grosbeaks, a species wit
 
 ## Background
 
-- Why are we looking at winter spots? What needs to be analyzed? 
-- What are the possibilities of Shiny? 
-- Write about R
+-   Why are we looking at winter spots? What needs to be analyzed?
+-   What are the possibilities of Shiny?
+-   Write about R
 
 ### R
 
@@ -46,12 +46,13 @@ This project aims to analyze a large dataset on Evening Grosbeaks, a species wit
 
 ## Methods
 
-- Include code 
-- describe data wrangling and data cleaning (dplyr etc.) 
-- interpretations of the data - describe leaflet
+-   Include code
+-   describe data wrangling and data cleaning (dplyr etc.)
+-   interpretations of the data - describe leaflet
 
 ### Motus R Package
-<p><em>Birds Canada</em>, the creator of the radio telemetry network of <em>Motus</em>, has detailed documentation for an R package to use the <em>Motus</em> data. The website for this package gives extensive instruction on how to get started using the <em>Motus</em> database in R, how to access data, how to make sense of tag and receiver deployments, how to clean the data, and examples of how to explore the data. </p>
+
+<p><em>Birds Canada</em>, the creator of the radio telemetry network of <em>Motus</em>, has detailed documentation for an R package to use the <em>Motus</em> data. The website for this package gives extensive instruction on how to get started using the <em>Motus</em> database in R, how to access data, how to make sense of tag and receiver deployments, how to clean the data, and examples of how to explore the data.</p>
 
 <p>The following is the provided code to install the package.</p>
 
@@ -65,19 +66,20 @@ library(motus)
 library(motusData)
 ```
 
-<p>There are two types of detection databases that a user can access. One is a receiver database, comprised of every detection of registered tags at one receiver The second is a project database, comprised of every detection of specific or your registered tags across the entire <em>Motus</em> network. The latter was used for this project. </p>
+<p>There are two types of detection databases that a user can access. One is a receiver database, comprised of every detection of registered tags at one receiver The second is a project database, comprised of every detection of specific or your registered tags across the entire <em>Motus</em> network. The latter was used for this project.</p>
 
-- downloading project data and then exporting detections
-(include data table of initial data file)
-- understanding the variables (descriptions of what they mean, say which ones are actually relevant to this project)
+-   downloading project data and then exporting detections (include data table of initial data file)
+-   understanding the variables (descriptions of what they mean, say which ones are actually relevant to this project)
 
 ### Data Cleaning
-- initial cleaning
-- getting to species
-- getting unique bird IDs
+
+-   initial cleaning
+-   getting to species
+-   getting unique bird IDs
 
 ### Exploration of Data
-- initial plots and exploration
+
+-   initial plots and exploration
 
 ### R Shiny
 
@@ -107,5 +109,4 @@ library(motusData)
 
 ## References
 
-<a>https://motus.org/about/</a> <a>https://www.mdpi.com/1424-2818/15/12/1202</a> <br> <a>https://www.allaboutbirds.org/guide/Evening_Grosbeak/id</a> <br>
-<a>https://motuswts.github.io/motus/index.html</a> <br>
+<a>https://motus.org/about/</a> <a>https://www.mdpi.com/1424-2818/15/12/1202</a> <br> <a>https://www.allaboutbirds.org/guide/Evening_Grosbeak/id</a> <br> <a>https://motuswts.github.io/motus/index.html</a> <br>
