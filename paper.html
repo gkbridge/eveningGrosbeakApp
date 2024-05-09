@@ -461,7 +461,7 @@ The following is the starting structure for a Shiny App in R:
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="default_shiny.png" class="lightbox" data-glightbox="description: .lightbox-desc-1" data-gallery="quarto-lightbox-gallery-1" title="Default Shiny App"><img src="default_shiny.png" class="img-fluid figure-img" alt="Default Shiny App"></a></p>
+<p><a href="default_shiny.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" data-glightbox="description: .lightbox-desc-1" title="Default Shiny App"><img src="default_shiny.png" class="img-fluid figure-img" alt="Default Shiny App"></a></p>
 <figcaption>Default Shiny App</figcaption>
 </figure>
 </div>
@@ -502,6 +502,9 @@ Next is an example of a dropdown menu (using the IRIS dataset: a popular example
 </div>
 <p><img src="iris_dropdown.png" class="img-fluid" alt="Iris dropdown menus Shiny App">{.lightbox gallery = “iris”} <img src="dropdown.png" class="img-fluid" alt="Dropdown menu">{.lightbox gallery = “iris”}</p>
 </section>
+<section id="leaflet" class="level3">
+<h3 class="anchored" data-anchor-id="leaflet">Leaflet</h3>
+</section>
 </section>
 <section id="shiny-app-results" class="level2">
 <h2 class="anchored" data-anchor-id="shiny-app-results">Shiny App Results</h2>
@@ -517,15 +520,21 @@ The interactive Evening Grosbeak platform was made using Shiny. From the navigat
 </p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="deployments.png" class="lightbox" data-glightbox="description: .lightbox-desc-2" data-gallery="quarto-lightbox-gallery-2" title="Interactive Evening Grosbeak Platform"><img src="deployments.png" class="img-fluid figure-img" alt="Interactive Evening Grosbeak Platform"></a></p>
+<p><a href="deployments.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" data-glightbox="description: .lightbox-desc-2" title="Interactive Evening Grosbeak Platform"><img src="deployments.png" class="img-fluid figure-img" alt="Interactive Evening Grosbeak Platform"></a></p>
 <figcaption>Interactive Evening Grosbeak Platform</figcaption>
 </figure>
 </div>
 <section id="deployments-and-tracking" class="level3">
 <h3 class="anchored" data-anchor-id="deployments-and-tracking"><em>Deployments and Tracking</em></h3>
 <p>
-Upon launching the app, the user is met with the <em>Deployments and Tracking</em> page.
+Upon launching the app, the user is met with the <em>Deployments and Tracking</em> page. This page first includes the map of each bird’s first deployment.
 </p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="deploy.gif" class="img-fluid figure-img"></p>
+<figcaption>Deployments map</figcaption>
+</figure>
+</div>
 </section>
 <section id="winter-roosting" class="level3">
 <h3 class="anchored" data-anchor-id="winter-roosting"><em>Winter Roosting</em></h3>
@@ -976,7 +985,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","openEffect":"zoom","loop":false,"closeEffect":"zoom","descPosition":"bottom"});
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","loop":false,"descPosition":"bottom","openEffect":"zoom"});
 window.onload = () => {
   lightboxQuarto.on('slide_before_load', (data) => {
     const { slideIndex, slideNode, slideConfig, player, trigger } = data;

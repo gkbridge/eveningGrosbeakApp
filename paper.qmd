@@ -285,6 +285,9 @@ shinyApp(ui = ui, server = server)
 ![Iris dropdown menus Shiny App](iris_dropdown.png){.lightbox gallery = "iris"}
 ![Dropdown menu](dropdown.png){.lightbox gallery = "iris"}
 
+### Leaflet
+
+
 
 ## Shiny App Results
 
@@ -299,7 +302,11 @@ shinyApp(ui = ui, server = server)
 ![Interactive Evening Grosbeak Platform](deployments.png){.lightbox}
 
 ### <em>Deployments and Tracking</em>
-<p>Upon launching the app, the user is met with the <em>Deployments and Tracking</em> page. </p>
+<p>Upon launching the app, the user is met with the <em>Deployments and Tracking</em> page. This page first includes the map of each bird's first deployment.The user can click through the map of different clusters until they find a specific bird at a deployment site that they want to look furhter into. Upon clicking on this circle marker, the app grabs the data for this bird and stores it to use in the next tab.</p>
+
+![Deployments map](deploy.gif)
+
+<p>The next tab is the <em>Chosen bird</em> tab. </p>
 
 ### <em>Winter Roosting</em>
 
