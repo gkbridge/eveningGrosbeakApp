@@ -527,22 +527,30 @@ The interactive Evening Grosbeak platform was made using Shiny. From the navigat
 <section id="deployments-and-tracking" class="level3">
 <h3 class="anchored" data-anchor-id="deployments-and-tracking"><em>Deployments and Tracking</em></h3>
 <p>
-Upon launching the app, the user is met with the <em>Deployments and Tracking</em> page. This page first includes the map of each bird’s first deployment.
+Upon launching the app, the user is met with the <em>Deployments and Tracking</em> page. This page first includes the map of each bird’s first deployment.The user can click through the map of different clusters until they find a specific bird at a deployment site that they want to look furhter into. Upon clicking on this circle marker, the app grabs the data for this bird and stores it to use in the next tab.
 </p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="deploy.gif" class="img-fluid figure-img"></p>
+<p><a href="deploy.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-3" data-glightbox="description: .lightbox-desc-3" title="Deployments map"><img src="deploy.gif" class="img-fluid figure-img" alt="Deployments map"></a></p>
 <figcaption>Deployments map</figcaption>
 </figure>
 </div>
+<p>
+The next tab is the <em>Chosen bird</em> tab. In the <em>Table</em> nested tab: first, we have a page that shows the immediate data for the bird that was chosen from its deployment, then we have a map of the locations where this bird has pinged a receiver.In the <em>Group</em> nested tab we have a similar map, but it shows the pings for each of the birds deployed from the same deployment site. The lines are weighted by the frequency of the amount of birds that travelled there.
+</p>
+<p><a href="chosenbird.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Chosen bird map"><img src="chosenbird.png" class="img-fluid" alt="Chosen bird map"></a> <a href="chosengroup.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Chosen group map"><img src="chosengroup.png" class="img-fluid" alt="Chosen group map"></a></p>
 </section>
 <section id="winter-roosting" class="level3">
 <h3 class="anchored" data-anchor-id="winter-roosting"><em>Winter Roosting</em></h3>
-</section>
+<p>
+The next page is the <em>Winter Roosting&gt; page. On the first tab of this page, <em>Map</em>, there is a leaflet map. The blue markers are of each winter location that birds have roosted. The circle and cluster markers are for the individual birds who spent the winter there. The user can choose which year of winter they want to look at (the months defined for winter roosting for this application are January, February, and December) and the default is all years. On the second tab of this page, <em>Roosting Group</em>, there is another leaflet map which tracks the birds from the same roosting location based on year and location.
+</em></p><em>
+<p><a href="wintermap.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Winter roosting location map"><img src="wintermap.png" class="img-fluid" alt="Winter roosting location map"></a> <a href="wintergroup.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Winter roosting group map"><img src="wintergroup.png" class="img-fluid" alt="Winter roosting group map"></a></p>
+</em></section><em>
 <section id="about" class="level3">
 <h3 class="anchored" data-anchor-id="about"><em>About</em></h3>
 </section>
-</section>
+</em></section><em>
 <section id="discussion" class="level2">
 <h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
 <ul>
@@ -570,10 +578,11 @@ Upon launching the app, the user is met with the <em>Deployments and Tracking</e
 <div class="hidden" aria-hidden="true">
 <span class="glightbox-desc lightbox-desc-1">Default Shiny App</span>
 <span class="glightbox-desc lightbox-desc-2">Interactive Evening Grosbeak Platform</span>
+<span class="glightbox-desc lightbox-desc-3">Deployments map</span>
 </div>
 </section>
 
-</main>
+</em></main><em>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -984,8 +993,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-</div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","loop":false,"descPosition":"bottom","openEffect":"zoom"});
+</em></div><em> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","descPosition":"bottom","selector":".lightbox","loop":false,"closeEffect":"zoom"});
 window.onload = () => {
   lightboxQuarto.on('slide_before_load', (data) => {
     const { slideIndex, slideNode, slideConfig, player, trigger } = data;
@@ -1014,4 +1023,4 @@ window.onload = () => {
 
 
 
-</body></html>
+</em></body></html>

@@ -312,7 +312,10 @@ shinyApp(ui = ui, server = server)
 ![Chosen group map](chosengroup.png){.lightbox}
 
 ### <em>Winter Roosting</em>
+<p>The next page is the <em>Winter Roosting> page. On the first tab of this page, <em>Map</em>, there is a leaflet map. The blue markers are of each winter location that birds have roosted. The circle and cluster markers are for the individual birds who spent the winter there. The user can choose which year of winter they want to look at (the months defined for winter roosting for this application are January, February, and December) and the default is all years. On the second tab of this page, <em>Roosting Group</em>, there is another leaflet map which tracks the birds from the same roosting location based on year and location. </p>
 
+![Winter roosting location map](wintermap.png){.lightbox}
+![Winter roosting group map](wintergroups.png){.lightbox}
 
 ### <em>About</em>
 
