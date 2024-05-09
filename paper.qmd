@@ -304,11 +304,15 @@ shinyApp(ui = ui, server = server)
 ### <em>Deployments and Tracking</em>
 <p>Upon launching the app, the user is met with the <em>Deployments and Tracking</em> page. This page first includes the map of each bird's first deployment.The user can click through the map of different clusters until they find a specific bird at a deployment site that they want to look furhter into. Upon clicking on this circle marker, the app grabs the data for this bird and stores it to use in the next tab.</p>
 
-![Deployments map](deploy.gif)
+![Deployments map](deploy.gif){.lightbox}
 
-<p>The next tab is the <em>Chosen bird</em> tab. </p>
+<p>The next tab is the <em>Chosen bird</em> tab. In the <em>Table</em> nested tab: first, we have a page that shows the immediate data for the bird that was chosen from its deployment, then we have a map of the locations where this bird has pinged a receiver.In the <em>Group</em> nested tab we have a similar map, but it shows the pings for each of the birds deployed from the same deployment site. The lines are weighted by the frequency of the amount of birds that travelled there. </p> 
+
+![Chosen bird map](chosenbird.png){.lightbox}
+![Chosen group map](chosengroup.png){.lightbox}
 
 ### <em>Winter Roosting</em>
+
 
 ### <em>About</em>
 
