@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.554">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -23,7 +23,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -68,6 +68,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="paper_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="paper_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="paper_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="paper_files/libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="paper_files/libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="paper_files/libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 
 
 </head>
@@ -99,8 +102,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
 
+
+<p>Methods - motus in R - Shiny (show default app, super simple examples of each thing (not using bird data)) (basically a Shiny tutorial) - leaflets (big tools that we will be using for this specific app) - (shiny live (you can start with static images))</p>
+<p>Results - code</p>
 <section id="abstract" class="level2">
 <h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
 <p>This project aims to analyze a large dataset on Evening Grosbeaks, a species within the finch family native to North America. The data comes from <em>Motus</em>, a network of radio receivers that are able to pick up transmissions from tagged birds. <em>Motus</em> has many large datasets of all types of bird species and through data cleaning in R, this project hones in on the data captured for Evening Grosbeaks. The main objective for this project was to develop a platform enabling users to observe and understand trends in their migration patterns. The R shiny app created for this showcases many features: an interactive map of deployment sites, individual bird tracking, group bird tracking (by winter roosting location and deployment location), all Evening Grosbeak data used, and all Evening Grosbeak data used from the Adirondack region. The app is available at: <a href="">https://stlawu.shinyapps.io/evening_grosbeak_tracker/</a></p>
@@ -110,32 +117,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>
 Evening Grosbeaks are an endangered species with a rapidly declining population. It is important to visualize their migration and movement patterns to then be able to analyze what is leading to their extinction.
 </p>
+<!-- ![Evening Grosbeak image](eg_pic.jpeg){width = "100"} -->
+<!-- {.lightbox} -->
 <p><img src="eg_pic.jpeg" alt="Evening Grosbeak image" width="400"></p>
 <p>
 The purpose of this project was to explore what tools from R Shiny can be used to for bird data visualizations and make raw data into an interactive, more accessible experience. The app provides users with a platform to interact with data, deployment sites, winter locations, individual trends, and group trends for the Evening Grosbeak.
 </p>
-</section>
-<section id="background" class="level2">
-<h2 class="anchored" data-anchor-id="background">Background</h2>
-<p>( - Why are we looking at winter spots? What needs to be analyzed? - What are the possibilities of Shiny? Write about R sources )</p>
-<section id="r" class="level3">
-<h3 class="anchored" data-anchor-id="r">R</h3>
-<p>
-R is an extremely popular language in the world of biodiversity conservation research for visualization and analyses. R is a cohesive set of software features and tools. It is also an open-source programming language. This means that it is free for use and collaboration. Anybody is able to create and add functions through writing packages to build upon existing operators and facilities for data, statistical analyses, visualizations, etc,. Work and research done in R is very often easily reproducible because R facilitates a space for creators to document their work cleanly and has a very readable structure. R files can be rendered in many ways (Word files, pdfs, webpages, etc.) to be shared and replicated.
-</p>
-</section>
-<section id="motus-in-r" class="level3">
-<h3 class="anchored" data-anchor-id="motus-in-r">Motus in R</h3>
-<p>
-<em>Motus</em> is a wildlife tracking system from <em>Birds Canada</em>. It is composed of a network of researchers around the world who are able to contribute to the radio telemetry system. By contributing (tagging birds and setting up radio receiver locations), more researchers are then able to access the growing database of bird tracking information. While one researcher could hypothetically set up their own, small telemetry network to track a local bird, <em>Motus</em> creates the opportunity to connect all of these local sites and broaden data and information exponentially. Collaboration for scientists and bird-watchers across the world has been made easy by <em>Motus</em>.
-</p>
-<p>
-For this application, access to a “project” was given by St.&nbsp;Lawrence biology professor, Dr.&nbsp;Susan Willson, who has a focus and interest in conservation of birds, namely the Evening Grosbeak. A “project” in <em>Motus</em> is an access point to the database with managed data access levels and users.
-</p>
-<p>
-One benefit of using <em>Motus</em> is its standardized data format across all projects. In addition to this, because of the large network of researchers, many analyses have been well documented and created already for <em>Motus</em> data usage. And so, the visualizations made and the data manipulation tools needed for this project were kick started by existing work with <em>Motus</em> in R.
-</p>
-</section>
 <section id="winter-spots-and-breeding" class="level3">
 <h3 class="anchored" data-anchor-id="winter-spots-and-breeding">Winter Spots and Breeding</h3>
 <p>
@@ -149,6 +136,15 @@ For the Evening Grosbeak, it is important to look into their seasonal whereabout
 In the winter, the Evening Grosbeak searches for food. The bird’s type of migration is called a “winter finch irruption,” that is taken by many seed-eating birds. During these “irruptions,” these birds move south of their typical breeding grounds in to find sources of winter food.
 </p>
 </section>
+<section id="motus" class="level3">
+<h3 class="anchored" data-anchor-id="motus">Motus</h3>
+<p>
+<em>Motus</em> is a wildlife tracking system from <em>Birds Canada</em>. It is composed of a network of researchers around the world who are able to contribute to the radio telemetry system. By contributing (tagging birds and setting up radio receiver locations), more researchers are then able to access the growing database of bird tracking information. While one researcher could hypothetically set up their own, small telemetry network to track a local bird, <em>Motus</em> creates the opportunity to connect all of these local sites and broaden data and information exponentially. Collaboration for scientists and bird-watchers across the world has been made easy by <em>Motus</em>.
+</p>
+<p>
+For this application, access to a “project” was given by St.&nbsp;Lawrence biology professor, Dr.&nbsp;Susan Willson, who has a focus and interest in conservation of birds, namely the Evening Grosbeak. A “project” in <em>Motus</em> is an access point to the database with managed data access levels and users.
+</p>
+</section>
 </section>
 <section id="methods" class="level2">
 <h2 class="anchored" data-anchor-id="methods">Methods</h2>
@@ -157,8 +153,19 @@ In the winter, the Evening Grosbeak searches for food. The bird’s type of migr
 <li>describe data wrangling and data cleaning (dplyr etc.)</li>
 <li>interpretations of the data - describe leaflet</li>
 </ul>
-<section id="motus-r-package" class="level3">
-<h3 class="anchored" data-anchor-id="motus-r-package">Motus R Package</h3>
+<section id="r" class="level3">
+<h3 class="anchored" data-anchor-id="r">R</h3>
+<p>
+R is an extremely popular language in the world of biodiversity conservation research for visualization and analyses. R is a cohesive set of software features and tools. It is also an open-source programming language. This means that it is free for use and collaboration. Anybody is able to create and add functions through writing packages to build upon existing operators and facilities for data, statistical analyses, visualizations, etc,. Work and research done in R is very often easily reproducible because R facilitates a space for creators to document their work cleanly and has a very readable structure. R files can be rendered in many ways (Word files, pdfs, webpages, etc.) to be shared and replicated.
+</p>
+</section>
+<section id="motus-in-r" class="level3">
+<h3 class="anchored" data-anchor-id="motus-in-r">Motus in R</h3>
+<p>
+One benefit of using <em>Motus</em> is its standardized data format across all projects. In addition to this, because of the large network of researchers, many analyses have been well documented and created already for <em>Motus</em> data usage. And so, the visualizations made and the data manipulation tools needed for this project were kick started by existing work with <em>Motus</em> in R.
+</p>
+<section id="motus-r-package" class="level4">
+<h4 class="anchored" data-anchor-id="motus-r-package">Motus R Package</h4>
 <p>
 <em>Birds Canada</em>, the creator of the radio telemetry network of <em>Motus</em>, has detailed documentation for an R package to use the <em>Motus</em> data. The website for this package gives extensive instruction on how to get started using the <em>Motus</em> database in R, how to access data, how to make sense of tag and receiver deployments, how to clean the data, and examples of how to explore the data.
 </p>
@@ -166,14 +173,224 @@ In the winter, the Evening Grosbeak searches for food. The bird’s type of migr
 The following is the provided code to install the package.
 </p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"motus"</span>, <span class="st">"motusData"</span>), </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">repos =</span> <span class="fu">c</span>(<span class="at">birdscanada =</span> <span class="st">'https://birdscanada.r-universe.dev'</span>,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">CRAN =</span> <span class="st">'https://cloud.r-project.org'</span>))</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the packages for use</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(motus)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(motusData)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold">
+<summary>Click to show code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use these commented lines to install the packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(c("motus", "motusData"), </span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#                  repos = c(birdscanada = 'https://birdscanada.r-universe.dev',</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#                            CRAN = 'https://cloud.r-project.org'))</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the packages for use</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(motus)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(motusData)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
+<p>
+There are two types of detection databases that a user can access. One is a receiver database, comprised of every detection of registered tags at one receiver The second is a project database, comprised of every detection of specific or your registered tags across the entire <em>Motus</em> network. The latter was used for this project.
+</p>
+<p>
+Once connected to the project, one can work with the data while connected to <em>motus</em>, but this will take lots of time and computer power. It is easier to download the data until the most recent detection, and then save as a .RDS file so that one can work faster with a local dataset as a flat dataframe.
+</p>
+<p>
+The data has many variables with explanations taken from <a href="">https://motuswts.github.io/motus/articles/03-accessing-data.html</a>
+</p>
+<details>
+<summary>
+<b>Variable Descriptions</b>
+</summary>
+<table class="table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 87%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>activity</td>
+<td>data related to radio activity for each hour period (hourBin) at each antenna, including a count of the number of short runs used in helping identify false detections.</td>
+</tr>
+<tr class="even">
+<td>admInfo</td>
+<td>internal table used to keep track of your the motus package used to create your motus file, and the data version.</td>
+</tr>
+<tr class="odd">
+<td>antDeps</td>
+<td>metadata related to antenna deployments, e.g., deployment height, angle, antenna type.</td>
+</tr>
+<tr class="even">
+<td>batchRuns</td>
+<td>metadata for runIDs and associated batchIDs</td>
+</tr>
+<tr class="odd">
+<td>batches</td>
+<td>detection data for a given receiver and boot number.</td>
+</tr>
+<tr class="even">
+<td>filters</td>
+<td>metadata related to user created filters associated with the specified receiver.</td>
+</tr>
+<tr class="odd">
+<td>gps</td>
+<td>metadata related to Geographic Positioning System (GPS) position of receiver.</td>
+</tr>
+<tr class="even">
+<td>hits</td>
+<td>detection data at the level of individual hits.</td>
+</tr>
+<tr class="odd">
+<td>meta</td>
+<td>metadata related to the project and datatype (tags vs.&nbsp;receivers) that are included in the .motus file</td>
+</tr>
+<tr class="even">
+<td>nodeData</td>
+<td>data related to nodes by batchID and time (ts)</td>
+</tr>
+<tr class="odd">
+<td>nodeDeps</td>
+<td>metadata related to nodes</td>
+</tr>
+<tr class="even">
+<td>projAmbig</td>
+<td>metadata related to what projects have ambiguous tag detections</td>
+</tr>
+<tr class="odd">
+<td>projs</td>
+<td>metadata related to projects, e.g., project name, principal investigator.</td>
+</tr>
+<tr class="even">
+<td>pulseCounts</td>
+<td>number of radio pulses measured on each antenna over each hour period (hourBin).</td>
+</tr>
+<tr class="odd">
+<td>recvDeps</td>
+<td>metadata related to receiver deployments, e.g., deployment date, location, receiver characteristics.</td>
+</tr>
+<tr class="even">
+<td>recvs</td>
+<td>metadata related to receiver serial number and associated Motus deviceID</td>
+</tr>
+<tr class="odd">
+<td>runs</td>
+<td>detection data associated with a run (continuous detections of a unique tag on a given receiver).</td>
+</tr>
+<tr class="even">
+<td>runsFilters</td>
+<td>a list of runIDs associated with user created filters and assigned probabilities.</td>
+</tr>
+<tr class="odd">
+<td>species</td>
+<td>metadata related to species, e.g., unique identifier, scientific name, common name.</td>
+</tr>
+<tr class="even">
+<td>tagAmbig</td>
+<td>metadata related to ambiguous tags, e.g., ambigID and associated motusTagID</td>
+</tr>
+<tr class="odd">
+<td>tagDeps</td>
+<td>metadata related to tag deployments, e.g., deployment date, location, and species.</td>
+</tr>
+<tr class="even">
+<td>tagProp</td>
+<td>metadata related to custom deployment properties entered by the principal investigator (e.g.&nbsp;body weight).</td>
+</tr>
+<tr class="odd">
+<td>tags</td>
+<td>metadata related to tags, e.g., unique identifier, tag characteristics (e.g., burst interval).</td>
+</tr>
+<tr class="even">
+<td>allambigs</td>
+<td>lists in long-data format each motusTagID (up to 6) associated with each negative ambigID.</td>
+</tr>
+<tr class="odd">
+<td>alltags</td>
+<td>provides the full detection data for all tags, and all ambiguous (duplicate) tags, associated with your project. Ambiguous detections are repeated for each motusTagID represented by each ambigID.</td>
+</tr>
+<tr class="even">
+<td>alltagsGPS</td>
+<td>same as alltags but includes GPS latitude, longitude and altitude (much slower to load on large databases).</td>
+</tr>
+</tbody>
+</table>
+</details>
+</section>
+</section>
+<section id="data-cleaning" class="level3">
+<h3 class="anchored" data-anchor-id="data-cleaning">Data Cleaning</h3>
+<ul>
+<li>initial cleaning</li>
+<li>getting to species</li>
+<li>getting unique bird IDs</li>
+</ul>
+<p>
+Once the data from the .motus is made into a flat data frame, data can be cleaned. The first step was to trim the exhaustive project data down to just the Evening Grosbeak.
+</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Click to show code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filter to only Evening Grosbeak </span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> tbl.alltags <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(speciesID <span class="sc">==</span> <span class="dv">20570</span>) <span class="sc">%&gt;%</span>   <span class="co"># Evening Grosbeak Species ID</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span>    </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">as_datetime</span>(ts)) </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># This also changes ts to a date variable instead of numeric (how it was read in)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>
+From the data, it is also important to be able to grab a unique bird. A unique tag (either <em>motusTagID</em> or <em>tagDeployID</em>) is not quite capable of this. This is because, a unique <em>motusTagID</em> is not always a unique bird; occasionally a tag can be redeployed onto a different bird. Also a <em>tagDeployID</em> is not always unique when you are focusing on a specific deployment of a bird in your project. So, use a combination of these.
+</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Click to show code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df_alltags <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">motusTagDepID =</span> <span class="fu">paste</span>(motusTagID, tagDeployID, <span class="at">sep =</span> <span class="st">"."</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>
+Here is how the new variable would look:
+</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 14%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">motusTagID</th>
+<th style="text-align: right;">tagDeployID</th>
+<th style="text-align: left;">motusTagDepID</th>
+<th style="text-align: right;">recvDeployLat</th>
+<th style="text-align: right;">recvDeployLon</th>
+<th style="text-align: left;">ts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">45833</td>
+<td style="text-align: right;">31743</td>
+<td style="text-align: left;">45833.31743</td>
+<td style="text-align: right;">41.5017</td>
+<td style="text-align: right;">-79.0798</td>
+<td style="text-align: left;">2021-01-24 13:58:45</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>
+Now, we can grab the data for any single bird’s deployment with <em>motusTagDepID</em>.
+</p>
 </section>
 <section id="r-shiny" class="level3">
 <h3 class="anchored" data-anchor-id="r-shiny">R Shiny</h3>
@@ -181,8 +398,109 @@ The following is the provided code to install the package.
 Shiny is an R package (extension to R, standardized tools with documentation that can be installed to your machine). Once installed, this package creates the opportunity for application construction. The code for these apps have three components, the UI (user-interface object), the server function, and a final call to the shinyApp function. The UI draws up the appearance of the app; what the user is seeing. The server function is responsible for the code that performs the outputs and their functionalities. And the final call to the shinyApp function will launch the app when the code is ran.
 </p>
 <p>
-There are many benefits to using Shiny to showcase data analyses and visualizations. To start, the interactive ability of a Shiny app can transform user accessibility to data. With these apps, there are many widgets that the creator can include in the UI (that then speak to the server output) that allows a user to choose what they are seeing from the data: slider inputs (for numerical input), text inputs, checkboxes, dropdown menus, file uploaders, etc. With this user power to choose outputs, Shiny apps can be reactive and responsive, updating the outputs of each page in real-time. Another benefit is ease fo deployment for Shiny apps. Instead of code files or papers showcasing research, Shiny apps can be deployed easily with URLS and showcase findings in a more fluid, interactive, and engaging way.
+There are many benefits to using Shiny to showcase data analyses and visualizations. To start, the interactive ability of a Shiny app can transform user accessibility to data. With these apps, there are many widgets that the creator can include in the UI (that then speak to the server output) that allows a user to choose what they are seeing from the data: slider inputs (for numerical input), text inputs, checkboxes, dropdown menus, file uploaders, etc. With this user power to choose outputs, Shiny apps can be reactive and responsive, updating the outputs of each page in real-time. Another benefit is ease of deployment for Shiny apps. Instead of code files or papers portraying research, Shiny apps can be deployed easily with URLS and showcase findings in a more fluid, interactive, and engaging way.
 </p>
+<p>
+The following is the starting structure for a Shiny App in R:
+</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Click to show Shiny App default code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a Shiny web application. You can run the application by clicking</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the 'Run App' button above.</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Find out more about building applications with Shiny here:</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#    http://shiny.rstudio.com/</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Define UI for application that draws a histogram</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Application title</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">titlePanel</span>(<span class="st">"Old Faithful Geyser Data"</span>),</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sidebar with a slider input for number of bins </span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sidebarLayout</span>(</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sidebarPanel</span>(</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>            <span class="fu">sliderInput</span>(<span class="st">"bins"</span>,</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"Number of bins:"</span>,</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>                        <span class="at">min =</span> <span class="dv">1</span>,</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>                        <span class="at">max =</span> <span class="dv">50</span>,</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>                        <span class="at">value =</span> <span class="dv">30</span>)</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Show a plot of the generated distribution</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mainPanel</span>(</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>           <span class="fu">plotOutput</span>(<span class="st">"distPlot"</span>)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Define server logic required to draw a histogram</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    output<span class="sc">$</span>distPlot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>        <span class="co"># generate bins based on input$bins from ui.R</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>        x    <span class="ot">&lt;-</span> faithful[, <span class="dv">2</span>]</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>        bins <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(x), <span class="fu">max</span>(x), <span class="at">length.out =</span> input<span class="sc">$</span>bins <span class="sc">+</span> <span class="dv">1</span>)</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>        <span class="co"># draw the histogram with the specified number of bins</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>        <span class="fu">hist</span>(x, <span class="at">breaks =</span> bins, <span class="at">col =</span> <span class="st">'darkgray'</span>, <span class="at">border =</span> <span class="st">'white'</span>,</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>             <span class="at">xlab =</span> <span class="st">'Waiting time to next eruption (in mins)'</span>,</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>             <span class="at">main =</span> <span class="st">'Histogram of waiting times'</span>)</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the application </span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="default_shiny.png" class="lightbox" data-glightbox="description: .lightbox-desc-1" data-gallery="quarto-lightbox-gallery-1" title="Default Shiny App"><img src="default_shiny.png" class="img-fluid figure-img" alt="Default Shiny App"></a></p>
+<figcaption>Default Shiny App</figcaption>
+</figure>
+</div>
+<p>
+We can see here that this app has an option in the UI for <em>sliderInput</em> where the user can control the number of bins in the histogram. As the user interacts with this widget, the number of bins on the histogram is changed by the server’s response and generation of output for this input.
+</p>
+<p>
+Next is an example of a dropdown menu (using the IRIS dataset: a popular example dataset about iris dimensions).
+</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Click to see dropdown examples</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">titlePanel</span>(<span class="st">"Iris"</span>),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sidebarLayout</span>(</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sidebarPanel</span>(</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">selectInput</span>(<span class="st">"x_var"</span>, <span class="st">"X-axis Variable"</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>, <span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span>)),</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">selectInput</span>(<span class="st">"y_var"</span>, <span class="st">"Y-axis Variable"</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>, <span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span>)),</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mainPanel</span>(</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">plotOutput</span>(<span class="st">"histogram"</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>histogram <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summary</span>(iris[[input<span class="sc">$</span>x_var]])</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scatter.smooth</span>(iris[[input<span class="sc">$</span>x_var]], <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"Scatterplot of"</span>, input<span class="sc">$</span>x_var))</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><img src="iris_dropdown.png" class="img-fluid" alt="Iris dropdown menus Shiny App">{.lightbox gallery = “iris”} <img src="dropdown.png" class="img-fluid" alt="Dropdown menu">{.lightbox gallery = “iris”}</p>
 </section>
 </section>
 <section id="shiny-app-results" class="level2">
@@ -192,14 +510,38 @@ There are many benefits to using Shiny to showcase data analyses and visualizati
 <li>visualizations</li>
 <li>leaflet maps of deployments</li>
 <li>leaflet maps of winter spots</li>
+<li>you can talk obout what is seen a bit, don’t have to go into detail about whether or not the data makes sense (just is it summarizing what we intend it to summarize, is it actually doing what I claim its doing. The experts actually analyze it.)</li>
 </ul>
+<p>
+The interactive Evening Grosbeak platform was made using Shiny. From the navigation bar, the user can choose from “<em>Deployments and Tracking</em>,” “<em>Winter Roosting</em>,” or “<em>About</em>.” Each navigation page includes multiple tabs for exploration.
+</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="deployments.png" class="lightbox" data-glightbox="description: .lightbox-desc-2" data-gallery="quarto-lightbox-gallery-2" title="Interactive Evening Grosbeak Platform"><img src="deployments.png" class="img-fluid figure-img" alt="Interactive Evening Grosbeak Platform"></a></p>
+<figcaption>Interactive Evening Grosbeak Platform</figcaption>
+</figure>
+</div>
+<section id="deployments-and-tracking" class="level3">
+<h3 class="anchored" data-anchor-id="deployments-and-tracking"><em>Deployments and Tracking</em></h3>
+<p>
+Upon launching the app, the user is met with the <em>Deployments and Tracking</em> page.
+</p>
+</section>
+<section id="winter-roosting" class="level3">
+<h3 class="anchored" data-anchor-id="winter-roosting"><em>Winter Roosting</em></h3>
+</section>
+<section id="about" class="level3">
+<h3 class="anchored" data-anchor-id="about"><em>About</em></h3>
+</section>
 </section>
 <section id="discussion" class="level2">
 <h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
 <ul>
+<li>obstacles</li>
 <li>future applications</li>
 <li>bio/data science student to build off of this starter app and analyze what is actually happening</li>
-<li>needs more data cleaning (birds in south america should not be showing up)</li>
+<li>needs more data cleaning (birds in south america should not be showing up) (find a map that shows bird in South America and say what you can learn from these shiny app results to further clean the data)</li>
+<li>summer spots</li>
 <li>more widgets for timelines (slider input to pick a time period to plot a bird)</li>
 </ul>
 </section>
@@ -211,10 +553,15 @@ There are many benefits to using Shiny to showcase data analyses and visualizati
 </section>
 <section id="acknowledgements" class="level2">
 <h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
+<p>I would like to thank Dr.&nbsp;Ivan Ramler for his support and guidance throughout this project. <br> I would also like to thank Dr.&nbsp;Susan Willson for the motivation behind this project.</p>
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
 <p><a href="">https://motus.org/about/</a> <a href="">https://www.mdpi.com/1424-2818/15/12/1202</a> <br> <a href="">https://www.allaboutbirds.org/guide/Evening_Grosbeak/id</a> <br> <a href="">https://motuswts.github.io/motus/index.html</a> <br></p>
+<div class="hidden" aria-hidden="true">
+<span class="glightbox-desc lightbox-desc-1">Default Shiny App</span>
+<span class="glightbox-desc lightbox-desc-2">Interactive Evening Grosbeak Platform</span>
+</div>
 </section>
 
 </main>
@@ -298,10 +645,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -311,8 +675,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -324,7 +697,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -368,6 +864,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -393,6 +890,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -453,6 +976,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","openEffect":"zoom","loop":false,"closeEffect":"zoom","descPosition":"bottom"});
+window.onload = () => {
+  lightboxQuarto.on('slide_before_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    const href = trigger.getAttribute('href');
+    if (href !== null) {
+      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+      if (imgEl !== null) {
+        const srcAttr = imgEl.getAttribute("src");
+        if (srcAttr && srcAttr.startsWith("data:")) {
+          slideConfig.href = srcAttr;
+        }
+      }
+    } 
+  });
+
+  lightboxQuarto.on('slide_after_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    if (window.Quarto?.typesetMath) {
+      window.Quarto.typesetMath(slideNode);
+    }
+  });
+
+};
+          </script>
+
 
 
 

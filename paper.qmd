@@ -4,6 +4,37 @@ author:
   - name: Grace Bridge
 ---
 
+```{r, echo = FALSE, include=FALSE}
+library(shiny)
+library(leaflet)
+library(dplyr)
+library(shinythemes)
+library(DT)
+library(bslib)
+library(lubridate)
+library(knitr)
+```
+
+
+```{r, echo = FALSE, include=FALSE}
+eg_df <- readRDS("df_eg.RDS")
+
+eg_df <- eg_df %>%
+  mutate(motusTagDepID = paste(motusTagID, tagDeployID, sep = "."))
+eg_df <- eg_df %>%
+  relocate(motusTagDepID, .after = motusTagID)
+```
+
+
+Methods
+- motus in R
+- Shiny (show default app, super simple examples of each thing (not using bird data)) (basically a Shiny tutorial)
+- leaflets (big tools that we will be using for this specific app)
+- (shiny live (you can start with static images))
+
+Results
+- code
+
 ## Abstract
 
 This project aims to analyze a large dataset on Evening Grosbeaks, a species within the finch family native to North America. The data comes from <em>Motus</em>, a network of radio receivers that are able to pick up transmissions from tagged birds. <em>Motus</em> has many large datasets of all types of bird species and through data cleaning in R, this project hones in on the data captured for Evening Grosbeaks. The main objective for this project was to develop a platform enabling users to observe and understand trends in their migration patterns. The R shiny app created for this showcases many features: an interactive map of deployment sites, individual bird tracking, group bird tracking (by winter roosting location and deployment location), all Evening Grosbeak data used, and all Evening Grosbeak data used from the Adirondack region. The app is available at: <a>https://stlawu.shinyapps.io/evening_grosbeak_tracker/</a>
@@ -12,27 +43,11 @@ This project aims to analyze a large dataset on Evening Grosbeaks, a species wit
 
 <p>Evening Grosbeaks are an endangered species with a rapidly declining population. It is important to visualize their migration and movement patterns to then be able to analyze what is leading to their extinction.</p>
 
+<!-- ![Evening Grosbeak image](eg_pic.jpeg){width = "100"} -->
+<!-- {.lightbox} -->
 <img src="eg_pic.jpeg" alt="Evening Grosbeak image" width="400"/>
 
 <p>The purpose of this project was to explore what tools from R Shiny can be used to for bird data visualizations and make raw data into an interactive, more accessible experience. The app provides users with a platform to interact with data, deployment sites, winter locations, individual trends, and group trends for the Evening Grosbeak.</p>
-
-## Background
-
--   Why are we looking at winter spots? What needs to be analyzed?
--   What are the possibilities of Shiny?
--   Write about R
-
-### R
-
-<p>R is an extremely popular language in the world of biodiversity conservation research for visualization and analyses. R is a cohesive set of software features and tools. It is also an open-source programming language. This means that it is free for use and collaboration. Anybody is able to create and add functions through writing packages to build upon existing operators and facilities for data, statistical analyses, visualizations, etc,. Work and research done in R is very often easily reproducible because R facilitates a space for creators to document their work cleanly and has a very readable structure. R files can be rendered in many ways (Word files, pdfs, webpages, etc.) to be shared and replicated.</p>
-
-### Motus in R
-
-<p><em>Motus</em> is a wildlife tracking system from <em>Birds Canada</em>. It is composed of a network of researchers around the world who are able to contribute to the radio telemetry system. By contributing (tagging birds and setting up radio receiver locations), more researchers are then able to access the growing database of bird tracking information. While one researcher could hypothetically set up their own, small telemetry network to track a local bird, <em>Motus</em> creates the opportunity to connect all of these local sites and broaden data and information exponentially. Collaboration for scientists and bird-watchers across the world has been made easy by <em>Motus</em>.</p>
-
-<p>For this application, access to a "project" was given by St. Lawrence biology professor, Dr. Susan Willson, who has a focus and interest in conservation of birds, namely the Evening Grosbeak. A "project" in <em>Motus</em> is an access point to the database with managed data access levels and users.</p>
-
-<p>One benefit of using <em>Motus</em> is its standardized data format across all projects. In addition to this, because of the large network of researchers, many analyses have been well documented and created already for <em>Motus</em> data usage. And so, the visualizations made and the data manipulation tools needed for this project were kick started by existing work with <em>Motus</em> in R.</p>
 
 ### Winter Spots and Breeding
 
@@ -44,22 +59,39 @@ This project aims to analyze a large dataset on Evening Grosbeaks, a species wit
 
 <p>In the winter, the Evening Grosbeak searches for food. The bird's type of migration is called a "winter finch irruption," that is taken by many seed-eating birds. During these "irruptions," these birds move south of their typical breeding grounds in to find sources of winter food.</p>
 
+### Motus
+<p><em>Motus</em> is a wildlife tracking system from <em>Birds Canada</em>. It is composed of a network of researchers around the world who are able to contribute to the radio telemetry system. By contributing (tagging birds and setting up radio receiver locations), more researchers are then able to access the growing database of bird tracking information. While one researcher could hypothetically set up their own, small telemetry network to track a local bird, <em>Motus</em> creates the opportunity to connect all of these local sites and broaden data and information exponentially. Collaboration for scientists and bird-watchers across the world has been made easy by <em>Motus</em>.</p>
+
+<p>For this application, access to a "project" was given by St. Lawrence biology professor, Dr. Susan Willson, who has a focus and interest in conservation of birds, namely the Evening Grosbeak. A "project" in <em>Motus</em> is an access point to the database with managed data access levels and users.</p>
+
 ## Methods
 
 -   Include code
 -   describe data wrangling and data cleaning (dplyr etc.)
 -   interpretations of the data - describe leaflet
 
-### Motus R Package
+### R
+
+<p>R is an extremely popular language in the world of biodiversity conservation research for visualization and analyses. R is a cohesive set of software features and tools. It is also an open-source programming language. This means that it is free for use and collaboration. Anybody is able to create and add functions through writing packages to build upon existing operators and facilities for data, statistical analyses, visualizations, etc,. Work and research done in R is very often easily reproducible because R facilitates a space for creators to document their work cleanly and has a very readable structure. R files can be rendered in many ways (Word files, pdfs, webpages, etc.) to be shared and replicated.</p>
+
+### Motus in R
+
+<p>One benefit of using <em>Motus</em> is its standardized data format across all projects. In addition to this, because of the large network of researchers, many analyses have been well documented and created already for <em>Motus</em> data usage. And so, the visualizations made and the data manipulation tools needed for this project were kick started by existing work with <em>Motus</em> in R.</p>
+
+#### Motus R Package
 
 <p><em>Birds Canada</em>, the creator of the radio telemetry network of <em>Motus</em>, has detailed documentation for an R package to use the <em>Motus</em> data. The website for this package gives extensive instruction on how to get started using the <em>Motus</em> database in R, how to access data, how to make sense of tag and receiver deployments, how to clean the data, and examples of how to explore the data.</p>
 
 <p>The following is the provided code to install the package.</p>
 
 ```{r, echo=TRUE, include=TRUE, error=FALSE, warning=FALSE, message=FALSE, results='hide'}
-install.packages(c("motus", "motusData"), 
-                 repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
-                           CRAN = 'https://cloud.r-project.org'))
+#| code-fold: show
+#| code-summary: "Click to show code"
+
+# Use these commented lines to install the packages
+# install.packages(c("motus", "motusData"), 
+#                  repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
+#                            CRAN = 'https://cloud.r-project.org'))
 
 # Load the packages for use
 library(motus)
@@ -68,8 +100,43 @@ library(motusData)
 
 <p>There are two types of detection databases that a user can access. One is a receiver database, comprised of every detection of registered tags at one receiver The second is a project database, comprised of every detection of specific or your registered tags across the entire <em>Motus</em> network. The latter was used for this project.</p>
 
--   downloading project data and then exporting detections (include data table of initial data file)
--   understanding the variables (descriptions of what they mean, say which ones are actually relevant to this project)
+<p> Once connected to the project, one can work with the data while connected to <em>motus</em>, but this will take lots of time and computer power. It is easier to download the data until the most recent detection, and then save as a .RDS file so that one can work faster with a local dataset as a flat dataframe. </p>
+
+<p>The data has many variables with explanations taken from <a>https://motuswts.github.io/motus/articles/03-accessing-data.html</a></p>
+
+<details>
+<summary><b>Variable Descriptions</b></summary>
+
+| Variable | Description |
+|----|----------------------------|
+| activity | data related to radio activity for each hour period (hourBin) at each antenna, including a count of the number of short runs used in helping identify false detections. |
+| admInfo | internal table used to keep track of your the motus package used to create your motus file, and the data version. |
+| antDeps | metadata related to antenna deployments, e.g., deployment height, angle, antenna type. |
+| batchRuns | metadata for runIDs and associated batchIDs |
+| batches | detection data for a given receiver and boot number. |
+| filters | metadata related to user created filters associated with the specified receiver. |
+| gps | metadata related to Geographic Positioning System (GPS) position of receiver. |
+| hits | detection data at the level of individual hits. |
+| meta | metadata related to the project and datatype (tags vs. receivers) that are included in the .motus file |
+| nodeData | data related to nodes by batchID and time (ts) |
+| nodeDeps | metadata related to nodes |
+| projAmbig | metadata related to what projects have ambiguous tag detections |
+| projs | metadata related to projects, e.g., project name, principal investigator. |
+| pulseCounts | number of radio pulses measured on each antenna over each hour period (hourBin). |
+| recvDeps | metadata related to receiver deployments, e.g., deployment date, location, receiver characteristics. |
+| recvs | metadata related to receiver serial number and associated Motus deviceID |
+| runs | detection data associated with a run (continuous detections of a unique tag on a given receiver). |
+| runsFilters | a list of runIDs associated with user created filters and assigned probabilities. |
+| species | metadata related to species, e.g., unique identifier, scientific name, common name. |
+| tagAmbig | metadata related to ambiguous tags, e.g., ambigID and associated motusTagID |
+| tagDeps | metadata related to tag deployments, e.g., deployment date, location, and species. |
+| tagProp | metadata related to custom deployment properties entered by the principal investigator (e.g. body weight). |
+| tags | metadata related to tags, e.g., unique identifier, tag characteristics (e.g., burst interval). |
+| allambigs | lists in long-data format each motusTagID (up to 6) associated with each negative ambigID. |
+| alltags | provides the full detection data for all tags, and all ambiguous (duplicate) tags, associated with your project. Ambiguous detections are repeated for each motusTagID represented by each ambigID. |
+| alltagsGPS | same as alltags but includes GPS latitude, longitude and altitude (much slower to load on large databases). |
+
+</details>
 
 ### Data Cleaning
 
@@ -77,15 +144,147 @@ library(motusData)
 -   getting to species
 -   getting unique bird IDs
 
-### Exploration of Data
+<p>Once the data from the .motus is made into a flat data frame, data can be cleaned. The first step was to trim the exhaustive project data down to just the Evening Grosbeak.</p>
 
--   initial plots and exploration
+```{r, echo=TRUE, include=TRUE, error=FALSE, warning=FALSE, message=FALSE, results='hide', eval = FALSE}
+#| code-fold: show
+#| code-summary: "Click to show code"
+
+# filter to only Evening Grosbeak 
+df <- tbl.alltags %>%
+  filter(speciesID == 20570) %>%   # Evening Grosbeak Species ID
+  collect() %>% 
+  as.data.frame() %>%    
+  mutate(time = as_datetime(ts)) 
+# This also changes ts to a date variable instead of numeric (how it was read in)
+```
+
+
+<p>From the data, it is also important to be able to grab a unique bird. A unique tag (either <em>motusTagID</em> or <em>tagDeployID</em>) is not quite capable of this. This is because, a unique <em>motusTagID</em> is not always a unique bird; occasionally a tag can be redeployed onto a different bird. Also a <em>tagDeployID</em> is not always unique when you are focusing on a specific deployment of a bird in your project. So, use a combination of these.</p>
+
+```{r, echo=TRUE, include=TRUE, error=FALSE, warning=FALSE, message=FALSE, results='hide', eval = FALSE}
+#| code-fold: show
+#| code-summary: "Click to show code"
+df <- df_alltags %>%
+  mutate(motusTagDepID = paste(motusTagID, tagDeployID, sep = "."))
+```
+
+<p>Here is how the new variable would look:</p>
+
+```{r, echo=FALSE}
+eg_df %>%
+  select(motusTagID, tagDeployID, motusTagDepID, recvDeployLat, recvDeployLon, ts) %>%
+  head() %>%
+  distinct(motusTagDepID, .keep_all = TRUE) %>%
+  kable()
+```
+
+<p>Now, we can grab the data for any single bird's deployment with <em>motusTagDepID</em>. </p>
 
 ### R Shiny
 
 <p>Shiny is an R package (extension to R, standardized tools with documentation that can be installed to your machine). Once installed, this package creates the opportunity for application construction. The code for these apps have three components, the UI (user-interface object), the server function, and a final call to the shinyApp function. The UI draws up the appearance of the app; what the user is seeing. The server function is responsible for the code that performs the outputs and their functionalities. And the final call to the shinyApp function will launch the app when the code is ran.</p>
 
-<p>There are many benefits to using Shiny to showcase data analyses and visualizations. To start, the interactive ability of a Shiny app can transform user accessibility to data. With these apps, there are many widgets that the creator can include in the UI (that then speak to the server output) that allows a user to choose what they are seeing from the data: slider inputs (for numerical input), text inputs, checkboxes, dropdown menus, file uploaders, etc. With this user power to choose outputs, Shiny apps can be reactive and responsive, updating the outputs of each page in real-time. Another benefit is ease fo deployment for Shiny apps. Instead of code files or papers showcasing research, Shiny apps can be deployed easily with URLS and showcase findings in a more fluid, interactive, and engaging way.</p>
+<p>There are many benefits to using Shiny to showcase data analyses and visualizations. To start, the interactive ability of a Shiny app can transform user accessibility to data. With these apps, there are many widgets that the creator can include in the UI (that then speak to the server output) that allows a user to choose what they are seeing from the data: slider inputs (for numerical input), text inputs, checkboxes, dropdown menus, file uploaders, etc. With this user power to choose outputs, Shiny apps can be reactive and responsive, updating the outputs of each page in real-time. Another benefit is ease of deployment for Shiny apps. Instead of code files or papers portraying research, Shiny apps can be deployed easily with URLS and showcase findings in a more fluid, interactive, and engaging way.</p>
+
+<p>The following is the starting structure for a  Shiny App in R:</p>
+
+```{r, eval=FALSE}
+#| code-fold: show
+#| code-summary: "Click to show Shiny App default code"
+
+#
+# This is a Shiny web application. You can run the application by clicking
+# the 'Run App' button above.
+#
+# Find out more about building applications with Shiny here:
+#
+#    http://shiny.rstudio.com/
+#
+
+library(shiny)
+
+# Define UI for application that draws a histogram
+ui <- fluidPage(
+
+    # Application title
+    titlePanel("Old Faithful Geyser Data"),
+
+    # Sidebar with a slider input for number of bins 
+    sidebarLayout(
+        sidebarPanel(
+            sliderInput("bins",
+                        "Number of bins:",
+                        min = 1,
+                        max = 50,
+                        value = 30)
+        ),
+
+        # Show a plot of the generated distribution
+        mainPanel(
+           plotOutput("distPlot")
+        )
+    )
+)
+
+# Define server logic required to draw a histogram
+server <- function(input, output) {
+
+    output$distPlot <- renderPlot({
+        # generate bins based on input$bins from ui.R
+        x    <- faithful[, 2]
+        bins <- seq(min(x), max(x), length.out = input$bins + 1)
+
+        # draw the histogram with the specified number of bins
+        hist(x, breaks = bins, col = 'darkgray', border = 'white',
+             xlab = 'Waiting time to next eruption (in mins)',
+             main = 'Histogram of waiting times')
+    })
+}
+
+# Run the application 
+shinyApp(ui = ui, server = server)
+```
+
+![Default Shiny App](default_shiny.png){.lightbox}
+
+<p> We can see here that this app has an option in the UI for <em>sliderInput</em> where the user can control the number of bins in the histogram. As the user interacts with this widget, the number of bins on the histogram is changed by the server's response and generation of output for this input.</p> 
+
+<p>Next is an example of a dropdown menu (using the IRIS dataset: a popular example dataset about iris dimensions).</p>
+
+```{r, eval=FALSE}
+#| code-fold: show
+#| code-summary: "Click to see dropdown examples"
+
+library(shiny)
+
+ui <- fluidPage(
+  titlePanel("Iris"),
+  sidebarLayout(
+    sidebarPanel(
+      selectInput("x_var", "X-axis Variable", choices = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width")),
+      selectInput("y_var", "Y-axis Variable", choices = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width")),
+    ),
+    mainPanel(
+      plotOutput("histogram")
+    )
+  )
+)
+
+server <- function(input, output) {
+  
+  output$histogram <- renderPlot({
+    summary(iris[[input$x_var]])
+    scatter.smooth(iris[[input$x_var]], main = paste("Scatterplot of", input$x_var))
+  })
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+![Iris dropdown menus Shiny App](iris_dropdown.png){.lightbox gallery = "iris"}
+![Dropdown menu](dropdown.png){.lightbox gallery = "iris"}
+
 
 ## Shiny App Results
 
@@ -93,12 +292,25 @@ library(motusData)
 -   visualizations
 -   leaflet maps of deployments
 -   leaflet maps of winter spots
+- you can talk obout what is seen a bit, don't have to go into detail about whether or not the data makes sense (just is it summarizing what we intend it to summarize, is it actually doing what I claim its doing. The experts actually analyze it.)
+
+<p>The interactive Evening Grosbeak platform was made using Shiny. From the navigation bar, the user can choose from "<em>Deployments and Tracking</em>," "<em>Winter Roosting</em>," or "<em>About</em>." Each navigation page includes multiple tabs for exploration.</p>
+
+![Interactive Evening Grosbeak Platform](deployments.png){.lightbox}
+
+### <em>Deployments and Tracking</em>
+<p>Upon launching the app, the user is met with the <em>Deployments and Tracking</em> page. </p>
+
+### <em>Winter Roosting</em>
+
+### <em>About</em>
 
 ## Discussion
-
+-  obstacles 
 -   future applications
 -   bio/data science student to build off of this starter app and analyze what is actually happening
--   needs more data cleaning (birds in south america should not be showing up)
+-   needs more data cleaning (birds in south america should not be showing up) (find a map that shows bird in South America and say what you can learn from these shiny app results to further clean the data)
+-   summer spots
 -   more widgets for timelines (slider input to pick a time period to plot a bird)
 
 ## Conclusion
@@ -106,6 +318,9 @@ library(motusData)
 -   what I have been able to learn and showcase through this project
 
 ## Acknowledgements
+
+I would like to thank Dr. Ivan Ramler for his support and guidance throughout this project. <br>
+I would also like to thank Dr. Susan Willson for the motivation behind this project.
 
 ## References
 

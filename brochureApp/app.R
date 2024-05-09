@@ -48,7 +48,7 @@ shinyApp(
       tags$body(HTML("<b>Interact with Evening Grosbeak data!</b>
                   <br><b>Deployments and Tracking:</b> Interact with a map that shows where each bird was deployed. Look into individual and group bird patterns.
                      <br><b>Winter Roosting:</b> Interact with a map that shows winter roosting locations for each bird. Follow the group patterns based on where they roost.
-                     <br><b>About:</b> Abstract, all evening grosbeak data, and adirondack data.")),
+                     <br><b>About:</b> Abstract, all evening grosbeak data, and Adirondack data.")),
       padding = 5
     ),
     nav_panel(title = "Deployments and Tracking",
