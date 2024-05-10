@@ -2,6 +2,7 @@
 title: Using Interactive Graphics to Visualize Evening Grosbeak Movement and Migration Patterns
 author:
   - name: Grace Bridge
+lightbox: true
 ---
 
 ```{r, echo = FALSE, include=FALSE}
@@ -56,10 +57,6 @@ This project aims to analyze a large dataset on Evening Grosbeaks, a species wit
 <p>For this application, access to a "project" was given by St. Lawrence biology professor, Dr. Susan Willson, who has a focus and interest in conservation of birds, namely the Evening Grosbeak. A "project" in <em>Motus</em> is an access point to the database with managed data access levels and users.</p>
 
 ## Methods
-
--   Include code
--   describe data wrangling and data cleaning (dplyr etc.)
--   interpretations of the data - describe leaflet
 
 ### R
 
@@ -131,10 +128,6 @@ library(motusData)
 
 ### Data Cleaning
 
--   initial cleaning
--   getting to species
--   getting unique bird IDs
-
 <p>Once the data from the .motus is made into a flat data frame, data can be cleaned. The first step was to trim the exhaustive project data down to just the Evening Grosbeak.</p>
 
 ```{r, echo=TRUE, include=TRUE, error=FALSE, warning=FALSE, message=FALSE, results='hide', eval = FALSE}
@@ -149,7 +142,6 @@ df <- tbl.alltags %>%
   mutate(time = as_datetime(ts)) 
 # This also changes ts to a date variable instead of numeric (how it was read in)
 ```
-
 
 <p>From the data, it is also important to be able to grab a unique bird. A unique tag (either <em>motusTagID</em> or <em>tagDeployID</em>) is not quite capable of this. This is because, a unique <em>motusTagID</em> is not always a unique bird; occasionally a tag can be redeployed onto a different bird. Also a <em>tagDeployID</em> is not always unique when you are focusing on a specific deployment of a bird in your project. So, use a combination of these.</p>
 
@@ -282,49 +274,44 @@ shinyApp(ui = ui, server = server)
 
 ## Shiny App Results
 
--   screenshots of app
--   visualizations
--   leaflet maps of deployments
--   leaflet maps of winter spots
-- you can talk obout what is seen a bit, don't have to go into detail about whether or not the data makes sense (just is it summarizing what we intend it to summarize, is it actually doing what I claim its doing. The experts actually analyze it.)
-
 <p>The interactive Evening Grosbeak platform was made using Shiny. From the navigation bar, the user can choose from "<em>Deployments and Tracking</em>," "<em>Winter Roosting</em>," or "<em>About</em>." Each navigation page includes multiple tabs for exploration.</p>
 
-![Interactive Evening Grosbeak Platform](deployments.png){.lightbox}
+![Interactive Evening Grosbeak Platform](deployments.png)
 
 ### <em>Deployments and Tracking</em>
 <p>Upon launching the app, the user is met with the <em>Deployments and Tracking</em> page. This page first includes the map of each bird's first deployment.The user can click through the map of different clusters until they find a specific bird at a deployment site that they want to look furhter into. Upon clicking on this circle marker, the app grabs the data for this bird and stores it to use in the next tab.</p>
 
-![Deployments map](output-onlinegiftools.gif){.lightbox}
+![Deployments map](output-onlinegiftools.gif)
 
 <p>The next tab is the <em>Chosen bird</em> tab. In the <em>Table</em> nested tab: first, we have a page that shows the immediate data for the bird that was chosen from its deployment, then we have a map of the locations where this bird has pinged a receiver. In the <em>Group</em> nested tab we have a similar map, but it shows the pings for each of the birds deployed from the same deployment site. The lines are weighted by the frequency of the amount of birds that travelled there.</p> 
 
-![Chosen bird map](chosenbird.png){.lightbox}
-![Chosen group map](chosengroup.png){.lightbox}
+![Chosen bird map](chosenbird.png)
+![Chosen group map](chosengroup.png)
 
 ### <em>Winter Roosting</em>
 <p>The next page is the <em>Winter Roosting</em> page. On the first tab of this page, <em>Map</em>, there is a leaflet map. The blue markers are of each winter location that birds have roosted. The circle and cluster markers are for the individual birds who spent the winter there. The user can choose which year of winter they want to look at (the months defined for winter roosting for this application are January, February, and December) and the default is all years. On the second tab of this page, <em>Roosting Group</em>, there is another leaflet map which tracks the birds from the same roosting location based on year and location. </p>
 
-![Winter roosting location map](wintermap.png){.lightbox}
-![Winter roosting group map](wintergroups.png){.lightbox}
+![Winter roosting location map](wintermap.png)
+![Winter roosting group map](wintergroups.png)
 
 ### <em>About</em>
 <p>The <em>About</em> includes page includes three tabs: <em>Abstract</em>, <em>Data</em>, and <em>Adirondack Deployments</em>. The <Abstract> tab simply includes the abstract for this project. The <em>Data</em> tab includes a data table for all of the Evening Grosbeak data used for these visualizations. The <em>Adirondack Deployments</em> tab includes a data table specifically for all of the Evening Grosbeak data from birds that were deployed from the Adirondack Region.</p>
 
+![Data table page](data.png)
+
 ## Discussion
--  obstacles 
--   future applications
--   bio/data science student to build off of this starter app and analyze what is actually happening
--   needs more data cleaning (birds in south america should not be showing up) (find a map that shows bird in South America and say what you can learn from these shiny app results to further clean the data)
--   summer spots
--   more widgets for timelines (slider input to pick a time period to plot a bird)
 
 ### Obstacles
 <p>Creating the Shiny App for this large dataset provided many hurdles with data manipulation and programming. One problem occurred with Shiny and reactive data. For the deployments page, the cluster/circle markers for each bird will only show up if this ta comes absolutely first in the app structure. This was a problem as we wanted to restructure the app and have the interactive deployments map later, but we had to leave it first to keep our data displayed. Another problem was also related to the reactive data on the deployments page: no other tab could have this type of reactive data that was observing events. On the deployments map, as a user clicks on a marker, the app observes this event and stores the data for the next tab. The original plan was to have a similar mechanism for the winter roosting locations map. But, when attempting to make observable clicks on this map, the deployments map data would disappear. The intended mecahnism for this was replaced in the winter groups map by adding a dropdown menu for location: not quite as fluid, but still makes it possible for a user to look through the routes of a specific wintering group. </p>
 
 ### Future and Improvements
+<p>A main goal of this project was to create a platform that can be expanded upon. This is a great base for a future student with the knowledge, background, and tools to improve on the features, create more visualizations, and analyze the patterns of the birds. Advanced versions of these visualizations in the hands of the right student researcher will be able to lead them to a conclusion about why the Evening Grosbeak population is declining so rapidly. </p>
 
-## Conclusion
+<p>Some suggestions for improvement on this app are the following. Upon further research of the Evening Grosbeak habitats, sift through the data and take out faulty data (such as the birds showing up in South America when they should not be). Use the plots provided to discover more data that may not be accurate. Also, add features to see the bird's routes over a specific timeline. This could be done with a sliderInput (over time) to pick a specific time period (possibly from winter roosting to breeding, or summer to summer). </p>
+
+![Bird 75503.45382](southamerica.png)
+
+## Conclusion 
 
 -   what I have been able to learn and showcase through this project
 
