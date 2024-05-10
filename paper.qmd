@@ -26,15 +26,6 @@ eg_df <- eg_df %>%
 ```
 
 
-Methods
-- motus in R
-- Shiny (show default app, super simple examples of each thing (not using bird data)) (basically a Shiny tutorial)
-- leaflets (big tools that we will be using for this specific app)
-- (shiny live (you can start with static images))
-
-Results
-- code
-
 ## Abstract
 
 This project aims to analyze a large dataset on Evening Grosbeaks, a species within the finch family native to North America. The data comes from <em>Motus</em>, a network of radio receivers that are able to pick up transmissions from tagged birds. <em>Motus</em> has many large datasets of all types of bird species and through data cleaning in R, this project hones in on the data captured for Evening Grosbeaks. The main objective for this project was to develop a platform enabling users to observe and understand trends in their migration patterns. The R shiny app created for this showcases many features: an interactive map of deployment sites, individual bird tracking, group bird tracking (by winter roosting location and deployment location), all Evening Grosbeak data used, and all Evening Grosbeak data used from the Adirondack region. The app is available at: <a>https://stlawu.shinyapps.io/evening_grosbeak_tracker/</a>
@@ -304,7 +295,7 @@ shinyApp(ui = ui, server = server)
 ### <em>Deployments and Tracking</em>
 <p>Upon launching the app, the user is met with the <em>Deployments and Tracking</em> page. This page first includes the map of each bird's first deployment.The user can click through the map of different clusters until they find a specific bird at a deployment site that they want to look furhter into. Upon clicking on this circle marker, the app grabs the data for this bird and stores it to use in the next tab.</p>
 
-![Deployments map](deploy.gif){.lightbox}
+![Deployments map](output-onlinegiftools.gif){.lightbox}
 
 <p>The next tab is the <em>Chosen bird</em> tab. In the <em>Table</em> nested tab: first, we have a page that shows the immediate data for the bird that was chosen from its deployment, then we have a map of the locations where this bird has pinged a receiver. In the <em>Group</em> nested tab we have a similar map, but it shows the pings for each of the birds deployed from the same deployment site. The lines are weighted by the frequency of the amount of birds that travelled there.</p> 
 
@@ -312,13 +303,13 @@ shinyApp(ui = ui, server = server)
 ![Chosen group map](chosengroup.png){.lightbox}
 
 ### <em>Winter Roosting</em>
-<p>The next page is the <em>Winter Roosting> page. On the first tab of this page, <em>Map</em>, there is a leaflet map. The blue markers are of each winter location that birds have roosted. The circle and cluster markers are for the individual birds who spent the winter there. The user can choose which year of winter they want to look at (the months defined for winter roosting for this application are January, February, and December) and the default is all years. On the second tab of this page, <em>Roosting Group</em>, there is another leaflet map which tracks the birds from the same roosting location based on year and location. </p>
+<p>The next page is the <em>Winter Roosting</em> page. On the first tab of this page, <em>Map</em>, there is a leaflet map. The blue markers are of each winter location that birds have roosted. The circle and cluster markers are for the individual birds who spent the winter there. The user can choose which year of winter they want to look at (the months defined for winter roosting for this application are January, February, and December) and the default is all years. On the second tab of this page, <em>Roosting Group</em>, there is another leaflet map which tracks the birds from the same roosting location based on year and location. </p>
 
 ![Winter roosting location map](wintermap.png){.lightbox}
 ![Winter roosting group map](wintergroups.png){.lightbox}
 
 ### <em>About</em>
-<p>The <em>About</em> includes page includes three tabs: <em>Abstract</em>, <em>Data</em>, and <em>Adirondack Deployments</em>. The <Abstract> tab simply includes the abstract for this project. The <em>Data</em> tab includes a data table for all of the Evening Grosbeak data used for these visualizations. The <em>Adirondack Deployments</em> tab includes a data table specfically for all of the Evening Grosbeak data from birds that were deployed from the Adirondack Region.</p>
+<p>The <em>About</em> includes page includes three tabs: <em>Abstract</em>, <em>Data</em>, and <em>Adirondack Deployments</em>. The <Abstract> tab simply includes the abstract for this project. The <em>Data</em> tab includes a data table for all of the Evening Grosbeak data used for these visualizations. The <em>Adirondack Deployments</em> tab includes a data table specifically for all of the Evening Grosbeak data from birds that were deployed from the Adirondack Region.</p>
 
 ## Discussion
 -  obstacles 
@@ -327,6 +318,11 @@ shinyApp(ui = ui, server = server)
 -   needs more data cleaning (birds in south america should not be showing up) (find a map that shows bird in South America and say what you can learn from these shiny app results to further clean the data)
 -   summer spots
 -   more widgets for timelines (slider input to pick a time period to plot a bird)
+
+### Obstacles
+<p>Creating the Shiny App for this large dataset provided many hurdles with data manipulation and programming. One problem occurred with Shiny and reactive data. For the deployments page, the cluster/circle markers for each bird will only show up if this ta comes absolutely first in the app structure. This was a problem as we wanted to restructure the app and have the interactive deployments map later, but we had to leave it first to keep our data displayed. Another problem was also related to the reactive data on the deployments page: no other tab could have this type of reactive data that was observing events. On the deployments map, as a user clicks on a marker, the app observes this event and stores the data for the next tab. The original plan was to have a similar mechanism for the winter roosting locations map. But, when attempting to make observable clicks on this map, the deployments map data would disappear. The intended mecahnism for this was replaced in the winter groups map by adding a dropdown menu for location: not quite as fluid, but still makes it possible for a user to look through the routes of a specific wintering group. </p>
+
+### Future and Improvements
 
 ## Conclusion
 
