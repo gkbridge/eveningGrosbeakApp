@@ -163,8 +163,6 @@ shinyApp(
     })
     
     output$Click_plot <- renderLeaflet({
-      # add pop ups for this table as well, work as well with being able to use reactive data here as well to limit time frame
-      
       click <- input$map_marker_click
       if (!is.null(click)){
         bird <- DATA[which(DATA$motusTagDepID == click$id), ]
@@ -258,8 +256,8 @@ shinyApp(
           addPolylines(data = bird_destination_freq,
                        lng = ~recvDeployLon,
                        lat = ~recvDeployLat,
-                       color = "blue", # want to color by bird
-                       weight = ~freq)
+                       color = "blue") #, # want to color by bird
+                       # weight = ~freq)
         
       }
     })
@@ -406,8 +404,9 @@ shinyApp(
         addPolylines(data = bird_destination_freq,
                      lng = ~recvDeployLon,
                      lat = ~recvDeployLat,
-                     color = "blue", # want to color by bird
+                     color = "blue", #, # want to color by bird
                      weight = ~freq)
+                     
       
       
       

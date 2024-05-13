@@ -47,7 +47,7 @@ This project aims to analyze a large dataset on Evening Grosbeaks, a species wit
 
 <img src="egmap.jpeg" alt="Evening Grosbeak range map" width="400"/>
 
-<p><small><em>Figure 1. Evening Grosbeak range map by American Bird Conservatory</em></small></p>
+<!--<p><small><em>Figure 1. Evening Grosbeak range map by American Bird Conservatory</em></small></p> -->
 
 <p>In the winter, the Evening Grosbeak searches for food. The bird's type of migration is called a "winter finch irruption," that is taken by many seed-eating birds. During these "irruptions," these birds move south of their typical breeding grounds in to find sources of winter food.</p>
 
@@ -229,7 +229,7 @@ server <- function(input, output) {
 shinyApp(ui = ui, server = server)
 ```
 
-![Default Shiny App](default_shiny.png){.lightbox}
+![Default Shiny App](default_shiny.png)
 
 <p> We can see here that this app has an option in the UI for <em>sliderInput</em> where the user can control the number of bins in the histogram. As the user interacts with this widget, the number of bins on the histogram is changed by the server's response and generation of output for this input.</p> 
 
@@ -265,33 +265,158 @@ server <- function(input, output) {
 shinyApp(ui = ui, server = server)
 ```
 
-![Iris dropdown menus Shiny App](iris_dropdown.png){.lightbox gallery = "iris"}
-![Dropdown menu](dropdown.png){.lightbox gallery = "iris"}
+![Iris dropdown menus Shiny App](iris_dropdown.png)
+![Dropdown menu](dropdown.png)
 
 ### Leaflet
 
+<em>Leaflet</em> is another package for data visualizations in R. It comes from a JavaScript library for interactive maps. With this package, one can customize maps with different markers, shadings, pop-ups, lines, and more. This is a very popular tool that pairs well with the R software for exploring spatial data.
+
+Below is a basic example of creating a leaflet map.
+
+```{r, echo=TRUE, include=TRUE, error=FALSE, warning=FALSE, message=FALSE, eval = TRUE}
+#| code-fold: show
+#| code-summary: "Click to show leaflet code"
+library(leaflet)
+
+map <- leaflet() %>%
+  setView(lat = 44.5956, lng = -75.1691, zoom = 13) %>%  # Setting initial view to London
+  addTiles()  # Add default OpenStreetMap tiles
+
+map
+```
 
 
 ## Shiny App Results
 
-<p>The interactive Evening Grosbeak platform was made using Shiny. From the navigation bar, the user can choose from "<em>Deployments and Tracking</em>," "<em>Winter Roosting</em>," or "<em>About</em>." Each navigation page includes multiple tabs for exploration.</p>
+<p>The interactive Evening Grosbeak platform was made using Shiny in R. From the navigation bar, the user can choose from "<em>Deployments and Tracking</em>," "<em>Winter Roosting</em>," or "<em>About</em>." Each navigation page includes multiple tabs for exploration.</p>
 
 ![Interactive Evening Grosbeak Platform](deployments.png)
 
 ### <em>Deployments and Tracking</em>
-<p>Upon launching the app, the user is met with the <em>Deployments and Tracking</em> page. This page first includes the map of each bird's first deployment.The user can click through the map of different clusters until they find a specific bird at a deployment site that they want to look furhter into. Upon clicking on this circle marker, the app grabs the data for this bird and stores it to use in the next tab.</p>
+<p>Upon launching the app, the user is met with the <em>Deployments and Tracking</em> page. This page first includes the leaflet map of each bird's first deployment.The user can click through the map of different clusters until they find a specific bird at a deployment site that they want to look furhter into. Upon clicking on this circle marker, the app grabs the data for this bird and stores it to use in the next tab.</p>
 
 ![Deployments map](output-onlinegiftools.gif)
+
+```{r, eval = FALSE}
+#| code-fold: show
+#| code-summary: "Click to see output code for this map"
+output$map <- renderLeaflet({
+      leaflet() %>%
+        addProviderTiles(providers$CartoDB.PositronNoLabels) %>% 
+        setView(lat = 15, lng = 0, zoom = 1.5)
+    })
+    
+# Render circle markers
+observe({ 
+  map <- leafletProxy("map", data = mapDATA())
+  map %>% clearMarkers()
+  if (!is.null(mapDATA())) {
+    map %>% 
+      addCircleMarkers(lat = ~tagDepLat, 
+                       lng = ~tagDepLon, 
+                       layerId = ~motusTagDepID, 
+                       clusterOptions =  markerClusterOptions()
+      )
+  }
+})
+
+# Show popup on click
+observeEvent(input$map_marker_click, {
+  click <- input$map_marker_click
+  text<-paste("ID", click$id, "<br>Lattitude ", round(click$lat, 2), "<br>Longtitude ", round(click$lng,2))
+  
+  map <- leafletProxy("map")
+  map %>% clearPopups() %>%
+    addPopups(click$lng, click$lat, text)
+})
+```
+
+
 
 <p>The next tab is the <em>Chosen bird</em> tab. In the <em>Table</em> nested tab: first, we have a page that shows the immediate data for the bird that was chosen from its deployment, then we have a map of the locations where this bird has pinged a receiver. In the <em>Group</em> nested tab we have a similar map, but it shows the pings for each of the birds deployed from the same deployment site. The lines are weighted by the frequency of the amount of birds that travelled there.</p> 
 
 ![Chosen bird map](chosenbird.png)
+
+```{r, eval=FALSE}
+#| code-fold: show
+#| code-summary: "Click to show code for the chosen bird output"
+
+output$Click_plot <- renderLeaflet({
+  click <- input$map_marker_click
+  if (!is.null(click)){
+    bird <- DATA[which(DATA$motusTagDepID == click$id), ]
+    
+    # Go through full data set now to check for this bird with matching id
+    one_bird <- eg_df %>%
+      filter(eg_df$motusTagDepID == bird$motusTagDepID)
+    
+    # sort one_bird by timestamp to ensure you are getting very first pinpoint
+    one_bird <- one_bird %>%
+      arrange(tsCorrected)
+    firstDep <- one_bird %>%
+      slice(1)
+    
+    # firstDep uses deployment coordinates to mark
+    # one_bird uses receiver coordinates to mark
+    one_bird <- one_bird[-1, ] # take out deployment site (initial point and point of firstDep)
+    # # rename lat and long for each data set
+    firstDep <- firstDep %>%
+      rename(
+        lat = tagDepLat,
+        lon = tagDepLon,
+      )
+    one_bird <- one_bird %>%
+      rename(
+        lat = recvDeployLat,
+        lon = recvDeployLon
+      )
+    # join the data sets (vertically) (first row should be deploymnent site)
+    # make copies of datasets with desired data
+    firstDepCopy <- firstDep %>%
+      select(motusTagDepID, lat, lon, tsCorrected, ts)
+    one_birdCopy <- one_bird %>%
+      select(motusTagDepID, lat, lon, tsCorrected, ts)
+    full_bird <- bind_rows(firstDepCopy, one_birdCopy)
+    
+    new_full_bird <- full_bird %>%
+      group_by(lat, lon) %>%
+      slice(1)
+    
+    popupInfo = paste("Lat = ", new_full_bird$lat, ", Lon = ", new_full_bird$lon)
+    
+    
+    leaflet() %>%
+      addProviderTiles(providers$CartoDB.PositronNoLabels) %>%
+      setView(lat = 15, lng = 0, zoom = 1.5) %>%
+      addAwesomeMarkers(data = firstDep,
+                        lng = ~lon,
+                        lat = ~lat) %>%
+      addCircleMarkers(data = new_full_bird,
+                       lng = ~lon,
+                       lat = ~lat,
+                       color = "red",
+                       popup = popupInfo,
+                       clusterOptions = markerClusterOptions()) %>%
+      addPolylines(data = new_full_bird,
+                   lng = ~lon,
+                   lat = ~lat,
+                   color ="blue",
+                   weight = 1)
+    
+  }
+})
+
+```
+
+
 ![Chosen group map](chosengroup.png)
 
 ### <em>Winter Roosting</em>
 <p>The next page is the <em>Winter Roosting</em> page. On the first tab of this page, <em>Map</em>, there is a leaflet map. The blue markers are of each winter location that birds have roosted. The circle and cluster markers are for the individual birds who spent the winter there. The user can choose which year of winter they want to look at (the months defined for winter roosting for this application are January, February, and December) and the default is all years. On the second tab of this page, <em>Roosting Group</em>, there is another leaflet map which tracks the birds from the same roosting location based on year and location. </p>
 
 ![Winter roosting location map](wintermap.png)
+
 ![Winter roosting group map](wintergroups.png)
 
 ### <em>About</em>
@@ -313,7 +438,7 @@ shinyApp(ui = ui, server = server)
 
 ## Conclusion 
 
--   what I have been able to learn and showcase through this project
+Creating this interactive platform has transformed my data science knowledge and has blended together many of the coursework topics I have spent years learning. I have been able to expand on my previous knowledge of data cleaning and manipulation when working with this spatial data, which is not a type of data I have gotten the chance to work with before. Working with leaflet has broadened my understanding on the possibilities of data visualizations within R. Working with a large dataset effectively has brought me many tools that will be necessary for working with impactful data and making it accessible to others.
 
 ## Acknowledgements
 
@@ -322,4 +447,5 @@ I would also like to thank Dr. Susan Willson for the motivation behind this proj
 
 ## References
 
-<a>https://motus.org/about/</a> <a>https://www.mdpi.com/1424-2818/15/12/1202</a> <br> <a>https://www.allaboutbirds.org/guide/Evening_Grosbeak/id</a> <br> <a>https://motuswts.github.io/motus/index.html</a> <br>
+<a>https://motus.org/about/</a> <a>https://www.mdpi.com/1424-2818/15/12/1202</a> <br> <a>https://www.allaboutbirds.org/guide/Evening_Grosbeak/id</a> <br> 
+<a>https://motuswts.github.io/motus/index.html</a> <br>
