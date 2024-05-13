@@ -124,9 +124,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>
 Evening Grosbeaks are an endangered species with a rapidly declining population. It is important to visualize their migration and movement patterns to then be able to analyze what is leading to their extinction.
 </p>
-<!-- ![Evening Grosbeak image](eg_pic.jpeg){width = "100"} -->
-<!-- {.lightbox} -->
-<p><img src="eg_pic.jpeg" alt="Evening Grosbeak image" width="400"></p>
+<p><img src="eg_pic.jpeg" class="img-fluid" alt="Evening Grosbeak image">{width = “50”} <!-- {.lightbox} --> <!-- <img src="eg_pic.jpeg" alt="Evening Grosbeak image" width="400"/> --></p>
 <p>
 The purpose of this project was to explore what tools from R Shiny can be used to for bird data visualizations and make raw data into an interactive, more accessible experience. The app provides users with a platform to interact with data, deployment sites, winter locations, individual trends, and group trends for the Evening Grosbeak.
 </p>
@@ -136,20 +134,18 @@ The purpose of this project was to explore what tools from R Shiny can be used t
 For the Evening Grosbeak, it is important to look into their seasonal whereabouts. This may be a large aide in determining what is the cause of the rapidly declining population. This species is a very social species, who typically travel and roost in groups, especially in the winter.
 </p>
 <p><img src="egmap.jpeg" alt="Evening Grosbeak range map" width="400"></p>
+<!--<p><small><em>Figure 1. Evening Grosbeak range map by American Bird Conservatory</em></small></p> -->
 <p>
-<small><em>Figure 1. Evening Grosbeak range map by American Bird Conservatory</em></small>
-</p>
-<p>
-In the winter, the Evening Grosbeak searches for food. The bird’s type of migration is called a “winter finch irruption,” that is taken by many seed-eating birds. During these “irruptions,” these birds move south of their typical breeding grounds in to find sources of winter food.
+In the winter, the Evening Grosbeak searches for food. The bird’s type of migration is called a “winter finch irruption,” that is taken by many seed-eating birds. During these “irruptions,” these birds move south of their typical breeding grounds in to find sources of winter food (“Evening Grosbeak”).
 </p>
 </section>
 <section id="motus" class="level3">
 <h3 class="anchored" data-anchor-id="motus">Motus</h3>
 <p>
-<em>Motus</em> is a wildlife tracking system from <em>Birds Canada</em>. It is composed of a network of researchers around the world who are able to contribute to the radio telemetry system. By contributing (tagging birds and setting up radio receiver locations), more researchers are then able to access the growing database of bird tracking information. While one researcher could hypothetically set up their own, small telemetry network to track a local bird, <em>Motus</em> creates the opportunity to connect all of these local sites and broaden data and information exponentially. Collaboration for scientists and bird-watchers across the world has been made easy by <em>Motus</em>.
+<em>Motus</em> is a wildlife tracking system from <em>Birds Canada</em>. It is composed of a network of researchers around the world who are able to contribute to the radio telemetry system. By contributing (tagging birds and setting up radio receiver locations), more researchers are then able to access the growing database of bird tracking information (“About Motus”). While one researcher could hypothetically set up their own, small telemetry network to track a local bird, <em>Motus</em> creates the opportunity to connect all of these local sites and broaden data and information exponentially. Collaboration for scientists and bird-watchers across the world has been made easy by <em>Motus</em>.
 </p>
 <p>
-For this application, access to a “project” was given by St.&nbsp;Lawrence biology professor, Dr.&nbsp;Susan Willson, who has a focus and interest in conservation of birds, namely the Evening Grosbeak. A “project” in <em>Motus</em> is an access point to the database with managed data access levels and users.
+For this application, access to a “project” was given by St.&nbsp;Lawrence biology professor, Dr.&nbsp;Susan Willson, who has a focus and interest in conservation of birds, namely the Evening Grosbeak. A “project” in <em>Motus</em> is an access point to the database with managed data access levels and users (“Motus”).
 </p>
 </section>
 </section>
@@ -158,7 +154,7 @@ For this application, access to a “project” was given by St.&nbsp;Lawrence b
 <section id="r" class="level3">
 <h3 class="anchored" data-anchor-id="r">R</h3>
 <p>
-R is an extremely popular language in the world of biodiversity conservation research for visualization and analyses. R is a cohesive set of software features and tools. It is also an open-source programming language. This means that it is free for use and collaboration. Anybody is able to create and add functions through writing packages to build upon existing operators and facilities for data, statistical analyses, visualizations, etc,. Work and research done in R is very often easily reproducible because R facilitates a space for creators to document their work cleanly and has a very readable structure. R files can be rendered in many ways (Word files, pdfs, webpages, etc.) to be shared and replicated.
+R is an extremely popular language in the world of biodiversity conservation research for visualization and analyses. R is a cohesive set of software features and tools. It is also an open-source programming language. This means that it is free for use and collaboration. Anybody is able to create and add functions through writing packages to build upon existing operators and facilities for data, statistical analyses, visualizations, etc,. Work and research done in R is very often easily reproducible because R facilitates a space for creators to document their work cleanly and has a very readable structure. R files can be rendered in many ways (Word files, pdfs, webpages, etc.) to be shared and replicated (“What is R?”).
 </p>
 </section>
 <section id="motus-in-r" class="level3">
@@ -169,7 +165,7 @@ One benefit of using <em>Motus</em> is its standardized data format across all p
 <section id="motus-r-package" class="level4">
 <h4 class="anchored" data-anchor-id="motus-r-package">Motus R Package</h4>
 <p>
-<em>Birds Canada</em>, the creator of the radio telemetry network of <em>Motus</em>, has detailed documentation for an R package to use the <em>Motus</em> data. The website for this package gives extensive instruction on how to get started using the <em>Motus</em> database in R, how to access data, how to make sense of tag and receiver deployments, how to clean the data, and examples of how to explore the data.
+<em>Birds Canada</em>, the creator of the radio telemetry network of <em>Motus</em>, has detailed documentation for an R package to use the <em>Motus</em> data. The website for this package gives extensive instruction on how to get started using the <em>Motus</em> database in R, how to access data, how to make sense of tag and receiver deployments, how to clean the data, and examples of how to explore the data (“Motus”).
 </p>
 <p>
 The following is the provided code to install the package.
@@ -339,7 +335,7 @@ Once the data from the .motus is made into a flat data frame, data can be cleane
 </details>
 </div>
 <p>
-From the data, it is also important to be able to grab a unique bird. A unique tag (either <em>motusTagID</em> or <em>tagDeployID</em>) is not quite capable of this. This is because, a unique <em>motusTagID</em> is not always a unique bird; occasionally a tag can be redeployed onto a different bird. Also a <em>tagDeployID</em> is not always unique when you are focusing on a specific deployment of a bird in your project. So, use a combination of these.
+From the data, it is also important to be able to grab a unique bird. A unique tag (either <em>motusTagID</em> or <em>tagDeployID</em>) is not quite capable of this. This is because, a unique <em>motusTagID</em> is not always a unique bird; occasionally a tag can be redeployed onto a different bird. Also a <em>tagDeployID</em> is not always unique when you are focusing on a specific deployment of a bird in your project. So, use a combination of these (“Motus”).
 </p>
 <div class="cell">
 <details open="" class="code-fold">
@@ -392,10 +388,10 @@ Now, we can grab the data for any single bird’s deployment with <em>motusTagDe
 <section id="r-shiny" class="level3">
 <h3 class="anchored" data-anchor-id="r-shiny">R Shiny</h3>
 <p>
-Shiny is an R package (extension to R, standardized tools with documentation that can be installed to your machine). Once installed, this package creates the opportunity for application construction. The code for these apps have three components, the UI (user-interface object), the server function, and a final call to the shinyApp function. The UI draws up the appearance of the app; what the user is seeing. The server function is responsible for the code that performs the outputs and their functionalities. And the final call to the shinyApp function will launch the app when the code is ran.
+Shiny is an R package (extension to R, standardized tools with documentation that can be installed to your machine). Once installed, this package creates the opportunity for application construction. The code for these apps have three components, the UI (user-interface object), the server function, and a final call to the shinyApp function. The UI draws up the appearance of the app; what the user is seeing. The server function is responsible for the code that performs the outputs and their functionalities. And the final call to the shinyApp function will launch the app when the code is ran (“Welcome to Shiny”).
 </p>
 <p>
-There are many benefits to using Shiny to showcase data analyses and visualizations. To start, the interactive ability of a Shiny app can transform user accessibility to data. With these apps, there are many widgets that the creator can include in the UI (that then speak to the server output) that allows a user to choose what they are seeing from the data: slider inputs (for numerical input), text inputs, checkboxes, dropdown menus, file uploaders, etc. With this user power to choose outputs, Shiny apps can be reactive and responsive, updating the outputs of each page in real-time. Another benefit is ease of deployment for Shiny apps. Instead of code files or papers portraying research, Shiny apps can be deployed easily with URLS and showcase findings in a more fluid, interactive, and engaging way.
+There are many benefits to using Shiny to showcase data analyses and visualizations. To start, the interactive ability of a Shiny app can transform user accessibility to data. With these apps, there are many widgets that the creator can include in the UI (that then speak to the server output) that allows a user to choose what they are seeing from the data: slider inputs (for numerical input), text inputs, checkboxes, dropdown menus, file uploaders, etc. With this user power to choose outputs, Shiny apps can be reactive and responsive, updating the outputs of each page in real-time. Another benefit is ease of deployment for Shiny apps. Instead of code files or papers portraying research, Shiny apps can be deployed easily with URLS and showcase findings in a more fluid, interactive, and engaging way (“Welcome to Shiny”).
 </p>
 <p>
 The following is the starting structure for a Shiny App in R:
@@ -497,26 +493,30 @@ Next is an example of a dropdown menu (using the IRIS dataset: a popular example
 <span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p><img src="iris_dropdown.png" class="img-fluid" alt="Iris dropdown menus Shiny App">{.lightbox gallery = “iris”} <img src="dropdown.png" class="img-fluid" alt="Dropdown menu">{.lightbox gallery = “iris”}</p>
+<p><img src="iris_dropdown.png" class="img-fluid" alt="Iris dropdown menus Shiny App"> <img src="dropdown.png" class="img-fluid" alt="Dropdown menu"></p>
 </section>
 <section id="leaflet" class="level3">
 <h3 class="anchored" data-anchor-id="leaflet">Leaflet</h3>
-<p><em>Leaflet</em> is another package for data visualizations in R. It comes from a JavaScript library for interactive maps. With this package, one can customize maps with different markers, shadings, pop-ups, lines, and more. This is a very popular tool that pairs well with the R software for exploring spatial data.</p>
-<p>Below is a basic example of creating a leaflet map.</p>
+<p>
+<em>Leaflet</em> is another package for data visualizations in R. It comes from a JavaScript library for interactive maps. With this package, one can customize maps with different markers, shadings, pop-ups, lines, and more. This is a very popular tool that pairs well with the R software for exploring spatial data (“An R Interface to Leaflet”).
+</p>
+<p>
+Below is a basic example of creating a leaflet map.
+</p>
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Click to show leaflet code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>map <span class="ot">&lt;-</span> <span class="fu">leaflet</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setView</span>(<span class="at">lat =</span> <span class="fl">44.5956</span>, <span class="at">lng =</span> <span class="sc">-</span><span class="fl">75.1691</span>, <span class="at">zoom =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span>  <span class="co"># Setting initial view to London</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setView</span>(<span class="at">lat =</span> <span class="fl">44.5956</span>, <span class="at">lng =</span> <span class="sc">-</span><span class="fl">75.1691</span>, <span class="at">zoom =</span> <span class="dv">13</span>) <span class="sc">%&gt;%</span>  <span class="co"># Setting initial view to London</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addTiles</span>()  <span class="co"># Add default OpenStreetMap tiles</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>map</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="leaflet html-widget html-fill-item" id="htmlwidget-eb020c5a611c96316952" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-eb020c5a611c96316952">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"setView":[[44.5956,-75.1691],10,[]],"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]}]},"evals":[],"jsHooks":[]}</script>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-cb4ec262332b36f6b340" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-cb4ec262332b36f6b340">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"setView":[[44.5956,-75.1691],13,[]],"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]}]},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -535,7 +535,7 @@ The interactive Evening Grosbeak platform was made using Shiny in R. From the na
 <section id="deployments-and-tracking" class="level3">
 <h3 class="anchored" data-anchor-id="deployments-and-tracking"><em>Deployments and Tracking</em></h3>
 <p>
-Upon launching the app, the user is met with the <em>Deployments and Tracking</em> page. This page first includes the leaflet map of each bird’s first deployment.The user can click through the map of different clusters until they find a specific bird at a deployment site that they want to look furhter into. Upon clicking on this circle marker, the app grabs the data for this bird and stores it to use in the next tab.
+Upon launching the app, the user is met with the <em>Deployments and Tracking</em> page. This page first includes the leaflet map of each bird’s first deployment.The user can click through the map of different clusters until they find a specific bird at a deployment site that they want to look further into. Upon clicking on this circle marker, the app grabs the data for this bird and stores it to use in the next tab.
 </p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -543,17 +543,142 @@ Upon launching the app, the user is met with the <em>Deployments and Tracking</e
 <figcaption>Deployments map</figcaption>
 </figure>
 </div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Click to see output code for this map</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>map <span class="ot">&lt;-</span> <span class="fu">renderLeaflet</span>({</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">leaflet</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>CartoDB.PositronNoLabels) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">setView</span>(<span class="at">lat =</span> <span class="dv">15</span>, <span class="at">lng =</span> <span class="dv">0</span>, <span class="at">zoom =</span> <span class="fl">1.5</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Render circle markers</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">observe</span>({ </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  map <span class="ot">&lt;-</span> <span class="fu">leafletProxy</span>(<span class="st">"map"</span>, <span class="at">data =</span> <span class="fu">mapDATA</span>())</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  map <span class="sc">%&gt;%</span> <span class="fu">clearMarkers</span>()</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(<span class="fu">mapDATA</span>())) {</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    map <span class="sc">%&gt;%</span> </span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">addCircleMarkers</span>(<span class="at">lat =</span> <span class="sc">~</span>tagDepLat, </span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>                       <span class="at">lng =</span> <span class="sc">~</span>tagDepLon, </span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>                       <span class="at">layerId =</span> <span class="sc">~</span>motusTagDepID, </span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>                       <span class="at">clusterOptions =</span>  <span class="fu">markerClusterOptions</span>()</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Show popup on click</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="fu">observeEvent</span>(input<span class="sc">$</span>map_marker_click, {</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  click <span class="ot">&lt;-</span> input<span class="sc">$</span>map_marker_click</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  text<span class="ot">&lt;-</span><span class="fu">paste</span>(<span class="st">"ID"</span>, click<span class="sc">$</span>id, <span class="st">"&lt;br&gt;Lattitude "</span>, <span class="fu">round</span>(click<span class="sc">$</span>lat, <span class="dv">2</span>), <span class="st">"&lt;br&gt;Longtitude "</span>, <span class="fu">round</span>(click<span class="sc">$</span>lng,<span class="dv">2</span>))</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  map <span class="ot">&lt;-</span> <span class="fu">leafletProxy</span>(<span class="st">"map"</span>)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  map <span class="sc">%&gt;%</span> <span class="fu">clearPopups</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addPopups</span>(click<span class="sc">$</span>lng, click<span class="sc">$</span>lat, text)</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 <p>
-The next tab is the <em>Chosen bird</em> tab. In the <em>Table</em> nested tab: first, we have a page that shows the immediate data for the bird that was chosen from its deployment, then we have a map of the locations where this bird has pinged a receiver. In the <em>Group</em> nested tab we have a similar map, but it shows the pings for each of the birds deployed from the same deployment site. The lines are weighted by the frequency of the amount of birds that travelled there.
+The next tab is the <em>Chosen bird</em> tab. In the <em>Table</em> nested tab: first, we have a page that shows the immediate data for the bird that was chosen from its deployment, then we have a map of the locations where this bird has pinged a receiver. In the <em>Group</em> nested tab we have a similar map, but it shows the pings for each of the birds deployed from the same deployment site. The lines are weighted by the frequency of the amount of birds that traveled there.
 </p>
-<p><img src="chosenbird.png" class="img-fluid" alt="Chosen bird map">{width = 50%} <img src="chosengroup.png" class="img-fluid" alt="Chosen group map"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="chosenbird.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" data-glightbox="description: .lightbox-desc-4" title="Chosen bird map"><img src="chosenbird.png" class="img-fluid figure-img" alt="Chosen bird map"></a></p>
+<figcaption>Chosen bird map</figcaption>
+</figure>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Click to show code for the chosen bird output</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>Click_plot <span class="ot">&lt;-</span> <span class="fu">renderLeaflet</span>({</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  click <span class="ot">&lt;-</span> input<span class="sc">$</span>map_marker_click</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(click)){</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    bird <span class="ot">&lt;-</span> DATA[<span class="fu">which</span>(DATA<span class="sc">$</span>motusTagDepID <span class="sc">==</span> click<span class="sc">$</span>id), ]</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Go through full data set now to check for this bird with matching id</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    one_bird <span class="ot">&lt;-</span> eg_df <span class="sc">%&gt;%</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(eg_df<span class="sc">$</span>motusTagDepID <span class="sc">==</span> bird<span class="sc">$</span>motusTagDepID)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># sort one_bird by timestamp to ensure you are getting very first pinpoint</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    one_bird <span class="ot">&lt;-</span> one_bird <span class="sc">%&gt;%</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(tsCorrected)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    firstDep <span class="ot">&lt;-</span> one_bird <span class="sc">%&gt;%</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">slice</span>(<span class="dv">1</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># firstDep uses deployment coordinates to mark</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># one_bird uses receiver coordinates to mark</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    one_bird <span class="ot">&lt;-</span> one_bird[<span class="sc">-</span><span class="dv">1</span>, ] <span class="co"># take out deployment site (initial point and point of firstDep)</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># # rename lat and long for each data set</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    firstDep <span class="ot">&lt;-</span> firstDep <span class="sc">%&gt;%</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>      <span class="fu">rename</span>(</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">lat =</span> tagDepLat,</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>        <span class="at">lon =</span> tagDepLon,</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    one_bird <span class="ot">&lt;-</span> one_bird <span class="sc">%&gt;%</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>      <span class="fu">rename</span>(</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">lat =</span> recvDeployLat,</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>        <span class="at">lon =</span> recvDeployLon</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># join the data sets (vertically) (first row should be deploymnent site)</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># make copies of datasets with desired data</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>    firstDepCopy <span class="ot">&lt;-</span> firstDep <span class="sc">%&gt;%</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(motusTagDepID, lat, lon, tsCorrected, ts)</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>    one_birdCopy <span class="ot">&lt;-</span> one_bird <span class="sc">%&gt;%</span></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(motusTagDepID, lat, lon, tsCorrected, ts)</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>    full_bird <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(firstDepCopy, one_birdCopy)</span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>    new_full_bird <span class="ot">&lt;-</span> full_bird <span class="sc">%&gt;%</span></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(lat, lon) <span class="sc">%&gt;%</span></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>      <span class="fu">slice</span>(<span class="dv">1</span>)</span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>    popupInfo <span class="ot">=</span> <span class="fu">paste</span>(<span class="st">"Lat = "</span>, new_full_bird<span class="sc">$</span>lat, <span class="st">", Lon = "</span>, new_full_bird<span class="sc">$</span>lon)</span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>    <span class="fu">leaflet</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>      <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>CartoDB.PositronNoLabels) <span class="sc">%&gt;%</span></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>      <span class="fu">setView</span>(<span class="at">lat =</span> <span class="dv">15</span>, <span class="at">lng =</span> <span class="dv">0</span>, <span class="at">zoom =</span> <span class="fl">1.5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>      <span class="fu">addAwesomeMarkers</span>(<span class="at">data =</span> firstDep,</span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>                        <span class="at">lng =</span> <span class="sc">~</span>lon,</span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>                        <span class="at">lat =</span> <span class="sc">~</span>lat) <span class="sc">%&gt;%</span></span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>      <span class="fu">addCircleMarkers</span>(<span class="at">data =</span> new_full_bird,</span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>                       <span class="at">lng =</span> <span class="sc">~</span>lon,</span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a>                       <span class="at">lat =</span> <span class="sc">~</span>lat,</span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a>                       <span class="at">color =</span> <span class="st">"red"</span>,</span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a>                       <span class="at">popup =</span> popupInfo,</span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a>                       <span class="at">clusterOptions =</span> <span class="fu">markerClusterOptions</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a>      <span class="fu">addPolylines</span>(<span class="at">data =</span> new_full_bird,</span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a>                   <span class="at">lng =</span> <span class="sc">~</span>lon,</span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a>                   <span class="at">lat =</span> <span class="sc">~</span>lat,</span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a>                   <span class="at">color =</span><span class="st">"blue"</span>,</span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a>                   <span class="at">weight =</span> <span class="dv">1</span>)</span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="chosengroup.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" data-glightbox="description: .lightbox-desc-5" title="Chosen group map"><img src="chosengroup.png" class="img-fluid figure-img" alt="Chosen group map"></a></p>
+<figcaption>Chosen group map</figcaption>
+</figure>
+</div>
 </section>
 <section id="winter-roosting" class="level3">
 <h3 class="anchored" data-anchor-id="winter-roosting"><em>Winter Roosting</em></h3>
 <p>
 The next page is the <em>Winter Roosting</em> page. On the first tab of this page, <em>Map</em>, there is a leaflet map. The blue markers are of each winter location that birds have roosted. The circle and cluster markers are for the individual birds who spent the winter there. The user can choose which year of winter they want to look at (the months defined for winter roosting for this application are January, February, and December) and the default is all years. On the second tab of this page, <em>Roosting Group</em>, there is another leaflet map which tracks the birds from the same roosting location based on year and location.
 </p>
-<p><img src="wintermap.png" class="img-fluid" alt="Winter roosting location map"> <img src="wintergroups.png" class="img-fluid" alt="Winter roosting group map"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="wintermap.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" data-glightbox="description: .lightbox-desc-6" title="Winter roosting location map"><img src="wintermap.png" class="img-fluid figure-img" alt="Winter roosting location map"></a></p>
+<figcaption>Winter roosting location map</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="wintergroups.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" data-glightbox="description: .lightbox-desc-7" title="Winter roosting group map"><img src="wintergroups.png" class="img-fluid figure-img" alt="Winter roosting group map"></a></p>
+<figcaption>Winter roosting group map</figcaption>
+</figure>
+</div>
 </section>
 <section id="about" class="level3">
 <h3 class="anchored" data-anchor-id="about"><em>About</em></h3>
@@ -562,7 +687,7 @@ The <em>About</em> includes page includes three tabs: <em>Abstract</em>, <em>Dat
 </abstract></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="data.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" data-glightbox="description: .lightbox-desc-4" title="Data table page"><img src="data.png" class="img-fluid figure-img" alt="Data table page"></a></p>
+<p><a href="data.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" data-glightbox="description: .lightbox-desc-8" title="Data table page"><img src="data.png" class="img-fluid figure-img" alt="Data table page"></a></p>
 <figcaption>Data table page</figcaption>
 </figure>
 </div>
@@ -573,7 +698,7 @@ The <em>About</em> includes page includes three tabs: <em>Abstract</em>, <em>Dat
 <section id="obstacles" class="level3">
 <h3 class="anchored" data-anchor-id="obstacles">Obstacles</h3>
 <p>
-Creating the Shiny App for this large dataset provided many hurdles with data manipulation and programming. One problem occurred with Shiny and reactive data. For the deployments page, the cluster/circle markers for each bird will only show up if this ta comes absolutely first in the app structure. This was a problem as we wanted to restructure the app and have the interactive deployments map later, but we had to leave it first to keep our data displayed. Another problem was also related to the reactive data on the deployments page: no other tab could have this type of reactive data that was observing events. On the deployments map, as a user clicks on a marker, the app observes this event and stores the data for the next tab. The original plan was to have a similar mechanism for the winter roosting locations map. But, when attempting to make observable clicks on this map, the deployments map data would disappear. The intended mecahnism for this was replaced in the winter groups map by adding a dropdown menu for location: not quite as fluid, but still makes it possible for a user to look through the routes of a specific wintering group.
+Creating the Shiny App for this large dataset provided many hurdles with data manipulation and programming. One problem occurred with Shiny and reactive data. For the deployments page, the cluster/circle markers for each bird will only show up if this ta comes absolutely first in the app structure. This was a problem as we wanted to restructure the app and have the interactive deployments map later, but we had to leave it first to keep our data displayed. Another problem was also related to the reactive data on the deployments page: no other tab could have this type of reactive data that was observing events. On the deployments map, as a user clicks on a marker, the app observes this event and stores the data for the next tab. The original plan was to have a similar mechanism for the winter roosting locations map. But, when attempting to make observable clicks on this map, the deployments map data would disappear. The intended mechanism for this was replaced in the winter groups map by adding a dropdown menu for location: not quite as fluid, but still makes it possible for a user to look through the routes of a specific wintering group.
 </p>
 </section>
 <section id="future-and-improvements" class="level3">
@@ -586,7 +711,7 @@ Some suggestions for improvement on this app are the following. Upon further res
 </p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="southamerica.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" data-glightbox="description: .lightbox-desc-5" title="Bird 75503.45382"><img src="southamerica.png" class="img-fluid figure-img" alt="Bird 75503.45382"></a></p>
+<p><a href="southamerica.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" data-glightbox="description: .lightbox-desc-9" title="Bird 75503.45382"><img src="southamerica.png" class="img-fluid figure-img" alt="Bird 75503.45382"></a></p>
 <figcaption>Bird 75503.45382</figcaption>
 </figure>
 </div>
@@ -602,13 +727,17 @@ Some suggestions for improvement on this app are the following. Upon further res
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
-<p><a href="">https://motus.org/about/</a> <a href="">https://www.mdpi.com/1424-2818/15/12/1202</a> <br> <a href="">https://www.allaboutbirds.org/guide/Evening_Grosbeak/id</a> <br> <a href="">https://motuswts.github.io/motus/index.html</a> <br></p>
+<p>“About Motus.” <em>Motus</em>. <a href="">https://motus.org/about/</a>. Accessed 11 May 2024. <br> “An R Interface to Leaflet Maps.” <em>Leaflet</em>. <a href="">https://rstudio.github.io/leaflet/</a>. Accessed 11 May 2024. <br> “Evening Grosbeak.” <em>CornellLab</em> <a href="">https://www.allaboutbirds.org/guide/Evening_Grosbeak/id</a>. Accessed 11 May 2024. <br> “Motus.” <em>Motus</em>. <a href="">https://motuswts.github.io/motus/index.html</a>. Accessed 11 May 2024. <br> “Welcome to Shiny.” <em>Shiny</em> <a href="">https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/index.html</a>. Accessed 11 May 2024. <br> “What is R?.” <em>R Project</em>. <a href="">https://www.r-project.org/about.html</a>. Accessed 11 May 2024.</p>
 <div class="hidden" aria-hidden="true">
 <span class="glightbox-desc lightbox-desc-1">Default Shiny App</span>
 <span class="glightbox-desc lightbox-desc-2">Interactive Evening Grosbeak Platform</span>
 <span class="glightbox-desc lightbox-desc-3">Deployments map</span>
-<span class="glightbox-desc lightbox-desc-4">Data table page</span>
-<span class="glightbox-desc lightbox-desc-5">Bird 75503.45382</span>
+<span class="glightbox-desc lightbox-desc-4">Chosen bird map</span>
+<span class="glightbox-desc lightbox-desc-5">Chosen group map</span>
+<span class="glightbox-desc lightbox-desc-6">Winter roosting location map</span>
+<span class="glightbox-desc lightbox-desc-7">Winter roosting group map</span>
+<span class="glightbox-desc lightbox-desc-8">Data table page</span>
+<span class="glightbox-desc lightbox-desc-9">Bird 75503.45382</span>
 </div>
 </section>
 
@@ -1024,7 +1153,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","loop":false,"closeEffect":"zoom","descPosition":"bottom","openEffect":"zoom"});
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","loop":false,"descPosition":"bottom","openEffect":"zoom","selector":".lightbox"});
 window.onload = () => {
   lightboxQuarto.on('slide_before_load', (data) => {
     const { slideIndex, slideNode, slideConfig, player, trigger } = data;

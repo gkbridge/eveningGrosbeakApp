@@ -35,9 +35,9 @@ This project aims to analyze a large dataset on Evening Grosbeaks, a species wit
 
 <p>Evening Grosbeaks are an endangered species with a rapidly declining population. It is important to visualize their migration and movement patterns to then be able to analyze what is leading to their extinction.</p>
 
-<!-- ![Evening Grosbeak image](eg_pic.jpeg){width = "100"} -->
+![Evening Grosbeak image](eg_pic.jpeg)
 <!-- {.lightbox} -->
-<img src="eg_pic.jpeg" alt="Evening Grosbeak image" width="400"/>
+<!-- <img src="eg_pic.jpeg" alt="Evening Grosbeak image" width="400"/> -->
 
 <p>The purpose of this project was to explore what tools from R Shiny can be used to for bird data visualizations and make raw data into an interactive, more accessible experience. The app provides users with a platform to interact with data, deployment sites, winter locations, individual trends, and group trends for the Evening Grosbeak.</p>
 
@@ -45,9 +45,10 @@ This project aims to analyze a large dataset on Evening Grosbeaks, a species wit
 
 <p>For the Evening Grosbeak, it is important to look into their seasonal whereabouts. This may be a large aide in determining what is the cause of the rapidly declining population. This species is a very social species, who typically travel and roost in groups, especially in the winter.</p>
 
-<img src="egmap.jpeg" alt="Evening Grosbeak range map" width="400"/>
+<!-- <img src="egmap.jpeg" alt="Evening Grosbeak range map" width="400"/> -->
+![Evening Grosbeak Range Map](egmap.jpeg)
 
-<!--<p><small><em>Figure 1. Evening Grosbeak range map by American Bird Conservatory</em></small></p> -->
+<p><small><em>American Bird Conservatory</em></small></p>
 
 <p>In the winter, the Evening Grosbeak searches for food. The bird's type of migration is called a "winter finch irruption," that is taken by many seed-eating birds. During these "irruptions," these birds move south of their typical breeding grounds in to find sources of winter food ("Evening Grosbeak"). </p>
 
