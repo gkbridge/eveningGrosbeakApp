@@ -124,7 +124,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>
 Evening Grosbeaks are an endangered species with a rapidly declining population. It is important to visualize their migration and movement patterns to then be able to analyze what is leading to their extinction.
 </p>
-<p><img src="eg_pic.jpeg" class="img-fluid" alt="Evening Grosbeak image">{width = “50”} <!-- {.lightbox} --> <!-- <img src="eg_pic.jpeg" alt="Evening Grosbeak image" width="400"/> --></p>
+<p><a href="eg_pic.jpeg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Evening Grosbeak image"><img src="eg_pic.jpeg" class="img-fluid" style="width:50.0%" alt="Evening Grosbeak image"></a> <!-- {.lightbox} --> <!-- <img src="eg_pic.jpeg" alt="Evening Grosbeak image" width="400"/> --></p>
 <p>
 The purpose of this project was to explore what tools from R Shiny can be used to for bird data visualizations and make raw data into an interactive, more accessible experience. The app provides users with a platform to interact with data, deployment sites, winter locations, individual trends, and group trends for the Evening Grosbeak.
 </p>
@@ -133,8 +133,16 @@ The purpose of this project was to explore what tools from R Shiny can be used t
 <p>
 For the Evening Grosbeak, it is important to look into their seasonal whereabouts. This may be a large aide in determining what is the cause of the rapidly declining population. This species is a very social species, who typically travel and roost in groups, especially in the winter.
 </p>
-<p><img src="egmap.jpeg" alt="Evening Grosbeak range map" width="400"></p>
-<!--<p><small><em>Figure 1. Evening Grosbeak range map by American Bird Conservatory</em></small></p> -->
+<!-- <img src="egmap.jpeg" alt="Evening Grosbeak range map" width="400"/> -->
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="egmap.jpeg" class="lightbox" data-glightbox="description: .lightbox-desc-2" data-gallery="quarto-lightbox-gallery-2" title="Evening Grosbeak Range Map"><img src="egmap.jpeg" class="img-fluid figure-img" style="width:50.0%" alt="Evening Grosbeak Range Map"></a></p>
+<figcaption>Evening Grosbeak Range Map</figcaption>
+</figure>
+</div>
+<p>
+<small><em>American Bird Conservatory</em></small>
+</p>
 <p>
 In the winter, the Evening Grosbeak searches for food. The bird’s type of migration is called a “winter finch irruption,” that is taken by many seed-eating birds. During these “irruptions,” these birds move south of their typical breeding grounds in to find sources of winter food (“Evening Grosbeak”).
 </p>
@@ -454,7 +462,7 @@ The following is the starting structure for a Shiny App in R:
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="default_shiny.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" data-glightbox="description: .lightbox-desc-1" title="Default Shiny App"><img src="default_shiny.png" class="img-fluid figure-img" alt="Default Shiny App"></a></p>
+<p><a href="default_shiny.png" class="lightbox" data-glightbox="description: .lightbox-desc-3" data-gallery="quarto-lightbox-gallery-3" title="Default Shiny App"><img src="default_shiny.png" class="img-fluid figure-img" style="width:50.0%" alt="Default Shiny App"></a></p>
 <figcaption>Default Shiny App</figcaption>
 </figure>
 </div>
@@ -493,7 +501,7 @@ Next is an example of a dropdown menu (using the IRIS dataset: a popular example
 <span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p><img src="iris_dropdown.png" class="img-fluid" alt="Iris dropdown menus Shiny App"> <img src="dropdown.png" class="img-fluid" alt="Dropdown menu"></p>
+<p><a href="iris_dropdown.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Iris dropdown menus Shiny App"><img src="iris_dropdown.png" class="img-fluid" style="width:50.0%" alt="Iris dropdown menus Shiny App"></a> <a href="dropdown.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Dropdown menu"><img src="dropdown.png" class="img-fluid" style="width:50.0%" alt="Dropdown menu"></a></p>
 </section>
 <section id="leaflet" class="level3">
 <h3 class="anchored" data-anchor-id="leaflet">Leaflet</h3>
@@ -515,8 +523,8 @@ Below is a basic example of creating a leaflet map.
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>map</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="leaflet html-widget html-fill-item" id="htmlwidget-cb4ec262332b36f6b340" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-cb4ec262332b36f6b340">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"setView":[[44.5956,-75.1691],13,[]],"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]}]},"evals":[],"jsHooks":[]}</script>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-4e433af84cc8bd1d5a38" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-4e433af84cc8bd1d5a38">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"setView":[[44.5956,-75.1691],13,[]],"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]}]},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -528,7 +536,7 @@ The interactive Evening Grosbeak platform was made using Shiny in R. From the na
 </p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="deployments.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" data-glightbox="description: .lightbox-desc-2" title="Interactive Evening Grosbeak Platform"><img src="deployments.png" class="img-fluid figure-img" alt="Interactive Evening Grosbeak Platform"></a></p>
+<p><a href="deployments.png" class="lightbox" data-glightbox="description: .lightbox-desc-6" data-gallery="quarto-lightbox-gallery-6" title="Interactive Evening Grosbeak Platform"><img src="deployments.png" class="img-fluid figure-img" style="width:50.0%" alt="Interactive Evening Grosbeak Platform"></a></p>
 <figcaption>Interactive Evening Grosbeak Platform</figcaption>
 </figure>
 </div>
@@ -539,7 +547,7 @@ Upon launching the app, the user is met with the <em>Deployments and Tracking</e
 </p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="output-onlinegiftools.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-3" data-glightbox="description: .lightbox-desc-3" title="Deployments map"><img src="output-onlinegiftools.gif" class="img-fluid figure-img" alt="Deployments map"></a></p>
+<p><a href="output-onlinegiftools.gif" class="lightbox" data-glightbox="description: .lightbox-desc-7" data-gallery="quarto-lightbox-gallery-7" title="Deployments map"><img src="output-onlinegiftools.gif" class="img-fluid figure-img" style="width:50.0%" alt="Deployments map"></a></p>
 <figcaption>Deployments map</figcaption>
 </figure>
 </div>
@@ -582,7 +590,7 @@ The next tab is the <em>Chosen bird</em> tab. In the <em>Table</em> nested tab: 
 </p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="chosenbird.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" data-glightbox="description: .lightbox-desc-4" title="Chosen bird map"><img src="chosenbird.png" class="img-fluid figure-img" alt="Chosen bird map"></a></p>
+<p><a href="chosenbird.png" class="lightbox" data-glightbox="description: .lightbox-desc-8" data-gallery="quarto-lightbox-gallery-8" title="Chosen bird map"><img src="chosenbird.png" class="img-fluid figure-img" style="width:50.0%" alt="Chosen bird map"></a></p>
 <figcaption>Chosen bird map</figcaption>
 </figure>
 </div>
@@ -657,7 +665,7 @@ The next tab is the <em>Chosen bird</em> tab. In the <em>Table</em> nested tab: 
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="chosengroup.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" data-glightbox="description: .lightbox-desc-5" title="Chosen group map"><img src="chosengroup.png" class="img-fluid figure-img" alt="Chosen group map"></a></p>
+<p><a href="chosengroup.png" class="lightbox" data-glightbox="description: .lightbox-desc-9" data-gallery="quarto-lightbox-gallery-9" title="Chosen group map"><img src="chosengroup.png" class="img-fluid figure-img" style="width:50.0%" alt="Chosen group map"></a></p>
 <figcaption>Chosen group map</figcaption>
 </figure>
 </div>
@@ -669,13 +677,13 @@ The next page is the <em>Winter Roosting</em> page. On the first tab of this pag
 </p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="wintermap.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" data-glightbox="description: .lightbox-desc-6" title="Winter roosting location map"><img src="wintermap.png" class="img-fluid figure-img" alt="Winter roosting location map"></a></p>
+<p><a href="wintermap.png" class="lightbox" data-glightbox="description: .lightbox-desc-10" data-gallery="quarto-lightbox-gallery-10" title="Winter roosting location map"><img src="wintermap.png" class="img-fluid figure-img" style="width:50.0%" alt="Winter roosting location map"></a></p>
 <figcaption>Winter roosting location map</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="wintergroups.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" data-glightbox="description: .lightbox-desc-7" title="Winter roosting group map"><img src="wintergroups.png" class="img-fluid figure-img" alt="Winter roosting group map"></a></p>
+<p><a href="wintergroups.png" class="lightbox" data-glightbox="description: .lightbox-desc-11" data-gallery="quarto-lightbox-gallery-11" title="Winter roosting group map"><img src="wintergroups.png" class="img-fluid figure-img" style="width:50.0%" alt="Winter roosting group map"></a></p>
 <figcaption>Winter roosting group map</figcaption>
 </figure>
 </div>
@@ -687,7 +695,7 @@ The <em>About</em> includes page includes three tabs: <em>Abstract</em>, <em>Dat
 </abstract></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="data.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" data-glightbox="description: .lightbox-desc-8" title="Data table page"><img src="data.png" class="img-fluid figure-img" alt="Data table page"></a></p>
+<p><a href="data.png" class="lightbox" data-glightbox="description: .lightbox-desc-12" data-gallery="quarto-lightbox-gallery-12" title="Data table page"><img src="data.png" class="img-fluid figure-img" style="width:50.0%" alt="Data table page"></a></p>
 <figcaption>Data table page</figcaption>
 </figure>
 </div>
@@ -711,7 +719,7 @@ Some suggestions for improvement on this app are the following. Upon further res
 </p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="southamerica.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" data-glightbox="description: .lightbox-desc-9" title="Bird 75503.45382"><img src="southamerica.png" class="img-fluid figure-img" alt="Bird 75503.45382"></a></p>
+<p><a href="southamerica.png" class="lightbox" data-glightbox="description: .lightbox-desc-13" data-gallery="quarto-lightbox-gallery-13" title="Bird 75503.45382"><img src="southamerica.png" class="img-fluid figure-img" style="width:50.0%" alt="Bird 75503.45382"></a></p>
 <figcaption>Bird 75503.45382</figcaption>
 </figure>
 </div>
@@ -729,15 +737,16 @@ Some suggestions for improvement on this app are the following. Upon further res
 <h2 class="anchored" data-anchor-id="references">References</h2>
 <p>“About Motus.” <em>Motus</em>. <a href="">https://motus.org/about/</a>. Accessed 11 May 2024. <br> “An R Interface to Leaflet Maps.” <em>Leaflet</em>. <a href="">https://rstudio.github.io/leaflet/</a>. Accessed 11 May 2024. <br> “Evening Grosbeak.” <em>CornellLab</em> <a href="">https://www.allaboutbirds.org/guide/Evening_Grosbeak/id</a>. Accessed 11 May 2024. <br> “Motus.” <em>Motus</em>. <a href="">https://motuswts.github.io/motus/index.html</a>. Accessed 11 May 2024. <br> “Welcome to Shiny.” <em>Shiny</em> <a href="">https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/index.html</a>. Accessed 11 May 2024. <br> “What is R?.” <em>R Project</em>. <a href="">https://www.r-project.org/about.html</a>. Accessed 11 May 2024.</p>
 <div class="hidden" aria-hidden="true">
-<span class="glightbox-desc lightbox-desc-1">Default Shiny App</span>
-<span class="glightbox-desc lightbox-desc-2">Interactive Evening Grosbeak Platform</span>
-<span class="glightbox-desc lightbox-desc-3">Deployments map</span>
-<span class="glightbox-desc lightbox-desc-4">Chosen bird map</span>
-<span class="glightbox-desc lightbox-desc-5">Chosen group map</span>
-<span class="glightbox-desc lightbox-desc-6">Winter roosting location map</span>
-<span class="glightbox-desc lightbox-desc-7">Winter roosting group map</span>
-<span class="glightbox-desc lightbox-desc-8">Data table page</span>
-<span class="glightbox-desc lightbox-desc-9">Bird 75503.45382</span>
+<span class="glightbox-desc lightbox-desc-2">Evening Grosbeak Range Map</span>
+<span class="glightbox-desc lightbox-desc-3">Default Shiny App</span>
+<span class="glightbox-desc lightbox-desc-6">Interactive Evening Grosbeak Platform</span>
+<span class="glightbox-desc lightbox-desc-7">Deployments map</span>
+<span class="glightbox-desc lightbox-desc-8">Chosen bird map</span>
+<span class="glightbox-desc lightbox-desc-9">Chosen group map</span>
+<span class="glightbox-desc lightbox-desc-10">Winter roosting location map</span>
+<span class="glightbox-desc lightbox-desc-11">Winter roosting group map</span>
+<span class="glightbox-desc lightbox-desc-12">Data table page</span>
+<span class="glightbox-desc lightbox-desc-13">Bird 75503.45382</span>
 </div>
 </section>
 
@@ -1153,7 +1162,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","loop":false,"descPosition":"bottom","openEffect":"zoom","selector":".lightbox"});
+<script>var lightboxQuarto = GLightbox({"loop":false,"closeEffect":"zoom","openEffect":"zoom","selector":".lightbox","descPosition":"bottom"});
 window.onload = () => {
   lightboxQuarto.on('slide_before_load', (data) => {
     const { slideIndex, slideNode, slideConfig, player, trigger } = data;

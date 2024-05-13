@@ -2,7 +2,16 @@
 title: Using Interactive Graphics to Visualize Evening Grosbeak Movement and Migration Patterns
 author:
   - name: Grace Bridge
+format: pdf
 ---
+
+```{r, include=FALSE}
+## load packages
+library(leaflet)
+library(htmlwidgets)
+library(webshot)
+```
+
 
 ```{r, echo = FALSE, include=FALSE}
 library(shiny)
@@ -274,7 +283,7 @@ shinyApp(ui = ui, server = server)
 
 <p>Below is a basic example of creating a leaflet map.</p>
 
-```{r, echo=TRUE, include=TRUE, error=FALSE, warning=FALSE, message=FALSE, eval = TRUE}
+```{r, echo=TRUE, include=TRUE, error=FALSE, warning=FALSE, message=FALSE, eval = FALSE}
 #| code-fold: show
 #| code-summary: "Click to show leaflet code"
 library(leaflet)
@@ -286,6 +295,7 @@ map <- leaflet() %>%
 map
 ```
 
+![Leaflet map](leaflet_screenshot.png){.lightbox width=60%}
 
 ## Shiny App Results
 
@@ -296,7 +306,7 @@ map
 ### <em>Deployments and Tracking</em>
 <p>Upon launching the app, the user is met with the <em>Deployments and Tracking</em> page. This page first includes the leaflet map of each bird's first deployment.The user can click through the map of different clusters until they find a specific bird at a deployment site that they want to look further into. Upon clicking on this circle marker, the app grabs the data for this bird and stores it to use in the next tab.</p>
 
-![Deployments map](output-onlinegiftools.gif){.lightbox width=50%}
+![Deployments map](gif_shot.png){.lightbox width=50%}
 
 ```{r, eval = FALSE}
 #| code-fold: show
@@ -447,9 +457,9 @@ I would also like to thank Dr. Susan Willson for the motivation behind this proj
 
 ## References
 
-"About Motus." <em>Motus</em>. <a>https://motus.org/about/</a>. Accessed 11 May 2024. <br>
-"An R Interface to Leaflet Maps." <em>Leaflet</em>. <a>https://rstudio.github.io/leaflet/</a>. Accessed 11 May 2024. <br>
-"Evening Grosbeak." <em>CornellLab</em> <a>https://www.allaboutbirds.org/guide/Evening_Grosbeak/id</a>. Accessed 11 May 2024. <br>
-"Motus." <em>Motus</em>. <a>https://motuswts.github.io/motus/index.html</a>. Accessed 11 May 2024. <br>
-"Welcome to Shiny." <em>Shiny</em> <a>https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/index.html</a>. Accessed 11 May 2024. <br>
-"What is R?." <em>R Project</em>. <a>https://www.r-project.org/about.html</a>. Accessed 11 May 2024.
+- "About Motus." <em>Motus</em>. <a>https://motus.org/about/</a>. Accessed 11 May 2024. <br>
+- "An R Interface to Leaflet Maps." <em>Leaflet</em>. <a>https://rstudio.github.io/leaflet/</a>. Accessed 11 May 2024. <br>
+- "Evening Grosbeak." <em>CornellLab</em> <a>https://www.allaboutbirds.org/guide/Evening_Grosbeak/id</a>. Accessed 11 May 2024. <br>
+- "Motus." <em>Motus</em>. <a>https://motuswts.github.io/motus/index.html</a>. Accessed 11 May 2024. <br>
+- "Welcome to Shiny." <em>Shiny</em> <a>https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/index.html</a>. Accessed 11 May 2024. <br>
+- "What is R?." <em>R Project</em>. <a>https://www.r-project.org/about.html</a>. Accessed 11 May 2024.
