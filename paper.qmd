@@ -49,18 +49,18 @@ This project aims to analyze a large dataset on Evening Grosbeaks, a species wit
 
 <!--<p><small><em>Figure 1. Evening Grosbeak range map by American Bird Conservatory</em></small></p> -->
 
-<p>In the winter, the Evening Grosbeak searches for food. The bird's type of migration is called a "winter finch irruption," that is taken by many seed-eating birds. During these "irruptions," these birds move south of their typical breeding grounds in to find sources of winter food.</p>
+<p>In the winter, the Evening Grosbeak searches for food. The bird's type of migration is called a "winter finch irruption," that is taken by many seed-eating birds. During these "irruptions," these birds move south of their typical breeding grounds in to find sources of winter food ("Evening Grosbeak"). </p>
 
 ### Motus
-<p><em>Motus</em> is a wildlife tracking system from <em>Birds Canada</em>. It is composed of a network of researchers around the world who are able to contribute to the radio telemetry system. By contributing (tagging birds and setting up radio receiver locations), more researchers are then able to access the growing database of bird tracking information. While one researcher could hypothetically set up their own, small telemetry network to track a local bird, <em>Motus</em> creates the opportunity to connect all of these local sites and broaden data and information exponentially. Collaboration for scientists and bird-watchers across the world has been made easy by <em>Motus</em>.</p>
+<p><em>Motus</em> is a wildlife tracking system from <em>Birds Canada</em>. It is composed of a network of researchers around the world who are able to contribute to the radio telemetry system. By contributing (tagging birds and setting up radio receiver locations), more researchers are then able to access the growing database of bird tracking information ("About Motus"). While one researcher could hypothetically set up their own, small telemetry network to track a local bird, <em>Motus</em> creates the opportunity to connect all of these local sites and broaden data and information exponentially. Collaboration for scientists and bird-watchers across the world has been made easy by <em>Motus</em>.</p>
 
-<p>For this application, access to a "project" was given by St. Lawrence biology professor, Dr. Susan Willson, who has a focus and interest in conservation of birds, namely the Evening Grosbeak. A "project" in <em>Motus</em> is an access point to the database with managed data access levels and users.</p>
+<p>For this application, access to a "project" was given by St. Lawrence biology professor, Dr. Susan Willson, who has a focus and interest in conservation of birds, namely the Evening Grosbeak. A "project" in <em>Motus</em> is an access point to the database with managed data access levels and users ("Motus").</p>
 
 ## Methods
 
 ### R
 
-<p>R is an extremely popular language in the world of biodiversity conservation research for visualization and analyses. R is a cohesive set of software features and tools. It is also an open-source programming language. This means that it is free for use and collaboration. Anybody is able to create and add functions through writing packages to build upon existing operators and facilities for data, statistical analyses, visualizations, etc,. Work and research done in R is very often easily reproducible because R facilitates a space for creators to document their work cleanly and has a very readable structure. R files can be rendered in many ways (Word files, pdfs, webpages, etc.) to be shared and replicated.</p>
+<p>R is an extremely popular language in the world of biodiversity conservation research for visualization and analyses. R is a cohesive set of software features and tools. It is also an open-source programming language. This means that it is free for use and collaboration. Anybody is able to create and add functions through writing packages to build upon existing operators and facilities for data, statistical analyses, visualizations, etc,. Work and research done in R is very often easily reproducible because R facilitates a space for creators to document their work cleanly and has a very readable structure. R files can be rendered in many ways (Word files, pdfs, webpages, etc.) to be shared and replicated ("What is R?").</p>
 
 ### Motus in R
 
@@ -68,7 +68,7 @@ This project aims to analyze a large dataset on Evening Grosbeaks, a species wit
 
 #### Motus R Package
 
-<p><em>Birds Canada</em>, the creator of the radio telemetry network of <em>Motus</em>, has detailed documentation for an R package to use the <em>Motus</em> data. The website for this package gives extensive instruction on how to get started using the <em>Motus</em> database in R, how to access data, how to make sense of tag and receiver deployments, how to clean the data, and examples of how to explore the data.</p>
+<p><em>Birds Canada</em>, the creator of the radio telemetry network of <em>Motus</em>, has detailed documentation for an R package to use the <em>Motus</em> data. The website for this package gives extensive instruction on how to get started using the <em>Motus</em> database in R, how to access data, how to make sense of tag and receiver deployments, how to clean the data, and examples of how to explore the data ("Motus").</p>
 
 <p>The following is the provided code to install the package.</p>
 
@@ -143,7 +143,7 @@ df <- tbl.alltags %>%
 # This also changes ts to a date variable instead of numeric (how it was read in)
 ```
 
-<p>From the data, it is also important to be able to grab a unique bird. A unique tag (either <em>motusTagID</em> or <em>tagDeployID</em>) is not quite capable of this. This is because, a unique <em>motusTagID</em> is not always a unique bird; occasionally a tag can be redeployed onto a different bird. Also a <em>tagDeployID</em> is not always unique when you are focusing on a specific deployment of a bird in your project. So, use a combination of these.</p>
+<p>From the data, it is also important to be able to grab a unique bird. A unique tag (either <em>motusTagID</em> or <em>tagDeployID</em>) is not quite capable of this. This is because, a unique <em>motusTagID</em> is not always a unique bird; occasionally a tag can be redeployed onto a different bird. Also a <em>tagDeployID</em> is not always unique when you are focusing on a specific deployment of a bird in your project. So, use a combination of these ("Motus").</p>
 
 ```{r, echo=TRUE, include=TRUE, error=FALSE, warning=FALSE, message=FALSE, results='hide', eval = FALSE}
 #| code-fold: show
@@ -166,9 +166,9 @@ eg_df %>%
 
 ### R Shiny
 
-<p>Shiny is an R package (extension to R, standardized tools with documentation that can be installed to your machine). Once installed, this package creates the opportunity for application construction. The code for these apps have three components, the UI (user-interface object), the server function, and a final call to the shinyApp function. The UI draws up the appearance of the app; what the user is seeing. The server function is responsible for the code that performs the outputs and their functionalities. And the final call to the shinyApp function will launch the app when the code is ran.</p>
+<p>Shiny is an R package (extension to R, standardized tools with documentation that can be installed to your machine). Once installed, this package creates the opportunity for application construction. The code for these apps have three components, the UI (user-interface object), the server function, and a final call to the shinyApp function. The UI draws up the appearance of the app; what the user is seeing. The server function is responsible for the code that performs the outputs and their functionalities. And the final call to the shinyApp function will launch the app when the code is ran ("Welcome to Shiny").</p>
 
-<p>There are many benefits to using Shiny to showcase data analyses and visualizations. To start, the interactive ability of a Shiny app can transform user accessibility to data. With these apps, there are many widgets that the creator can include in the UI (that then speak to the server output) that allows a user to choose what they are seeing from the data: slider inputs (for numerical input), text inputs, checkboxes, dropdown menus, file uploaders, etc. With this user power to choose outputs, Shiny apps can be reactive and responsive, updating the outputs of each page in real-time. Another benefit is ease of deployment for Shiny apps. Instead of code files or papers portraying research, Shiny apps can be deployed easily with URLS and showcase findings in a more fluid, interactive, and engaging way.</p>
+<p>There are many benefits to using Shiny to showcase data analyses and visualizations. To start, the interactive ability of a Shiny app can transform user accessibility to data. With these apps, there are many widgets that the creator can include in the UI (that then speak to the server output) that allows a user to choose what they are seeing from the data: slider inputs (for numerical input), text inputs, checkboxes, dropdown menus, file uploaders, etc. With this user power to choose outputs, Shiny apps can be reactive and responsive, updating the outputs of each page in real-time. Another benefit is ease of deployment for Shiny apps. Instead of code files or papers portraying research, Shiny apps can be deployed easily with URLS and showcase findings in a more fluid, interactive, and engaging way ("Welcome to Shiny").</p>
 
 <p>The following is the starting structure for a  Shiny App in R:</p>
 
@@ -270,9 +270,9 @@ shinyApp(ui = ui, server = server)
 
 ### Leaflet
 
-<em>Leaflet</em> is another package for data visualizations in R. It comes from a JavaScript library for interactive maps. With this package, one can customize maps with different markers, shadings, pop-ups, lines, and more. This is a very popular tool that pairs well with the R software for exploring spatial data.
+<p><em>Leaflet</em> is another package for data visualizations in R. It comes from a JavaScript library for interactive maps. With this package, one can customize maps with different markers, shadings, pop-ups, lines, and more. This is a very popular tool that pairs well with the R software for exploring spatial data ("An R Interface to Leaflet").</p>
 
-Below is a basic example of creating a leaflet map.
+<p>Below is a basic example of creating a leaflet map.</p>
 
 ```{r, echo=TRUE, include=TRUE, error=FALSE, warning=FALSE, message=FALSE, eval = TRUE}
 #| code-fold: show
@@ -294,7 +294,7 @@ map
 ![Interactive Evening Grosbeak Platform](deployments.png)
 
 ### <em>Deployments and Tracking</em>
-<p>Upon launching the app, the user is met with the <em>Deployments and Tracking</em> page. This page first includes the leaflet map of each bird's first deployment.The user can click through the map of different clusters until they find a specific bird at a deployment site that they want to look furhter into. Upon clicking on this circle marker, the app grabs the data for this bird and stores it to use in the next tab.</p>
+<p>Upon launching the app, the user is met with the <em>Deployments and Tracking</em> page. This page first includes the leaflet map of each bird's first deployment.The user can click through the map of different clusters until they find a specific bird at a deployment site that they want to look further into. Upon clicking on this circle marker, the app grabs the data for this bird and stores it to use in the next tab.</p>
 
 ![Deployments map](output-onlinegiftools.gif)
 
@@ -334,7 +334,7 @@ observeEvent(input$map_marker_click, {
 
 
 
-<p>The next tab is the <em>Chosen bird</em> tab. In the <em>Table</em> nested tab: first, we have a page that shows the immediate data for the bird that was chosen from its deployment, then we have a map of the locations where this bird has pinged a receiver. In the <em>Group</em> nested tab we have a similar map, but it shows the pings for each of the birds deployed from the same deployment site. The lines are weighted by the frequency of the amount of birds that travelled there.</p> 
+<p>The next tab is the <em>Chosen bird</em> tab. In the <em>Table</em> nested tab: first, we have a page that shows the immediate data for the bird that was chosen from its deployment, then we have a map of the locations where this bird has pinged a receiver. In the <em>Group</em> nested tab we have a similar map, but it shows the pings for each of the birds deployed from the same deployment site. The lines are weighted by the frequency of the amount of birds that traveled there.</p> 
 
 ![Chosen bird map](chosenbird.png)
 
@@ -427,7 +427,7 @@ output$Click_plot <- renderLeaflet({
 ## Discussion
 
 ### Obstacles
-<p>Creating the Shiny App for this large dataset provided many hurdles with data manipulation and programming. One problem occurred with Shiny and reactive data. For the deployments page, the cluster/circle markers for each bird will only show up if this ta comes absolutely first in the app structure. This was a problem as we wanted to restructure the app and have the interactive deployments map later, but we had to leave it first to keep our data displayed. Another problem was also related to the reactive data on the deployments page: no other tab could have this type of reactive data that was observing events. On the deployments map, as a user clicks on a marker, the app observes this event and stores the data for the next tab. The original plan was to have a similar mechanism for the winter roosting locations map. But, when attempting to make observable clicks on this map, the deployments map data would disappear. The intended mecahnism for this was replaced in the winter groups map by adding a dropdown menu for location: not quite as fluid, but still makes it possible for a user to look through the routes of a specific wintering group. </p>
+<p>Creating the Shiny App for this large dataset provided many hurdles with data manipulation and programming. One problem occurred with Shiny and reactive data. For the deployments page, the cluster/circle markers for each bird will only show up if this ta comes absolutely first in the app structure. This was a problem as we wanted to restructure the app and have the interactive deployments map later, but we had to leave it first to keep our data displayed. Another problem was also related to the reactive data on the deployments page: no other tab could have this type of reactive data that was observing events. On the deployments map, as a user clicks on a marker, the app observes this event and stores the data for the next tab. The original plan was to have a similar mechanism for the winter roosting locations map. But, when attempting to make observable clicks on this map, the deployments map data would disappear. The intended mechanism for this was replaced in the winter groups map by adding a dropdown menu for location: not quite as fluid, but still makes it possible for a user to look through the routes of a specific wintering group. </p>
 
 ### Future and Improvements
 <p>A main goal of this project was to create a platform that can be expanded upon. This is a great base for a future student with the knowledge, background, and tools to improve on the features, create more visualizations, and analyze the patterns of the birds. Advanced versions of these visualizations in the hands of the right student researcher will be able to lead them to a conclusion about why the Evening Grosbeak population is declining so rapidly. </p>
@@ -447,5 +447,9 @@ I would also like to thank Dr. Susan Willson for the motivation behind this proj
 
 ## References
 
-<a>https://motus.org/about/</a> <a>https://www.mdpi.com/1424-2818/15/12/1202</a> <br> <a>https://www.allaboutbirds.org/guide/Evening_Grosbeak/id</a> <br> 
-<a>https://motuswts.github.io/motus/index.html</a> <br>
+"About Motus." <em>Motus</em>. <a>https://motus.org/about/</a>. Accessed 11 May 2024. <br>
+"An R Interface to Leaflet Maps." <em>Leaflet</em>. <a>https://rstudio.github.io/leaflet/</a>. Accessed 11 May 2024. <br>
+"Evening Grosbeak." <em>CornellLab</em> <a>https://www.allaboutbirds.org/guide/Evening_Grosbeak/id</a>. Accessed 11 May 2024. <br>
+"Motus." <em>Motus</em>. <a>https://motuswts.github.io/motus/index.html</a>. Accessed 11 May 2024. <br>
+"Welcome to Shiny." <em>Shiny</em> <a>https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/index.html</a>. Accessed 11 May 2024. <br>
+"What is R?." <em>R Project</em>. <a>https://www.r-project.org/about.html</a>. Accessed 11 May 2024.
